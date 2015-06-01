@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.dao.mapper.LvuserMapperExt" >
+  <!--
+  用于扩展com.zl.dao.mapper.LvuserMapper接口
+可通过com.zl.dao.mapper.LvuserMapper.BaseResultMap 
+和com.zl.dao.mapper.LvuserMapper.Base_Column_List对其进行引用
+by is_zhoufeng@163.com 2015-06-01 22:21:36.
+  -->
+</mapper>
