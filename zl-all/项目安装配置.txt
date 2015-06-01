@@ -1,6 +1,6 @@
 安装指引
 1、进入ext-lib目录，执行install-all.bat脚本，将项目依赖的jar包安装到本地
-   generator-0.0.1-RELEASE.jar包是对mybatis generator扩展的一个包，用户生产扩展的Mapper和java类
+   generator-0.0.1-RELEASE.jar包是对mybatis generator扩展的一个包，用于生成扩展的Mapper和java类
    只需要在第一次执行即可，以后不需要再执行了
 2、新建数据库zl , 将db-scripts目录下面的sql文件执行
 3、在zl-all目录下面执行命令mvn install
