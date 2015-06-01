@@ -34,7 +34,7 @@
         </property>  
     </bean>
     
-     <!-- FreeMarker视图解析 -->  
+    <!-- FreeMarker视图解析 -->  
     <bean id="viewResolver"  
         class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
         <property name="viewClass"  
