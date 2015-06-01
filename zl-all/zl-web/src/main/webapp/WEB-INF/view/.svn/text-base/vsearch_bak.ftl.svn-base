@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 公共meta信息 -->
+<#include "./common/live_common_meta.ftl" >	
+<#include "./common/live_common_js.ftl" >	
+<link rel="stylesheet" href="${static_server}/css/category.css">
+<link rel="stylesheet" href="${static_server}/css/vsearch.css">
+
+<meta name="baidu-site-verification" content="molF4fdilW" />
+<script type="text/javascript">
+ var ctx = '${ctx!""}';
+</script>
+
+<title>${keyword!""}的搜索结果_阿哩哩 Aclili</title>
+<meta name="description" content="阿哩哩 Aclili精选视频、搞笑视频、专业的分类视频，尽在Live，需求你来定，我们只作视频的搬运工。" />
+<meta name="copyright" content="阿哩哩 Aclili自由创作人（is_zhoufeng & kenny）">
+</head>
+<body>
+
+<div class="index_body" >
+
+<!-- 头部信息  -->
+<#include "./common/head.ftl" >	
+ 
+<!-- 内容部分开始 -->
+<div class="main_content">
+		
+		<div class="search_box">  
+			    <h3><font class="keyword">${keyword!""}</font>的搜索结果</h3>
+			<hr/>
+		</div>
+		
+        <!-- 视频列表开始 -->
+        <div class="video_list">  
+            <#if localVideos?? && (localVideos?size > 0) >  
+        	<#list localVideos as video > 
+				<!-- 一个视频 -->
+	            <div class="list_video_box">
+	                <span class="video_name"><a href="${ctx}/video/view/${video.id}.htm" target="_blank" title="${(video.videoname)!""}">${(video.videoname)!""}</a></span>
+	                   <span class="video_thumbnail" >
+	               		 	<a href="${ctx}/video/view/${video.id}.htm" target="_blank" >
+						  	  <img src="${(video.thumbnail)!""}" />
+							</a>
+	                   </span>
+               		 <span class="praise_info">
+                    <img src="${static_server}/img/praise.jpg" class="praise_icon" />
+                    <p>${(video.praise) + (video.thirdPraise)}</p> 
+                	</span>
+                <span class="user_info">
+                    ${(video.audienceCount)!"0"}人在线
+                </span>  
+	            </div>
+	            <!--/ 一个视频 -->  
+			</#list>
+			<#else>
+				亲，没有找到任何视频哦！<a href="${ctx}/index.htm">去看看别的吧 </a>
+			</#if>
+        </div>
+        <!-- 视频列表结束 -->
+</div>
+ <!-- 内容部分结束 -->
+
+<!-- 底部信息  -->
+<#include "./common/bottom.ftl" >
+
+
+</div>
+
+</body>
+</html>

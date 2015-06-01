@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>framework</groupId>
+	<artifactId>all</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>all</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>4.10</junit.version>
+		<spring.version>4.1.5.RELEASE</spring.version>
+		<source.version>1.8</source.version> 
+		<target.version>1.8</target.version>
+		<jetty.version>9.2.5.v20141112</jetty.version>
+		<logback.version>1.1.2</logback.version>
+		<slf4j.version>1.7.9</slf4j.version>
+		<mysql.connector.version>5.1.34</mysql.connector.version>
+		<mybatis.version>3.2.8</mybatis.version>
+	</properties>
+
+	<dependencyManagement>
+		<!-- Junit -->
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<!-- Spring start -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+				 <exclusions>
+				      <exclusion>
+				          <artifactId>commons-logging</artifactId>
+				          <groupId>commons-logging</groupId>
+				      </exclusion>
+				  </exclusions>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+	  		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>  
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			<!-- Spring end -->
+			
+			<!-- quartz -->
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>2.2.1</version>
+			</dependency>
+			
+			<!-- AOP -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>1.8.4</version>
+			</dependency>
+			
+			<!-- Commons -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.3.2</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.4</version>
+			</dependency>
+			
+			<!-- Redis -->
+			<dependency>  
+		        <groupId>redis.clients</groupId>  
+		        <artifactId>jedis</artifactId>  
+		        <version>2.6.1</version>  
+		    </dependency> 
+		
+			<!-- jetty -->
+			<dependency>
+	            <groupId>org.eclipse.jetty</groupId>
+	            <artifactId>jetty-servlets</artifactId>
+	            <version>${jetty.version}</version>
+	        </dependency>
+		
+			<!-- EHCache start -->
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>2.9.0</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-core</artifactId>
+				<version>2.6.10</version>
+			</dependency>
+			<!-- EHCache end -->
+			
+			<!-- JSON -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>1.2.3</version>
+			</dependency>
+			
+			<!-- logback start -->
+	          <dependency>
+	             <groupId>ch.qos.logback</groupId>
+	             <artifactId>logback-classic</artifactId>
+	             <version>${logback.version}</version>
+	             <type>jar</type>
+	          </dependency>
+        	<!-- logback end -->
+		</dependencies>
+	</dependencyManagement>
+	
+	
+	<dependencies>
+		<!-- Junit4 -->
+        <dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- SLF4J  -->
+        <!-- 为了将log4j的日志也使用slf4j输出，需要配置下面的转换�? -->
+        <dependency>  
+		    <groupId>org.slf4j</groupId>  
+		    <artifactId>jcl-over-slf4j</artifactId>  
+		    <version>${slf4j.version}</version>  
+		</dependency>  
+		<dependency>  
+		    <groupId>org.slf4j</groupId>  
+		    <artifactId>log4j-over-slf4j</artifactId>  
+		    <version>${slf4j.version}</version>  
+		</dependency>  
+		<dependency>  
+		    <groupId>org.slf4j</groupId>  
+		    <artifactId>jul-to-slf4j</artifactId>  
+		    <version>${slf4j.version}</version>  
+		</dependency>  
+		<!-- SLF4J -->
+		
+	</dependencies>
+
+	 <build>
+		  <pluginManagement>
+		  	<plugins>
+				  <plugin>
+			          <artifactId>maven-compiler-plugin</artifactId>
+			          <version>3.1</version>
+			          <configuration>
+			              <source>${source.version}</source>
+			              <target>${target.version}</target>
+			          </configuration>
+			      </plugin>
+			      
+			      <plugin>
+	                <artifactId>maven-war-plugin</artifactId>
+	                <version>2.4</version>
+	              </plugin>
+		  	</plugins>
+		  </pluginManagement>
+	  </build>
+
+	 <modules>
+	 	<module>zl-dao</module>
+	    <module>zl-pojo</module>
+	    <module>zl-client</module>
+	    <module>zl-service</module>
+	    <module>zl-web</module>
+	 </modules>
+</project>
