@@ -1,6 +1,5 @@
 package com.zl.web.control;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
@@ -23,7 +22,7 @@ public class IndexControl {
 	@Autowired
 	private PropertiesConfigure propertiesConfigure ;
 	
-	@Resource(name="userService")
+	@Autowired
 	private UserService userService ;
 	
 	@RequestMapping("/index")
