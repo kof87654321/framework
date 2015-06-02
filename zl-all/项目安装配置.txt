@@ -3,7 +3,7 @@
    generator-0.0.1-RELEASE.jar包是对mybatis generator扩展的一个包，用于生成扩展的Mapper和java类
    只需要在第一次执行即可，以后不需要再执行了
 2、新建数据库zl , 将db-scripts目录下面的sql文件执行
-3、在zl-all目录下面执行命令mvn install
+3、在zl-all目录下面执行install.bat脚本将项目所有模块安装到本地 或 使用命令mvn install
 4、进入zl-web目录执行jetty_8080.bat，启用项目（需要先启动数据库，并在app-env.properties配置文件中配置数据库连接）
 5、进入zl-web-resources\nginx目录执行nginx-start.bat，启动nginx
 6、配置host "127.0.0.1 www.zl.com"
