@@ -29,7 +29,6 @@ public class IndexControl {
 	@RequestMapping("/index")
 	public String index(ServletRequest request, ServletResponse response , ModelMap modelMap) {
 		modelMap.put("userList", userService.selectAll()) ;  
-		modelMap.put("ctx", propertiesConfigure.getProperties("app.context.path")) ;  
 		log.info("index request...");
 		return "index";  
 	}
