@@ -4,9 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta property="qc:admins" content="207157331766416567167" />
-<meta property="wb:webmaster" content="dfaf9701554df20f" />
-<title>Live Index</title>
+<title>众力</title>
 </head>
 <body>
 正在为您跳转...
