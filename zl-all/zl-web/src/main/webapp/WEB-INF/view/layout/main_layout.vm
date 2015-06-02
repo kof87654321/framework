@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 公共meta信息 -->
+<body>
+	<center><h1>头部</h1></center>
+	<br/>
+	${ctx}, ${static_server} ,${file_server}
+	<br/>
+	$screen_content
+	<center><h1>底部</h1></center>
+</body>
+</html>

@@ -1,0 +1,17 @@
+#* #set($layout = "/layout/empty_layout.vm") *#      
+
+<table>
+<tr>
+	<td width="100">ID</td>  
+	<td width="100">昵称</td>
+	<td width="100">登录名</td>
+</tr>
+#foreach( $user in $userList) 
+	<tr>
+		<td width="100">$user.id</td>
+		<td width="100">$user.nick</td>
+		<td width="100">$user.loginname</td>
+	</tr>
+#end 
+
+</table>

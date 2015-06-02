@@ -33,6 +33,12 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
+	<servlet>
+		<servlet-name>init</servlet-name>
+		<servlet-class>com.zl.web.app.servlet.InitContextServlet</servlet-class> 
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404.html</location>

@@ -22,6 +22,12 @@
   			<artifactId>zl-service</artifactId>
   			 <version>0.0.1-SNAPSHOT</version>
   		</dependency>
+  
+  		<dependency>
+  			<groupId>framework</groupId> 
+  			<artifactId>zl-common</artifactId>
+  			 <version>0.0.1-SNAPSHOT</version>
+  		</dependency>
   		
   		<dependency>
             <groupId>javax.servlet</groupId>
@@ -71,17 +77,14 @@
             <artifactId>jetty-servlets</artifactId>
         </dependency>
         
-         <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.21</version>
-            <exclusions>
-  			 	<exclusion>
-  			 		<artifactId>slf4j-simple</artifactId>
-  			 		<groupId>org.slf4j</groupId>
-  			 	</exclusion>
-  			 </exclusions>
-        </dependency>
+        <dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+		</dependency>
         
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -91,12 +94,6 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <exclusions>
-            	<exclusion>
-            		<artifactId>slf4j-api</artifactId>
-            		<groupId>org.slf4j</groupId>
-            	</exclusion>
-            </exclusions>
         </dependency>
         
 		<dependency>
@@ -104,6 +101,7 @@
 			<artifactId>quartz</artifactId>
 		</dependency>
         
+        <!-- JSON -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -113,8 +111,8 @@
 		<dependency>  
 	        <groupId>redis.clients</groupId>  
 	        <artifactId>jedis</artifactId>  
-	    </dependency>  
-				
+	    </dependency>
+	
   </dependencies>
    
   <build>
