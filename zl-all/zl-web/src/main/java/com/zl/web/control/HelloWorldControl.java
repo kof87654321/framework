@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zl.client.user.UserService;
 import com.zl.common.util.bit.PropertiesConfigure;
@@ -19,7 +20,7 @@ import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
 /**
- * 
+ * 示例
  * @author is_zhoufeng
  *
  */
@@ -55,7 +56,8 @@ public class HelloWorldControl {
 	 * @param response
 	 * @param modelMap
 	 */
-	@RequestMapping("json")
+	@RequestMapping("json") 
+	@ResponseBody
 	public void json(ServletRequest request, ServletResponse response , ModelMap modelMap) {
 		List<Lvuser> userList = userService.selectAll();
 		
