@@ -5,7 +5,7 @@ db.driver=com.mysql.jdbc.Driver
 
 mapper.xml.dir=./generate_source/mapper
 mapper.java.dir=./generate_source/java
-pojo.dir=./generate_source/java
+pojo.dir=./generate_source/
 
 #需要修改的属性
 pojo.package=com.zl.pojo
