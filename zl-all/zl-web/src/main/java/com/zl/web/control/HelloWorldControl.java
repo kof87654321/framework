@@ -18,6 +18,11 @@ import com.zl.pojo.Lvuser;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
+/**
+ * 
+ * @author is_zhoufeng
+ *
+ */
 @Controller
 @RequestMapping("/hello/")
 public class HelloWorldControl {
@@ -53,7 +58,20 @@ public class HelloWorldControl {
 	@RequestMapping("json")
 	public void json(ServletRequest request, ServletResponse response , ModelMap modelMap) {
 		List<Lvuser> userList = userService.selectAll();
+		
+		/*
+		//业务成功，使用如下方式输出
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(userList), response); 
+		*/
+		
+		//业务失败，使用如下方式输出 
+		WebUtil.ajaxOutput(AjaxResult.newFailResult(
+				userList /*这个参数是返回的数据，随便传什么都行,可以为空*/, 
+				"请求出错啦", /*错误消息，自定义*/ 
+				-1 /*这个参数是错误码，自定义*/ )
+				, response);
+		
+		
 		log.info("json request...");
 	}
 	
