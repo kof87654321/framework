@@ -57,7 +57,6 @@ public class HelloWorldControl {
 	 * @param modelMap
 	 */
 	@RequestMapping("json") 
-	@ResponseBody
 	public void json(ServletRequest request, ServletResponse response , ModelMap modelMap) {
 		List<Lvuser> userList = userService.selectAll();
 		
