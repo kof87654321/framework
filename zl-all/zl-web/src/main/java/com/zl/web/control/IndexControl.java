@@ -23,12 +23,12 @@ public class IndexControl {
 	@Autowired
 	private PropertiesConfigure propertiesConfigure ;
 	
-	@Resource
+	@Resource(name="userService")
 	private UserService userService ;
 	
 	@RequestMapping("/index")
 	public String index(ServletRequest request, ServletResponse response , ModelMap modelMap) {
-		modelMap.put("userList", userService.selectAll()) ;  
+		modelMap.put("userList", userService.selectAll()) ;     
 		log.info("index request...");
 		return "index";  
 	}

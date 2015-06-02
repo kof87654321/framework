@@ -16,13 +16,21 @@
   
     
   <dependencies>
-  
+  		<dependency>
+  			<groupId>framework</groupId>
+  			<artifactId>zl-client</artifactId>
+  			 <version>0.0.1-SNAPSHOT</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>framework</groupId>
+  			<artifactId>zl-pojo</artifactId>
+  			 <version>0.0.1-SNAPSHOT</version>
+  		</dependency>
   		<dependency>
   			<groupId>framework</groupId>
   			<artifactId>zl-service</artifactId>
   			 <version>0.0.1-SNAPSHOT</version>
   		</dependency>
-  
   		<dependency>
   			<groupId>framework</groupId> 
   			<artifactId>zl-common</artifactId>
@@ -117,13 +125,10 @@
    
   <build>
   	<plugins>
-		<plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-       </plugin>
        <plugin>
           <artifactId>maven-war-plugin</artifactId>
         </plugin>
-        <plugin>
+        <plugin> 
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
           <version>${jetty.version}</version>
