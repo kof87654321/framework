@@ -107,7 +107,11 @@ public class HelloWorldControl {
 		 log.info("filename:{}",filename);
 		 String uploadDir = propertiesConfigure.getProperties(Consts.PropertiesKey.APP_UPLOAD_DIR);
 		 log.info("uploadDir:{}",uploadDir);  
-		 File uplaodFile = new File(uploadDir,filename);
+		 File dir = new File(uploadDir);
+		 if(!dir.exists()){
+			 dir.mkdirs() ;
+		 }
+		 File uplaodFile = new File(dir,filename);
 		 try {
 			file.transferTo(uplaodFile);
 			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(filename), response); 
