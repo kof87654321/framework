@@ -1,0 +1,13 @@
+#set($layout = "/layout/empty_layout.vm")
+
+<html>
+	<head></head>
+	<body>
+        <center><h1>文件上传</h1></center>
+        <form action="${ctx}/hello/upload.htm"  method="post" enctype="multipart/form-data" >
+        	选择文件：<input type="file" name="file" /> 
+        	<br/><br/>
+        	<input type="submit" value="上传" /></form>
+        </form>
+	</body>
+</html>
