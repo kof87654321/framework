@@ -10,10 +10,6 @@
                            
 	<context:annotation-config />
 	
-	<import resource="classpath*:service-beans.xml" /> 
-	<import resource="classpath*:transaction-beans.xml" />
-	<import resource="classpath*:dao-beans.xml" />    
-                           	
 	<bean id="propertiesConfig" class="com.zl.common.util.bit.PropertiesConfigure">
 		<property name="locations">
 			<array>
@@ -25,7 +21,8 @@
 	<context:component-scan base-package="com.zl.web.app" />   
 	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-	 
-	<!-- <import resource="classpath*:*-beans.xml" /> -->
+	
+	<import resource="classpath*:*-beans.xml" />   
+	
 	
 </beans>  
