@@ -81,7 +81,7 @@ public class HelloWorldControl {
 	
 	
 	/**
-	 * 去到上传文件页面
+	 * 去到上传文件页面,浏览器输入http://127.0.0.1:8080/hello/uploadView.htm进行访问
 	 * @param request
 	 * @param response
 	 * @return
