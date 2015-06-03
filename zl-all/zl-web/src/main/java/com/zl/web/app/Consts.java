@@ -9,7 +9,7 @@ public interface Consts {
 	/**
 	 * 资源文件中的key 
 	 */
-	public static class PropertiesKey{
+	public static interface PropertiesKey{
 		
 		/**
 		 * 上传文件根目录
