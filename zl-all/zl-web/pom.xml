@@ -16,6 +16,8 @@
   
     
   <dependencies>
+  		
+  		
   		<dependency>
   			<groupId>framework</groupId>
   			<artifactId>zl-client</artifactId>
@@ -123,9 +125,10 @@
    
   <build>
   	<plugins>
-       <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-        </plugin>
+        <plugin>
+ 		    <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+        </plugin> 
         <plugin> 
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
