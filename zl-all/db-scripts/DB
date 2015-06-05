@@ -1,6 +1,6 @@
 1.用户基础表--用于登陆
 CREATE TABLE IF NOT EXISTS `mydb`.`T_User` (
-  `Id` BIGINT(20) NOT NULL COMMENT '用户ID',
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `UserName` VARCHAR(45) NULL COMMENT '用户名',
   `Password` VARCHAR(45) NULL COMMENT '密码',
   `CreateTime` DATETIME NULL COMMENT '创建时间',
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User` (
 ENGINE = InnoDB
 2.用户信息表
 CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Info` (
-  `UserId` BIGINT(20) NOT NULL COMMENT '用户ID',
+  `UserId` BIGINT(20)  NOT NULL COMMENT '用户ID',
   `NickName` VARCHAR(45) NULL COMMENT '昵称',
   `Sex` TINYINT(1) NULL COMMENT '性别',
   `Mobile` VARCHAR(20) NULL COMMENT '手机号码',
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Info` (
 ENGINE = InnoDB
 3.设备与用户关系表--PUSH时使用
 CREATE TABLE IF NOT EXISTS `mydb`.`T_Device_User` (
-  `Id` INT NOT NULL,
+  `Id` INT NOT NULL AUTO_INCREMENT,
   `DeviceToken` VARCHAR(255) NOT NULL COMMENT '设备Token',
   `UserId` BIGINT(20) NULL COMMENT '用户ID',
   `PlatForm` VARCHAR(50) NULL COMMENT '平台',
@@ -58,11 +58,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Feeds` (
   `ModifyTime` DATETIME NULL,
   `Attributes` VARCHAR(1024) NULL COMMENT '信息：json格式',
   `Like` INT(20) NULL,
+  `PageCount` INT(2) NULL COMMENT '图片数',
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
 6.评论表
 CREATE TABLE IF NOT EXISTS `mydb`.`T_Comment` (
-  `Id` BIGINT(20) NOT NULL,
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `UserId` BIGINT(20) NULL COMMENT '用户ID',
   `AuthorId` BIGINT(20) NULL COMMENT '作者ID',
   `ParentId` BIGINT(20) NULL COMMENT '父评论ID',
@@ -74,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_Comment` (
 ENGINE = InnoDB
 7.聊天记录表
 CREATE TABLE IF NOT EXISTS `mydb`.`T_Chat` (
-  `Id` BIGINT(20) NOT NULL,
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `ToId` BIGINT(20) NULL COMMENT '消息接收者',
   `FromId` BIGINT(20) NULL COMMENT '消息发送者',
   `Message` VARCHAR(1024) NULL,
@@ -104,5 +105,27 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_Banner` (
   `ModifyTime` DATETIME NULL,
   `Type` INT(2) NULL COMMENT '类型：可区分用用途',
   `Status` INT(2) NULL COMMENT '状态',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+10.行业表
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Industry` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Code` INT(20) NULL COMMENT '编码',
+  `Name` VARCHAR(128) NULL COMMENT '名称',
+  `CateCode` INT(20) NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+11.行业分类
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Industry_Categroy` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Code` INT(20) NULL COMMENT '编码',
+  `Name` VARCHAR(128) NULL COMMENT '分类名称',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+12.地区
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Area` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Code` INT(20) NULL COMMENT '编码',
+  `Name` VARCHAR(128) NULL COMMENT '名称',
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB

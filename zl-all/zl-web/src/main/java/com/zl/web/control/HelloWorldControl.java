@@ -64,17 +64,17 @@ public class HelloWorldControl {
 	public void json(HttpServletRequest request, HttpServletResponse response) {
 		List<Lvuser> userList = userService.selectAll();
 		
-		/*
+		
 		//业务成功，使用如下方式输出
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(userList), response); 
-		*/
 		
-		//业务失败，使用如下方式输出 
+		
+		/*//业务失败，使用如下方式输出 
 		WebUtil.ajaxOutput(AjaxResult.newFailResult(
-				userList /*这个参数是返回的数据，随便传什么都行,可以为空*/, 
-				"请求出错啦", /*错误消息，自定义*/ 
-				-1 /*这个参数是错误码，自定义*/ )
-				, response);
+				userList 这个参数是返回的数据，随便传什么都行,可以为空, 
+				"请求出错啦", 错误消息，自定义 
+				-1 这个参数是错误码，自定义 )
+				, response);*/
 		
 		log.info("json request...");
 	}

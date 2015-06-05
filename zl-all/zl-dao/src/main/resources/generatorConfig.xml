@@ -51,7 +51,61 @@
 		</javaClientGenerator>
 		
 		<!-- 需要生成的表 -->
+		<table schema="T_Area" tableName="T_Area">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_Banner" tableName="T_Banner">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_Brand" tableName="T_Brand">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_Chat" tableName="T_Chat">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_Comment" tableName="T_Comment">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_Device_User" tableName="T_Device_User">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_Industry" tableName="T_Industry">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_Industry_Categroy" tableName="T_Industry_Categroy">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
 		<table schema="T_User" tableName="T_User">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_User_Feeds" tableName="T_User_Feeds">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_User_Info" tableName="T_User_Info">
+			<property name="useActualColumnNames" value="true" />
+			<property name="generateExt" value="true" />
+		</table>
+		<table schema="T_User_Profile" tableName="T_User_Profile">
 			<property name="useActualColumnNames" value="true" />
 			<property name="generateExt" value="true" />
 			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
