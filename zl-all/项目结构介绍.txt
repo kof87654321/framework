@@ -1,0 +1,14 @@
+db-scripts目录用于存放数据库设计文档或数据库脚本
+ext-lib目录用于存放项目依赖的一些jar文件，里面有install-all.bat脚本，用于将外部jar文件装到本地仓库
+
+zl-pojo模块用于存放POJO类
+zl-dao模块用于存放Mapper.java文件和Mapper.xml文件
+zl-client模块用于存放接口Class
+zl-service模块用于存放zl-client中接口的具体实现类
+zl-web模块是项目对外服务的web模块，页面和controller写在里面
+zl-web-resources目录里面有一个nginx，项目的静态资源文件放到nginx目录下面的resources目录下
+
+
+项目的各个模块分得这么细的原因是方便以后扩展
+比如该项目以后要提供hsf/dubbo/hessian服务，可以将pojo、client两个模块打包提供出去就好了
+
