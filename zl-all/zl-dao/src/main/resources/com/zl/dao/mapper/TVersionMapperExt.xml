@@ -7,4 +7,14 @@
 和com.zl.dao.mapper.TVersionMapper.Base_Column_List对其进行引用
 by is_zhoufeng@163.com 2015-06-06 22:21:31.
   -->
+  
+  <select id="selectNewVersionByAppId"  resultMap="com.zl.dao.mapper.TVersionMapper.BaseResultMap"  parameterType="java.lang.Integer" >
+  	select 
+  	<include refid="com.zl.dao.mapper.TVersionMapper.Base_Column_List" />
+  	from T_Version
+  	where AppId = #{appId}
+  	order by id desc 
+  	limit 1 ;
+  </select>
+  
 </mapper>
