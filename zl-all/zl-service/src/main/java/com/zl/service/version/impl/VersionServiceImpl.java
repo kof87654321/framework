@@ -26,7 +26,8 @@ public class VersionServiceImpl implements VersionService{
 		versionMapper.insert(version); 
 	}
 
-	@Override
+	/* 第一种查询方式（通过MysqlGeneartor生成的代码可以直接查询） */
+	/*@Override
 	public TVersion getNewVersionByAppId(Integer appId) {
 		TVersionExample condition = new TVersionExample() ;//查询条件
 		condition.createCriteria().andAppIdEqualTo(appId);
@@ -37,6 +38,13 @@ public class VersionServiceImpl implements VersionService{
 			return result.get(0);
 		} 
 		return null;
+		
+	}*/ 
+	
+	/* 第二种查询方式，自己写sql查询 */
+	@Override
+	public TVersion getNewVersionByAppId(Integer appId) {
+		return versionMapper.selectNewVersionByAppId(appId);
 	}
 	
 	
