@@ -129,3 +129,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_Area` (
   `Name` VARCHAR(128) NULL COMMENT '名称',
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
+
+13.APP版本信息
+CREATE TABLE IF NOT EXISTS `zl`.`T_Version` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `AppId` INT NOT NULL COMMENT ‘App编号’,
+     `AppnName` VARCHAR(50) NOT NULL COMMENT ‘应用名字’,
+   `Content` VARCHAR(500) NOT NULL COMMENT ‘更新内容，换行用\n’,
+   `DownUrl` VARCHAR(500) NOT NULL COMMENT ‘下载地址’,
+  `Version` VARCHAR(45) NOT NULL COMMENT '最新版本号',
+  `Attributes` VARCHAR(1024) NULL COMMENT '扩展属性：Json格式保存App下载地址等',
+  `ForceUpdate` TINYINT(1) NOT NULL DEFAULT 0 COMMENT ‘是否强制更新',
+`CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
