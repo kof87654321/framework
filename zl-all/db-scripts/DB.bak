@@ -1,0 +1,152 @@
+1.用户基础表--用于登陆
+CREATE TABLE IF NOT EXISTS `mydb`.`T_User` (
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `UserName` VARCHAR(45) NULL COMMENT '用户名',
+  `Password` VARCHAR(45) NULL COMMENT '密码',
+  `CreateTime` DATETIME NULL COMMENT '创建时间',
+  `LastLoginTime` DATETIME NULL COMMENT '最后登录时间',
+  `Status` INT(2) NULL DEFAULT '1' COMMENT '状态：1正常，0废弃',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+2.用户信息表
+CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Info` (
+  `UserId` BIGINT(20)  NOT NULL COMMENT '用户ID',
+  `NickName` VARCHAR(45) NULL COMMENT '昵称',
+  `Sex` TINYINT(1) NULL COMMENT '性别 0：男  1:女',
+  `Mobile` VARCHAR(20) NULL COMMENT '手机号码',
+  `Email` VARCHAR(128) NULL COMMENT '邮件地址',
+  `Title` VARCHAR(128) NULL COMMENT '头衔',
+  `Industry` INT(20) NULL COMMENT '行业编码',
+  `Area` INT(20) NULL COMMENT '地区编码',
+  `FaceImg` VARCHAR(255) NULL COMMENT '头像',
+  `Background` VARCHAR(512) NULL COMMENT '背景链接：图片or视频链接',
+  `QrCode` VARCHAR(255) NULL COMMENT '二维码',
+  `Description` VARCHAR(512) NULL COMMENT '描述',
+  `Friends` INT(9) NULL COMMENT '好友数',
+  `Like` INT(20) NULL COMMENT '点赞数',
+  `Attributes` VARCHAR(512) NULL COMMENT '待扩展信息',
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  PRIMARY KEY (`UserId`))
+ENGINE = InnoDB
+3.设备与用户关系表--PUSH时使用
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Device_User` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `DeviceToken` VARCHAR(255) NOT NULL COMMENT '设备Token',
+  `UserId` BIGINT(20) NULL COMMENT '用户ID',
+  `PlatForm` VARCHAR(50) NULL COMMENT '平台',
+  `Version` VARCHAR(30) NULL COMMENT '版本',
+  `AppId` INT(2) NULL COMMENT 'AppID',
+  `CreateTime` DATETIME NULL COMMENT '创建时间',
+  `ModifyTime` DATETIME NULL COMMENT '修改时间',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+4.用户档案--背景
+CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Profile` (
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `UserId` BIGINT(20) NOT NULL COMMENT '用户ID',
+  `Company` VARCHAR(50) NULL COMMENT '公司',
+  `Position` VARCHAR(30) NULL COMMENT '职位',
+  `JobStartTime` INT NULL COMMENT '工作开始时间',
+  `JobEndTime` INT NULL COMMENT '工作结束时间',
+  `Introduce` VARCHAR(60) NULL COMMENT '介绍',
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  `Attributes` VARCHAR(1024) NULL COMMENT '描述：Json格式',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+5.用户动态
+CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Feeds` (
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `UserId` BIGINT(20) NOT NULL COMMENT '用户ID',
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  `Content` VARCHAR(1024) NULL COMMENT '信息内容',
+  `Attributes` VARCHAR(1024) NULL COMMENT '信息：json格式',
+  `Like` INT(20) NULL,
+  `PageCount` INT(2) NULL COMMENT '图片数',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+6.评论表
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Comment` (
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `UserId` BIGINT(20) NULL COMMENT '用户ID',
+  `AuthorId` BIGINT(20) NULL COMMENT '作者ID',
+  `ParentId` BIGINT(20) NULL COMMENT '父评论ID',
+  `Content` VARCHAR(1024) NULL COMMENT '评论内容',
+  `Attributes` VARCHAR(512) NULL,
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+7.聊天记录表
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Chat` (
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `ToId` BIGINT(20) NULL COMMENT '消息接收者',
+  `FromId` BIGINT(20) NULL COMMENT '消息发送者',
+  `Message` VARCHAR(1024) NULL,
+  `Status` TINYINT(1) NULL COMMENT '消息状态：未读、已读等',
+  `Type` INT(2) NULL COMMENT '消息类型：文本，表情，视频等',
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+8.品牌表
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Brand` (
+  `Id` INT(12) NOT NULL AUTO_INCREMENT,
+  `BrandName` VARCHAR(255) NULL COMMENT '品牌名称',
+  `Description` VARCHAR(512) NULL COMMENT '描述',
+  `Attributes` VARCHAR(1024) NULL COMMENT '属性',
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+9.banner配置表
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Banner` (
+  `Id` INT(12) NOT NULL AUTO_INCREMENT,
+  `BannerName` VARCHAR(255) NULL COMMENT '品牌名称',
+  `Description` VARCHAR(512) NULL COMMENT '描述',
+  `Attributes` VARCHAR(1024) NULL COMMENT '属性',
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  `Type` INT(2) NULL COMMENT '类型：可区分用用途',
+  `Status` INT(2) NULL COMMENT '状态',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+10.行业表
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Industry` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Code` INT(20) NULL COMMENT '编码',
+  `Name` VARCHAR(128) NULL COMMENT '名称',
+  `CateCode` INT(20) NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+11.行业分类
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Industry_Categroy` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Code` INT(20) NULL COMMENT '编码',
+  `Name` VARCHAR(128) NULL COMMENT '分类名称',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+12.地区
+CREATE TABLE IF NOT EXISTS `mydb`.`T_Area` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Code` INT(20) NULL COMMENT '编码',
+  `Name` VARCHAR(128) NULL COMMENT '名称',
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
+
+13.APP版本信息
+CREATE TABLE IF NOT EXISTS `zl`.`T_Version` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `AppId` INT NOT NULL COMMENT ‘App编号’,
+  `AppnName` VARCHAR(50) NOT NULL COMMENT ‘应用名字’,
+   `Content` VARCHAR(500) NOT NULL COMMENT ‘更新内容，换行用\n’,
+   `DownUrl` VARCHAR(500) NOT NULL COMMENT ‘下载地址’,
+  `Version` VARCHAR(45) NOT NULL COMMENT '最新版本号',
+  `Attributes` VARCHAR(1024) NULL COMMENT '扩展属性：Json格式保存App下载地址等',
+  `ForceUpdate` TINYINT(1) NOT NULL DEFAULT 0 COMMENT ‘是否强制更新',
+  `CreateTime` DATETIME NULL,
+  `ModifyTime` DATETIME NULL,
+  PRIMARY KEY (`Id`))
+ENGINE = InnoDB
