@@ -1,16 +1,13 @@
 package com.zl.service.version.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zl.client.verson.VersionService;
 import com.zl.dao.mapper.TVersionMapperExt;
-import com.zl.pojo.Page;
 import com.zl.pojo.TVersion;
-import com.zl.pojo.TVersionExample;
 
 @Service
 public class VersionServiceImpl implements VersionService{
@@ -26,8 +23,7 @@ public class VersionServiceImpl implements VersionService{
 		versionMapper.insert(version); 
 	}
 
-	/* 第一种查询方式（通过MysqlGeneartor生成的代码可以直接查询） */
-	/*@Override
+/*	@Override
 	public TVersion getNewVersionByAppId(Integer appId) {
 		TVersionExample condition = new TVersionExample() ;//查询条件
 		condition.createCriteria().andAppIdEqualTo(appId);
@@ -39,7 +35,8 @@ public class VersionServiceImpl implements VersionService{
 		} 
 		return null;
 		
-	}*/ 
+	} */
+	
 	
 	/* 第二种查询方式，自己写sql查询 */
 	@Override

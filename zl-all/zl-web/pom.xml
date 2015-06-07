@@ -121,6 +121,21 @@
 	        <artifactId>jedis</artifactId>  
 	    </dependency>
 	
+  		<dependency>
+  			 <groupId>api</groupId>
+			 <artifactId>api-util</artifactId>
+			 <version>0.0.1-SNAPSHOT</version> 
+			 <type>war</type>    
+  		</dependency>
+  		<dependency>
+		    <groupId>api</groupId>
+			<artifactId>api-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version> 
+		    <type>jar</type>
+		    <classifier>classes</classifier> 
+		    <scope>compile</scope>
+		</dependency>
+		
   </dependencies>
    
   <build>

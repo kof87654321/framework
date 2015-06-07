@@ -28,6 +28,11 @@ public interface Consts {
 		 */
 		public static final String APP_FILESERVER_PATH = "app.fileserver.path";
 		
+		/**
+		 * API文件存放目录
+		 */
+		public static final String APP_API_DIR = "app.api.dir";
+		
 	}
 	
 

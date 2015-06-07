@@ -2,7 +2,6 @@ package com.zl.web.control;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.zl.client.user.UserService;
 import com.zl.common.util.bit.PropertiesConfigure;
-import com.zl.pojo.Lvuser;
 import com.zl.web.app.Consts;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
@@ -37,9 +34,6 @@ public class HelloWorldControl {
 	@Autowired
 	private PropertiesConfigure propertiesConfigure ;
 	
-	@Autowired
-	private UserService userService ;
-	
 	/**
 	 * 普通http请求示例,浏览器输入http://127.0.0.1:8080/hello/index.htm进行访问
 	 * @param request
@@ -49,8 +43,6 @@ public class HelloWorldControl {
 	 */
 	@RequestMapping("index")
 	public String index(HttpServletRequest request, HttpServletResponse response , ModelMap modelMap) {
-		modelMap.put("userList", userService.selectAll()) ;     
-		log.info("index request...");
 		return "hello/index";  
 	}
 
@@ -62,11 +54,9 @@ public class HelloWorldControl {
 	 */
 	@RequestMapping("json") 
 	public void json(HttpServletRequest request, HttpServletResponse response) {
-		List<Lvuser> userList = userService.selectAll();
-		
 		
 		//业务成功，使用如下方式输出
-		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(userList), response); 
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult("success"), response); 
 		
 		
 		/*//业务失败，使用如下方式输出 

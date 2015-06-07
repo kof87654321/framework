@@ -14,6 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.zl.common.util.bit.PropertiesConfigure;
+import com.zl.web.app.Consts;
 
 /**
  * 
@@ -37,17 +38,17 @@ public class InitContextServlet  extends HttpServlet{
 		if(propertyConfigure == null){
 			log.error("初始化ContextPath、StaticServer失败！，没找到" + PropertiesConfigure.class.getName() + "对象");
 		}
-		String appContextPath = propertyConfigure.getProperties("app.context.path");
-		String appStaticserverPath = propertyConfigure.getProperties("app.staticserver.path");
-		String fileServerPath = propertyConfigure.getProperties("app.fileserver.path");
+		String appContextPath = propertyConfigure.getProperties(Consts.PropertiesKey.APP_CONTEXT_PATH);
+		String appStaticserverPath = propertyConfigure.getProperties(Consts.PropertiesKey.APP_STATICSERVER_PATH);
+		String fileServerPath = propertyConfigure.getProperties(Consts.PropertiesKey.APP_FILESERVER_PATH); 
 		if(StringUtils.isBlank(appContextPath)){  
-			log.error("没找到app.context.path属性");
+			log.error("没找到{}属性",Consts.PropertiesKey.APP_CONTEXT_PATH);
 		}
 		if(StringUtils.isBlank(appStaticserverPath)){
-			log.error("没找到app.staticserver.path属性");  
+			log.error("没找到{}属性",Consts.PropertiesKey.APP_STATICSERVER_PATH);  
 		}
 		if(StringUtils.isBlank(fileServerPath)){
-			log.error("没找到app.fileserver.path属性");
+			log.error("没找到{}属性",Consts.PropertiesKey.APP_FILESERVER_PATH); 
 		}
 		getServletContext().setAttribute("ctx", appContextPath); 
 		getServletContext().setAttribute("static_server", appStaticserverPath); 

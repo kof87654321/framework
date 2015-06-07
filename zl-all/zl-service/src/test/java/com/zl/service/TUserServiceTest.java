@@ -25,7 +25,7 @@ public class TUserServiceTest extends BaseServiceTest {
 	public void testInsert() {
 		TUserVO tUserVO = new TUserVO();
 		TUser tUser = new TUser();
-		tUser.setUserName("帅的一b");
+		tUser.setUserName("帅的一b"); 
 		tUser.setPassword("123456");
 		tUser.setStatus(1);
 		TUserInfo tUserInfo = new TUserInfo();
