@@ -32,7 +32,7 @@ public class UserFeedsServiceTest extends BaseServiceTest {
 
 	@Test
 	public void testSelect() {
-		int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(1l, 0, 0);
+		int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(1l, 1, 0);
 		System.out.println("count=" + count);
 		Page page = new Page();
 		page.setBegin(0);
