@@ -11,7 +11,7 @@ import com.zl.client.user.UserService;
 import com.zl.dao.mapper.LvuserMapperExt;
 import com.zl.pojo.Lvuser;
 import com.zl.pojo.LvuserExample;
-
+@Deprecated
 @Service("userService")
 public class UserServiceImpl implements UserService{
 	
