@@ -55,10 +55,6 @@
 			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
 		</table>
-		<table schema="T_User_Profile" tableName="T_User_Profile"> 
-			<property name="useActualColumnNames" value="true" />
-			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
-		</table>
 
 <!-- 		<table schema="audience_count" tableName="audience_count"> -->
 <!-- 			<property name="useActualColumnNames" value="false" /> -->

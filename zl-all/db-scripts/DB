@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Feeds` (
   `ModifyTime` DATETIME NULL,
   `Content` VARCHAR(1024) NULL COMMENT '信息内容',
   `Attributes` VARCHAR(1024) NULL COMMENT '信息：json格式',
-  `Like` INT(20) NULL,
+  `Praise` INT(20) NULL,
   `PageCount` INT(2) NULL COMMENT '图片数',
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB

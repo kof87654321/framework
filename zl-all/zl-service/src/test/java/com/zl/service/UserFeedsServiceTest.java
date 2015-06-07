@@ -18,7 +18,7 @@ public class UserFeedsServiceTest extends BaseServiceTest{
 	public void testInsert(){
 		TUserFeeds tUserFeeds = new TUserFeeds();
 		tUserFeeds.setAttributes("123");
-		tUserFeeds.setLike(1);
+		tUserFeeds.setPraise(1);
 		tUserFeeds.setPageCount(1);
 		tUserFeeds.setUserId(1l);
 		userFeedsService.insertTUserFeeds(tUserFeeds );
