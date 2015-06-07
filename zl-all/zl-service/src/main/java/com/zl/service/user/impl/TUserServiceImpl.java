@@ -1,5 +1,6 @@
 package com.zl.service.user.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,11 +18,12 @@ import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserInfoExample;
 import com.zl.pojo.TUserProfile;
 import com.zl.pojo.TUserProfileExample;
+import com.zl.pojo.TUserProfileExample.Criteria;
 import com.zl.vo.TUserVO;
 
 @Service
 public class TUserServiceImpl implements TUserService {
-	
+
 	private Logger log = LoggerFactory.getLogger(TUserServiceImpl.class);
 
 	@Autowired
@@ -78,17 +80,17 @@ public class TUserServiceImpl implements TUserService {
 		tUser.setCreateTime(date);
 		tUser.setLastLoginTime(date);
 		int insertCount = this.userMapperExt.insert(tUser);
-		if(insertCount <= 0 ){
+		if (insertCount <= 0) {
 			log.warn("插入用户信息失败");
-			return -1 ;
+			return -1;
 		}
-		Long userId = tUser.getId() ;
+		Long userId = tUser.getId();
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 		if (tUserInfo != null) {
 			tUserInfo.setCreateTime(date);
 			tUserInfo.setModifyTime(date);
 			tUserInfo.setUserId(Long.parseLong(userId + ""));
-			this.userInfoMapperExt.insert(tUserVO.gettUserInfo()); 
+			this.userInfoMapperExt.insert(tUserVO.gettUserInfo());
 		}
 
 		List<TUserProfile> tUserProfileList = tUserVO.gettUserProfileList();
@@ -106,5 +108,40 @@ public class TUserServiceImpl implements TUserService {
 		}
 
 		return userId;
+	}
+
+	@Override
+	public int updateTUserProfile(TUserProfile tUserProfile, long userId, long id) {
+		if (userId <= 0 || id <= 0 || tUserProfile == null || tUserProfile.getUserId() != userId
+				|| tUserProfile.getId() != id) {
+			return 0;
+		}
+
+		// TUserProfileExample tUserProfileExample = new TUserProfileExample();
+		// Criteria criteria = tUserProfileExample.createCriteria();
+		// criteria.andIdEqualTo(id);
+		return this.userProfileMapperExt.updateByPrimaryKeySelective(tUserProfile);
+	}
+
+	@Override
+	public List<TUserProfile> getTUserProfileList(long userId, long id) {
+
+		if (userId <= 0 && id <= 0) {
+			return null;
+		}
+		List<TUserProfile> list = new ArrayList<TUserProfile>();
+		if (id > 0) {
+			TUserProfile tUserProfile = this.userProfileMapperExt.selectByPrimaryKey(id);
+			list.add(tUserProfile);
+			return list;
+		}
+
+		TUserProfileExample tUserProfileExample = new TUserProfileExample();
+		Criteria criteria = tUserProfileExample.createCriteria();
+		if (id>0) {
+			criteria.andIdEqualTo(id);
+		}
+		criteria.andUserIdEqualTo(userId);
+		return this.userProfileMapperExt.selectByExample(tUserProfileExample);
 	}
 }
