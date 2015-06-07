@@ -13,6 +13,7 @@ import com.zl.dao.mapper.TUserFeedsMapperExt;
 import com.zl.pojo.Page;
 import com.zl.pojo.TUserFeeds;
 import com.zl.pojo.TUserFeedsExample;
+import com.zl.pojo.TUserFeedsExample.Criteria;
 
 @Service
 public class UserFeedsServiceImpl implements UserFeedsService {
@@ -27,11 +28,25 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return this.userFeedsMapperExt.insert(tUserFeeds);
 	}
 
-	public int getUserFeedsCount4TUserFeedsExample(TUserFeedsExample tUserFeedsExample) {
+	public int getUserFeedsCount4TUserFeedsExample(long userId, int bigPageCount) {
+
+		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
+		Criteria criteria = tUserFeedsExample.createCriteria();
+		criteria.andUserIdEqualTo(userId + "");
+		if (bigPageCount > 0) {
+			criteria.andPageCountGreaterThan(bigPageCount);
+		}
 		return this.userFeedsMapperExt.countByExample(tUserFeedsExample);
 	}
 
-	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(TUserFeedsExample tUserFeedsExample) {
+	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int bigPageCount, Page page) {
+		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
+		Criteria criteria = tUserFeedsExample.createCriteria();
+		criteria.andUserIdEqualTo(userId + "");
+		if (bigPageCount > 0) {
+			criteria.andPageCountGreaterThan(bigPageCount);
+		}
+		tUserFeedsExample.setPage(page);
 		return this.userFeedsMapperExt.selectByExample(tUserFeedsExample);
 	}
 
