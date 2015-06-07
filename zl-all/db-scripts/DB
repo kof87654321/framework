@@ -12,7 +12,7 @@ ENGINE = InnoDB
 CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Info` (
   `UserId` BIGINT(20)  NOT NULL COMMENT '用户ID',
   `NickName` VARCHAR(45) NULL COMMENT '昵称',
-  `Sex` TINYINT(1) NULL COMMENT '性别',
+  `Sex` TINYINT(1) NULL COMMENT '性别 0：男  1:女',
   `Mobile` VARCHAR(20) NULL COMMENT '手机号码',
   `Email` VARCHAR(128) NULL COMMENT '邮件地址',
   `Title` VARCHAR(128) NULL COMMENT '头衔',
@@ -45,6 +45,11 @@ ENGINE = InnoDB
 CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Profile` (
   `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `UserId` BIGINT(20) NOT NULL COMMENT '用户ID',
+  `Company` VARCHAR(50) NULL COMMENT '公司',
+  `Position` VARCHAR(30) NULL COMMENT '职位',
+  `JobStartTime` INT NULL COMMENT '工作开始时间',
+  `JobEndTime` INT NULL COMMENT '工作结束时间',
+  `Introduce` VARCHAR(60) NULL COMMENT '介绍',
   `CreateTime` DATETIME NULL,
   `ModifyTime` DATETIME NULL,
   `Attributes` VARCHAR(1024) NULL COMMENT '描述：Json格式',
@@ -56,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Feeds` (
   `UserId` BIGINT(20) NOT NULL COMMENT '用户ID',
   `CreateTime` DATETIME NULL,
   `ModifyTime` DATETIME NULL,
+  `Content` VARCHAR(1024) NULL COMMENT '信息内容',
   `Attributes` VARCHAR(1024) NULL COMMENT '信息：json格式',
   `Like` INT(20) NULL,
   `PageCount` INT(2) NULL COMMENT '图片数',
@@ -134,13 +140,13 @@ ENGINE = InnoDB
 CREATE TABLE IF NOT EXISTS `zl`.`T_Version` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `AppId` INT NOT NULL COMMENT ‘App编号’,
-     `AppnName` VARCHAR(50) NOT NULL COMMENT ‘应用名字’,
+  `AppnName` VARCHAR(50) NOT NULL COMMENT ‘应用名字’,
    `Content` VARCHAR(500) NOT NULL COMMENT ‘更新内容，换行用\n’,
    `DownUrl` VARCHAR(500) NOT NULL COMMENT ‘下载地址’,
   `Version` VARCHAR(45) NOT NULL COMMENT '最新版本号',
   `Attributes` VARCHAR(1024) NULL COMMENT '扩展属性：Json格式保存App下载地址等',
   `ForceUpdate` TINYINT(1) NOT NULL DEFAULT 0 COMMENT ‘是否强制更新',
-`CreateTime` DATETIME NULL,
+  `CreateTime` DATETIME NULL,
   `ModifyTime` DATETIME NULL,
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
