@@ -1,2 +1,2 @@
-call mvn install
+call mvn -Dmaven.test.skip=true install
 pause
