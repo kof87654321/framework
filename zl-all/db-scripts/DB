@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Info` (
   `QrCode` VARCHAR(255) NULL COMMENT '二维码',
   `Description` VARCHAR(512) NULL COMMENT '描述',
   `Friends` INT(9) NULL COMMENT '好友数',
-  `Like` INT(20) NULL COMMENT '点赞数',
+  `Praise` INT(20) NULL COMMENT '点赞数',
   `Attributes` VARCHAR(512) NULL COMMENT '待扩展信息',
   `CreateTime` DATETIME NULL,
   `ModifyTime` DATETIME NULL,
