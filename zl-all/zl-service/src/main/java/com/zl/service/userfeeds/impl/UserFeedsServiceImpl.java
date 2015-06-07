@@ -20,7 +20,7 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 
 	@Autowired
 	private TUserFeedsMapperExt userFeedsMapperExt;
-
+ 
 	public int insertTUserFeeds(TUserFeeds tUserFeeds) {
 		Date date = new Date();
 		tUserFeeds.setCreateTime(date);
@@ -32,7 +32,7 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
 		Criteria criteria = tUserFeedsExample.createCriteria();
-		criteria.andUserIdEqualTo(userId + "");
+		criteria.andUserIdEqualTo(userId );
 		if (bigPageCount > 0) {
 			criteria.andPageCountGreaterThanOrEqualTo(bigPageCount);
 		}
@@ -45,7 +45,7 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int bigPageCount,long bigId, Page page) {
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
 		Criteria criteria = tUserFeedsExample.createCriteria();
-		criteria.andUserIdEqualTo(userId + "");
+		criteria.andUserIdEqualTo(userId );
 		if (bigPageCount > 0) {
 			criteria.andPageCountGreaterThanOrEqualTo(bigPageCount);
 		}

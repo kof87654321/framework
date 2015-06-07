@@ -8,6 +8,6 @@ public interface TUserService {
 
 	public int updateUser(TUserVO tUserVO);
 
-	public int insertUser(TUserVO tUserVO);
+	public long insertUser(TUserVO tUserVO);
 
 }

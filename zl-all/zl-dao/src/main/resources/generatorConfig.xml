@@ -51,9 +51,12 @@
 		</javaClientGenerator>
 		
 		<!-- 需要生成的表 -->
-		<table schema="T_Version" tableName="T_Version"> 
+		<table schema="T_User_Feeds" tableName="T_User_Feeds"> 
 			<property name="useActualColumnNames" value="true" />
-			<property name="generateExt" value="true" />
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
+		</table>
+		<table schema="T_User_Profile" tableName="T_User_Profile"> 
+			<property name="useActualColumnNames" value="true" />
 			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
 		</table>
 

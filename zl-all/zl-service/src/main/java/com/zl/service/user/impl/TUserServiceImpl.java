@@ -3,6 +3,8 @@ package com.zl.service.user.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import com.zl.vo.TUserVO;
 
 @Service
 public class TUserServiceImpl implements TUserService {
+	
+	private Logger log = LoggerFactory.getLogger(TUserServiceImpl.class);
 
 	@Autowired
 	private TUserInfoMapperExt userInfoMapperExt;
@@ -41,7 +45,7 @@ public class TUserServiceImpl implements TUserService {
 		}
 
 		TUserProfileExample tUserProfileExample = new TUserProfileExample();
-		tUserProfileExample.createCriteria().andUserIdEqualTo(userId + "");
+		tUserProfileExample.createCriteria().andUserIdEqualTo(userId);
 		List<TUserProfile> tUserProfileList = this.userProfileMapperExt.selectByExample(tUserProfileExample);
 		TUserVO tUserVO = new TUserVO();
 		tUserVO.settUser(tUser);
@@ -65,7 +69,7 @@ public class TUserServiceImpl implements TUserService {
 		return 1;
 	}
 
-	public int insertUser(TUserVO tUserVO) {
+	public long insertUser(TUserVO tUserVO) {
 		if (tUserVO == null) {
 			return 0;
 		}
@@ -73,14 +77,18 @@ public class TUserServiceImpl implements TUserService {
 		TUser tUser = tUserVO.gettUser();
 		tUser.setCreateTime(date);
 		tUser.setLastLoginTime(date);
-		int userId = this.userMapperExt.insert(tUser);
-
+		int insertCount = this.userMapperExt.insert(tUser);
+		if(insertCount <= 0 ){
+			log.warn("插入用户信息失败");
+			return -1 ;
+		}
+		Long userId = tUser.getId() ;
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 		if (tUserInfo != null) {
 			tUserInfo.setCreateTime(date);
 			tUserInfo.setModifyTime(date);
 			tUserInfo.setUserId(Long.parseLong(userId + ""));
-			this.userInfoMapperExt.insert(tUserVO.gettUserInfo());
+			this.userInfoMapperExt.insert(tUserVO.gettUserInfo()); 
 		}
 
 		List<TUserProfile> tUserProfileList = tUserVO.gettUserProfileList();
@@ -93,7 +101,7 @@ public class TUserServiceImpl implements TUserService {
 			tUserProfile = tUserProfileList.get(i);
 			tUserProfile.setCreateTime(date);
 			tUserProfile.setModifyTime(date);
-			tUserProfile.setUserId(userId + "");
+			tUserProfile.setUserId(userId);
 			this.userProfileMapperExt.insert(tUserProfile);
 		}
 

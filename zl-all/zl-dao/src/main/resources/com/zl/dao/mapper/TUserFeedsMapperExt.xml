@@ -7,5 +7,9 @@
 	<update id="addLike" parameterType="java.util.Map">
 		update T_User_Feeds set Like = Like + #{addLike} WHERE id = #{id}
 	</update>
+	
+	<update id="addLikeCount">
+		update T_User_Feeds set Like = Like + #{addLike} WHERE id = #{id}
+	</update>
 
 </mapper>
