@@ -9,7 +9,7 @@ public interface TUserService {
 
 	public TUserVO getUserVOById(Long userId);
 
-	public int updateUser(TUserVO tUserVO);
+	public int updateUser(TUserVO tUserVO,boolean profile);
 	
 	public int updateTUserProfile(TUserProfile tUserProfile,long userId,long id);
 	

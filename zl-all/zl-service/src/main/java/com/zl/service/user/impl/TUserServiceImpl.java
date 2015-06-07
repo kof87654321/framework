@@ -57,13 +57,13 @@ public class TUserServiceImpl implements TUserService {
 
 	}
 
-	public int updateUser(TUserVO tUserVO) {
+	public int updateUser(TUserVO tUserVO,boolean profile) {
 		if (tUserVO == null) {
 			return 0;
 		}
 		this.userInfoMapperExt.updateByPrimaryKeySelective(tUserVO.gettUserInfo());
 		this.userMapperExt.updateByPrimaryKeySelective(tUserVO.gettUser());
-		if (tUserVO.gettUserProfileList() != null && tUserVO.gettUserProfileList().size() > 0) {
+		if (profile && tUserVO.gettUserProfileList() != null && tUserVO.gettUserProfileList().size() > 0) {
 			for (int i = 0; i < tUserVO.gettUserProfileList().size(); i++) {
 				this.userProfileMapperExt.updateByPrimaryKey(tUserVO.gettUserProfileList().get(i));
 			}
