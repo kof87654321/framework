@@ -17,9 +17,9 @@ import com.zl.web.app.vo.AjaxResult;
 @Controller
 @RequestMapping("/app/version")
 public class AppVersionControl {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(AppVersionControl.class);
-	
+
 	@Autowired
 	private VersionService versionService ;
 
@@ -31,9 +31,8 @@ public class AppVersionControl {
 	 */
 	@RequestMapping("/newVersion") 
 	public void newVersion(Integer appId , HttpServletRequest request, HttpServletResponse response) {
-		log.info("newVersion request...");
 		TVersion newVersion = versionService.getNewVersionByAppId(appId); 
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(newVersion), response);  
 	}
-	
+
 }

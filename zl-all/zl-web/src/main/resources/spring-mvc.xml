@@ -17,6 +17,9 @@
 <!-- 			<bean class="com.zf.live.web.interceptor.LiveWebInterceptor" /> -->
 <!-- 		</mvc:interceptor> -->
 <!-- 	</mvc:interceptors> -->
+ 
+	<!-- Controller异常处理器 -->
+	<bean id="controllerExceptionHandler"  class="com.zl.web.app.handler.ControlExceptionHandler"/>  
 
 	<!-- layout 视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver" id="viewResolver">
