@@ -1,0 +1,9 @@
+开发时需要修改以下配置文件
+1、app-env.properties
+   app.context.path设置成项目的访问地址（默认为http://127.0.0.1:8080，一般不用修改）
+   app.upload.dir设置成 {项目地址}/zl-all/zl-web-resources/nginx/data  用于存放上传文件
+   app.api.dir设置成{项目地址}/zl-all/zl-web/api  用于存放web接口调试工具的api模板
+
+2、logback.xml
+   修改<property name="log.dir"  value="D:/zl_logs/web" />的value。 设置日志输出目录
+    
