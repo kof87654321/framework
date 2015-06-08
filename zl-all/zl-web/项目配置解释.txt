@@ -9,6 +9,6 @@
    
    
 启动：
-zl-all执行 mvn install
-zl-web执行 mvn jetty:run
+zl-all执行 mvn -Dmaven.test.skip=true install
+zl-web执行 mvn -Dmaven.test.skip=true jetty:run
     
