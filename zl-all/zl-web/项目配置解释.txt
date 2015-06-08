@@ -1,9 +1,9 @@
-¿ª·¢Ê±ĞèÒªĞŞ¸ÄÒÔÏÂÅäÖÃÎÄ¼ş
-1¡¢app-env.properties
-   app.context.pathÉèÖÃ³ÉÏîÄ¿µÄ·ÃÎÊµØÖ·£¨Ä¬ÈÏÎªhttp://127.0.0.1:8080£¬Ò»°ã²»ÓÃĞŞ¸Ä£©
-   app.upload.dirÉèÖÃ³É {ÏîÄ¿µØÖ·}/zl-all/zl-web-resources/nginx/data  ÓÃÓÚ´æ·ÅÉÏ´«ÎÄ¼ş
-   app.api.dirÉèÖÃ³É{ÏîÄ¿µØÖ·}/zl-all/zl-web/api  ÓÃÓÚ´æ·Åweb½Ó¿Úµ÷ÊÔ¹¤¾ßµÄapiÄ£°å
+å¼€å‘æ—¶éœ€è¦ä¿®æ”¹ä»¥ä¸‹é…ç½®æ–‡ä»¶
+1ã€app-env.properties
+   app.context.pathè®¾ç½®æˆé¡¹ç›®çš„è®¿é—®åœ°å€ï¼ˆé»˜è®¤ä¸ºhttp://127.0.0.1:8080ï¼Œä¸€èˆ¬ä¸ç”¨ä¿®æ”¹ï¼‰
+   app.upload.dirè®¾ç½®æˆ {é¡¹ç›®åœ°å€}/zl-all/zl-web-resources/nginx/data  ç”¨äºå­˜æ”¾ä¸Šä¼ æ–‡ä»¶
+   app.api.dirè®¾ç½®æˆ{é¡¹ç›®åœ°å€}/zl-all/zl-web/api  ç”¨äºå­˜æ”¾webæ¥å£è°ƒè¯•å·¥å…·çš„apiæ¨¡æ¿
 
-2¡¢logback.xml
-   ĞŞ¸Ä<property name="log.dir"  value="D:/zl_logs/web" />µÄvalue¡£ ÉèÖÃÈÕÖ¾Êä³öÄ¿Â¼
+2ã€logback.xml
+   ä¿®æ”¹<property name="log.dir"  value="D:/zl_logs/web" />çš„valueã€‚ è®¾ç½®æ—¥å¿—è¾“å‡ºç›®å½•
     
