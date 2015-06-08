@@ -1,0 +1,4 @@
+com\zl\common\util\bit\PropertiesConfigure.class
+com\zl\common\util\ftp\FtpUtil.class
+com\zl\common\util\html\HtmlUtils.class
+com\zl\common\util\bit\BitFlagUtil.class
