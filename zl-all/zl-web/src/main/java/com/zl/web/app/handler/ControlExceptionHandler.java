@@ -29,10 +29,11 @@ public class ControlExceptionHandler implements HandlerExceptionResolver{
 		HandlerMethod handlerMethod = (HandlerMethod)handler ;
 		Method controllerMethod = handlerMethod.getMethod();
 		Class<?> returnType = controllerMethod.getReturnType();
-		if(returnType == Void.TYPE){ 
+		if(returnType == Void.TYPE){  //如果返回值类型为Void，那么可以判断该方法返回JSON类型
 			WebUtil.ajaxOutput(AjaxResult.newExceptionResult(exception, "后台异常", -500 ), response);  
 			return null ;
 		}else{   
+			//如果返回类型不为Void，那么久跳转到错误404页面
 			return new ModelAndView("/404.html");
 		}
 	}
