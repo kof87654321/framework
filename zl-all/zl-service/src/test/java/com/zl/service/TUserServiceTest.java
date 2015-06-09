@@ -25,7 +25,7 @@ public class TUserServiceTest extends BaseServiceTest {
 	public void testInsert() {
 		TUserVO tUserVO = new TUserVO();
 		TUser tUser = new TUser();
-		tUser.setUserName("帅的一b"); 
+		tUser.setUserName("帅的一b");
 		tUser.setPassword("123456");
 		tUser.setStatus(1);
 		TUserInfo tUserInfo = new TUserInfo();
@@ -66,13 +66,14 @@ public class TUserServiceTest extends BaseServiceTest {
 		tUserVO.settUserInfo(tUserInfo);
 		tUserVO.settUserProfileList(list);
 
-		long userId = tUserService.insertUser(tUserVO);
-		System.out.println("userId=" + userId);
+		TUserVO insertTUserVO = tUserService.insertUser(tUserVO);
+		System.out.println("gettUser=" + ReflectionToStringBuilder.toString(insertTUserVO.gettUser()));
+		System.out.println("gettUserInfo=" + ReflectionToStringBuilder.toString(insertTUserVO.gettUserInfo()));
 	}
 
 	@Test
 	public void testSelect() {
-		TUserVO tUserVO = this.tUserService.getUserVOById(5l);
+		TUserVO tUserVO = this.tUserService.getUserVOById(5l, true, true);
 
 		System.out.println("tUserVO.gettUser()=" + ReflectionToStringBuilder.toString(tUserVO.gettUser()));
 		System.out.println("tUserVO.gettUserInfo()="
@@ -86,14 +87,14 @@ public class TUserServiceTest extends BaseServiceTest {
 
 	@Test
 	public void testUpdate() {
-		TUserVO tUserVO = this.tUserService.getUserVOById(5l);
+		TUserVO tUserVO = this.tUserService.getUserVOById(5l, true, true);
 		TUser tuser = tUserVO.gettUser();
 		tuser.setUserName("帅的一bb");
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 		tUserInfo.setNickName("帅的一bb");
 		// List<TUserProfile> list = tUserVO.gettUserProfileList();
-		int count = this.tUserService.updateUser(tUserVO,false);
-		System.out.println("count=" + count);
+		TUserVO updateTUserVO = this.tUserService.updateUser(tUserVO, false);
+		System.out.println("updateTUserVO=" + ReflectionToStringBuilder.toString(updateTUserVO));
 
 	}
 
@@ -105,7 +106,7 @@ public class TUserServiceTest extends BaseServiceTest {
 			tUserProfile.setPosition("帅哥11");
 			int count = this.tUserService.updateTUserProfile(tUserProfile, tUserProfile.getUserId(),
 					tUserProfile.getId());
-			System.out.println("count="+count);
+			System.out.println("count=" + count);
 		}
 	}
 }

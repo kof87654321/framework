@@ -45,7 +45,7 @@ public class UserControl {
 			return;
 		}
 
-		TUserVO tUserVO = tUserService.getUserVOById(userId);
+		TUserVO tUserVO = tUserService.getUserVOById(userId,true,false);
 		int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(userId, 1, bigId);
 		List<TUserFeeds> list = null;
 		if (count > 0) {

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zl.client.user.TUserService;
+import com.zl.common.util.token.TokenUtils;
 import com.zl.dao.mapper.TUserInfoMapperExt;
 import com.zl.dao.mapper.TUserMapperExt;
 import com.zl.dao.mapper.TUserProfileMapperExt;
@@ -35,9 +37,20 @@ public class TUserServiceImpl implements TUserService {
 	@Autowired
 	private TUserProfileMapperExt userProfileMapperExt;
 
-	public TUserVO getUserVOById(Long userId) {
+	public TUserVO getUserVOById(Long userId, boolean profile, boolean token) {
 		TUser tUser = this.userMapperExt.selectByPrimaryKey(userId);
 
+		if (tUser == null) {
+			return null;
+		}
+
+		if (token) {
+			String strToken = TokenUtils.getToken(tUser.getId(), tUser.getPassword(),
+					tUser.getLastLoginTime());
+			if (StringUtils.isNotBlank(strToken)) {
+				tUser.setToken(strToken);
+			}
+		}
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
 		tUserInfoExample.createCriteria().andUserIdEqualTo(userId);
 		List<TUserInfo> tUserInfoList = this.userInfoMapperExt.selectByExample(tUserInfoExample);
@@ -45,10 +58,13 @@ public class TUserServiceImpl implements TUserService {
 		if (tUserInfoList != null && tUserInfoList.size() > 0) {
 			tUserInfo = tUserInfoList.get(0);
 		}
+		List<TUserProfile> tUserProfileList = null;
+		if (profile) {
+			TUserProfileExample tUserProfileExample = new TUserProfileExample();
+			tUserProfileExample.createCriteria().andUserIdEqualTo(userId);
+			tUserProfileList = this.userProfileMapperExt.selectByExample(tUserProfileExample);
+		}
 
-		TUserProfileExample tUserProfileExample = new TUserProfileExample();
-		tUserProfileExample.createCriteria().andUserIdEqualTo(userId);
-		List<TUserProfile> tUserProfileList = this.userProfileMapperExt.selectByExample(tUserProfileExample);
 		TUserVO tUserVO = new TUserVO();
 		tUserVO.settUser(tUser);
 		tUserVO.settUserInfo(tUserInfo);
@@ -57,9 +73,9 @@ public class TUserServiceImpl implements TUserService {
 
 	}
 
-	public int updateUser(TUserVO tUserVO,boolean profile) {
+	public TUserVO updateUser(TUserVO tUserVO, boolean profile) {
 		if (tUserVO == null) {
-			return 0;
+			return null;
 		}
 		this.userInfoMapperExt.updateByPrimaryKeySelective(tUserVO.gettUserInfo());
 		this.userMapperExt.updateByPrimaryKeySelective(tUserVO.gettUser());
@@ -68,12 +84,12 @@ public class TUserServiceImpl implements TUserService {
 				this.userProfileMapperExt.updateByPrimaryKey(tUserVO.gettUserProfileList().get(i));
 			}
 		}
-		return 1;
+		return this.getUserVOById(tUserVO.gettUser().getId(), false, true);
 	}
 
-	public long insertUser(TUserVO tUserVO) {
+	public TUserVO insertUser(TUserVO tUserVO) {
 		if (tUserVO == null) {
-			return 0;
+			return null;
 		}
 		Date date = new Date();
 		TUser tUser = tUserVO.gettUser();
@@ -82,7 +98,7 @@ public class TUserServiceImpl implements TUserService {
 		int insertCount = this.userMapperExt.insert(tUser);
 		if (insertCount <= 0) {
 			log.warn("插入用户信息失败");
-			return -1;
+			return null;
 		}
 		Long userId = tUser.getId();
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
@@ -95,7 +111,7 @@ public class TUserServiceImpl implements TUserService {
 
 		List<TUserProfile> tUserProfileList = tUserVO.gettUserProfileList();
 		if (tUserProfileList == null || tUserProfileList.size() <= 0) {
-			return userId;
+			return this.getUserVOById(userId, false, true);
 		}
 
 		TUserProfile tUserProfile = null;
@@ -107,7 +123,7 @@ public class TUserServiceImpl implements TUserService {
 			this.userProfileMapperExt.insert(tUserProfile);
 		}
 
-		return userId;
+		return this.getUserVOById(userId, false, true);
 	}
 
 	@Override
@@ -138,7 +154,7 @@ public class TUserServiceImpl implements TUserService {
 
 		TUserProfileExample tUserProfileExample = new TUserProfileExample();
 		Criteria criteria = tUserProfileExample.createCriteria();
-		if (id>0) {
+		if (id > 0) {
 			criteria.andIdEqualTo(id);
 		}
 		criteria.andUserIdEqualTo(userId);
