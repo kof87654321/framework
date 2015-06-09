@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zl.client.user.TUserService;
+import com.zl.common.util.token.TokenUtils;
 import com.zl.pojo.TUser;
 import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserProfile;
@@ -69,6 +70,7 @@ public class TUserServiceTest extends BaseServiceTest {
 		TUserVO insertTUserVO = tUserService.insertUser(tUserVO);
 		System.out.println("gettUser=" + ReflectionToStringBuilder.toString(insertTUserVO.gettUser()));
 		System.out.println("gettUserInfo=" + ReflectionToStringBuilder.toString(insertTUserVO.gettUserInfo()));
+		System.out.println(TokenUtils.checkToken(insertTUserVO.gettUser().getId(), insertTUserVO.gettUser().getPassword(), insertTUserVO.gettUser().getToken()));
 	}
 
 	@Test
@@ -83,6 +85,9 @@ public class TUserServiceTest extends BaseServiceTest {
 			System.out.println("tUserVO.gettUserProfileList()="
 					+ ReflectionToStringBuilder.toString(tUserVO.gettUserProfileList().get(i)));
 		}
+		
+		
+		System.out.println(TokenUtils.checkToken(tUserVO.gettUser().getId(), tUserVO.gettUser().getPassword(), tUserVO.gettUser().getToken()));
 	}
 
 	@Test
