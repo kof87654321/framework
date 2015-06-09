@@ -1,4 +1,4 @@
-开发时需要修改以下配置文件
+开发时需要修改以下配置文件啊
 1、app-env.properties
    app.context.path设置成项目的访问地址（默认为http://127.0.0.1:8080，一般不用修改）
    app.upload.dir设置成 {项目地址}/zl-all/zl-web-resources/nginx/data  用于存放上传文件
