@@ -23,7 +23,7 @@ public class DesUtils {
     /**
      * 默认的Key键
      */
-    private static final String Default_Key = "TYWH14CJO5F68DY69EQ5IWBYA3F2DESJ";
+    public static final String Default_Key = "ABCD14CJO5F68DY69EQ5IWBYA3F2DESJ";
 
     /**
      * 加密字符串

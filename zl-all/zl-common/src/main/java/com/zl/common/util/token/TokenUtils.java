@@ -19,7 +19,7 @@ import com.zl.common.util.encrypt.DesUtils;
 public class TokenUtils {
     private static final Logger LOGGER      = LoggerFactory.getLogger(TokenUtils.class);
 
-    private static final String ENCRYPT_KEY = "";
+    private static final String ENCRYPT_KEY = "ABCD14CJO5F68DY69EQ5IWBYA3F2DESJ";
 
     public static String getToken(Long userId, String password, Date lastLoginTime) {
         String message = MessageFormat.format("{0}_{1}_{2}", String.valueOf(userId), password,
