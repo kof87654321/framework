@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.dao.mapper.TFileMapperExt" >
+  <!--
+  用于扩展com.zl.dao.mapper.TFileMapper接口
+可通过com.zl.dao.mapper.TFileMapper.BaseResultMap 
+和com.zl.dao.mapper.TFileMapper.Base_Column_List对其进行引用
+by is_zhoufeng@163.com 2015-06-09 16:41:24.
+  -->
+</mapper>

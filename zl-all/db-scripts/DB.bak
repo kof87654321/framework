@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Info` (
   `QrCode` VARCHAR(255) NULL COMMENT '二维码',
   `Description` VARCHAR(512) NULL COMMENT '描述',
   `Friends` INT(9) NULL COMMENT '好友数',
-  `Like` INT(20) NULL COMMENT '点赞数',
+  `Praise` INT(20) NULL COMMENT '点赞数',
   `Attributes` VARCHAR(512) NULL COMMENT '待扩展信息',
   `CreateTime` DATETIME NULL,
   `ModifyTime` DATETIME NULL,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Feeds` (
   `ModifyTime` DATETIME NULL,
   `Content` VARCHAR(1024) NULL COMMENT '信息内容',
   `Attributes` VARCHAR(1024) NULL COMMENT '信息：json格式',
-  `Like` INT(20) NULL,
+  `Praise` INT(20) NULL,
   `PageCount` INT(2) NULL COMMENT '图片数',
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
@@ -150,3 +150,13 @@ CREATE TABLE IF NOT EXISTS `zl`.`T_Version` (
   `ModifyTime` DATETIME NULL,
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
+
+14.上传文件表
+CREATE TABLE IF NOT EXISTS `T_File` (
+   `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+   `FileType` TINYINT(2) COMMENT '文件类型[1:图片，2:语音，3:视频]',
+   `FileName` VARCHAR(500) NOT NULL COMMENT '源文件名',
+   `Url` VARCHAR(500) NOT NULL COMMENT '文件地址',
+   `BizType` TINYINT(2) NOT NULL DEFAULT 0 COMMENT '业务类型[1:用户头像,2:动态,3:聊天]',
+    PRIMARY KEY (`Id`) 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;

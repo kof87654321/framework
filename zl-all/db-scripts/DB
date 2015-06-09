@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_Chat` (
   `ToId` BIGINT(20) NULL COMMENT '消息接收者',
   `FromId` BIGINT(20) NULL COMMENT '消息发送者',
   `Message` VARCHAR(1024) NULL,
-  `Status` TINYINT(1) NULL COMMENT '消息状态：未读、已读等',
+  `Status` TINYINT(2) NULL COMMENT '消息状态：未读、已读等',
   `Type` INT(2) NULL COMMENT '消息类型：文本，表情，视频等',
   `CreateTime` DATETIME NULL,
   `ModifyTime` DATETIME NULL,
@@ -150,3 +150,13 @@ CREATE TABLE IF NOT EXISTS `zl`.`T_Version` (
   `ModifyTime` DATETIME NULL,
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
+
+14.上传文件表
+CREATE TABLE IF NOT EXISTS `T_File` (
+   `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+   `FileType` TINYINT(2) COMMENT '文件类型[1:图片，2:语音，3:视频]',
+   `FileName` VARCHAR(500) NOT NULL COMMENT '源文件名',
+   `Url` VARCHAR(500) NOT NULL COMMENT '文件地址',
+   `BizType` TINYINT(2) NOT NULL DEFAULT 0 COMMENT '业务类型[1:用户头像,2:动态,3:聊天]',
+    PRIMARY KEY (`Id`) 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
