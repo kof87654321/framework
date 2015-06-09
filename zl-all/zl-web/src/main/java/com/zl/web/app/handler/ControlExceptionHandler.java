@@ -33,7 +33,7 @@ public class ControlExceptionHandler implements HandlerExceptionResolver{
 			WebUtil.ajaxOutput(AjaxResult.newExceptionResult(exception, "后台异常", -500 ), response);  
 			return null ;
 		}else{   
-			//如果返回类型不为Void，那么久跳转到错误404页面
+			//如果返回类型不为Void，那么就跳转到错误404页面
 			return new ModelAndView("/404.html");
 		}
 	}
