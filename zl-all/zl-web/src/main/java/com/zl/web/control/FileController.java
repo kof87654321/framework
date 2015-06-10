@@ -33,7 +33,7 @@ import com.zl.web.app.vo.AjaxResult;
 public class FileController {
 
 	private static final Logger log = LoggerFactory.getLogger(FileController.class);
-	
+
 	public static final String SEPARATOR = "/" ;
 
 	@Autowired
@@ -76,10 +76,10 @@ public class FileController {
 			WebUtil.ajaxOutput(AjaxResult.newExceptionResult(e, "保存文件失败", -2), response);   
 			return ;
 		}
-		
+
 		//文件相对路径
 		String saveFilePath = saveDirPath + SEPARATOR + saveFileName ;  
-		
+
 		TFile tfile = new TFile();
 		tfile.setBizType(bizType);
 		tfile.setFileType(fileType);
@@ -92,7 +92,7 @@ public class FileController {
 		}
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tfile), response);
 	}
-	
+
 
 }
 
