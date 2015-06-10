@@ -24,6 +24,10 @@ import com.zl.web.app.Consts.Upload.BizType;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
+/**
+ * 文件上传
+ * @author is_zhoufeng
+ */
 @Controller
 @RequestMapping("/file/")
 public class FileController {
