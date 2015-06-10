@@ -42,7 +42,7 @@ public class FileController {
 	 * 上传文件
 	 * @param file
 	 * @param fileType [1:图片，2:语音 ,3:视频]
-	 * 
+	 * @param bizType  [1:用户头像,2:动态,3:聊天]  
 	 * @param request
 	 * @param model
 	 */
