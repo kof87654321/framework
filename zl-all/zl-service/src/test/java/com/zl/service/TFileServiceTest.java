@@ -18,7 +18,8 @@ public class TFileServiceTest extends BaseServiceTest{
 		file.setFileName("aaa.txt");
 		file.setFileType((byte)2);
 		file.setUrl("/photos/1.txt");  
-		boolean success = fileService.insert(file);
+		file.setUserId(1L); 
+		boolean success = fileService.insert(file); 
 		System.out.println(success); 
 	}
 	

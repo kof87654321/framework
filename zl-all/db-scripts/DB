@@ -158,5 +158,6 @@ CREATE TABLE IF NOT EXISTS `T_File` (
    `FileName` VARCHAR(500) NOT NULL COMMENT '源文件名',
    `Url` VARCHAR(500) NOT NULL COMMENT '文件地址',
    `BizType` TINYINT(2) NOT NULL DEFAULT 0 COMMENT '业务类型[1:用户头像,2:动态,3:聊天]',
+    `UserId` BIGINT(20) NOT NULL COMMENT '上传图片的用户',
     PRIMARY KEY (`Id`) 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;

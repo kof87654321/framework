@@ -81,7 +81,11 @@ public class FileController {
 		tfile.setFileType(fileType);
 		tfile.setFileName(saveFileName); 
 		tfile.setUrl(saveFilePath); 
-		
+		tfile.setUserId(1L); //TODO 设置成当前登录用户ID 
+		boolean insertResult = fileService.insert(tfile);
+		if(!insertResult){
+			log.error("文件信息保存到数据库失败"); 
+		}
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tfile), response);
 	}
 	
