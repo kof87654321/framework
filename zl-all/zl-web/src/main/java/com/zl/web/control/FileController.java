@@ -89,13 +89,6 @@ public class FileController {
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tfile), response);
 	}
 	
-	
-	public static void main(String[] args) {
-		
-		String extension = FilenameUtils.getExtension("c:/aaa.txt"); 
-		System.out.println(extension);
-	}
-
 
 }
 
