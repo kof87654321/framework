@@ -39,7 +39,7 @@ public class UserControl {
      * 
      */
     @RequestMapping("/getMyPage")
-    public void newVersion(HttpServletRequest request, HttpServletResponse response,
+    public void myPage(HttpServletRequest request, HttpServletResponse response,
                            @RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
                            @RequestParam(value = "bigId", required = true, defaultValue = "0") Long bigId,
                            @RequestParam(value = "pageNo", required = false, defaultValue = "0") Integer pageNo,
