@@ -125,8 +125,11 @@ public class FileController {
 		String saveFilePath = saveDirPath + SEPARATOR + saveFileName ;  
 		
 		try {
-			ossUtil.uploadFile(file.getInputStream(), saveFilePath) ;
-		} catch (IOException e) {
+			boolean uploadResult = ossUtil.uploadFile(file.getInputStream(), saveFilePath) ;
+			if(!uploadResult){
+				throw new RuntimeException("上传文件到OSS失败");  
+			}
+		} catch (IOException | RuntimeException e) {
 			log.error("上传文件到OSS失败" ,e);  
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "上传文件到OSS失败!", -2), response); 
 			return ;
