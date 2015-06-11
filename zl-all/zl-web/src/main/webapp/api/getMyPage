@@ -1,0 +1,1 @@
+{"group":"用户","headerKeyValues":[],"method":"get","name":"getMyPage","params":{"userId":"5"},"paramsKeyValues":[{"key":"userId","value":"5"}],"url":"http://127.0.0.1:8080/user/getMyPage.htm"}
