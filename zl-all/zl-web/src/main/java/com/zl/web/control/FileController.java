@@ -79,6 +79,14 @@ public class FileController {
 			log.error("保存文件失败" , e);  
 			WebUtil.ajaxOutput(AjaxResult.newExceptionResult(e, "保存文件失败", -2), response);   
 			return ;
+		}finally{
+			try {
+				if(file.getInputStream() != null){
+					file.getInputStream().close();
+				}
+			} catch (IOException e) {
+				log.error("关闭文件流失败!",e); 
+			} 
 		}
 
 		//文件相对路径
@@ -133,6 +141,14 @@ public class FileController {
 			log.error("上传文件到OSS失败" ,e);  
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "上传文件到OSS失败!", -2), response); 
 			return ;
+		}finally{
+			try {
+				if(file.getInputStream() != null){
+					file.getInputStream().close();
+				}
+			} catch (IOException e) {
+				log.error("关闭文件流失败!",e); 
+			}
 		}
 		
 		TFile tfile = new TFile();
