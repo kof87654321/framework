@@ -105,7 +105,7 @@ public class TUserServiceTest extends BaseServiceTest {
 
 	@Test
 	public void testUpdateProfile() {
-		List<TUserProfile> list = this.tUserService.getTUserProfileList(5l, 0l);
+		List<TUserProfile> list = this.tUserService.getTUserProfileList(5l, 0l,null);
 		for (int i = 0; i < list.size(); i++) {
 			TUserProfile tUserProfile = list.get(i);
 			tUserProfile.setPosition("帅哥11");
