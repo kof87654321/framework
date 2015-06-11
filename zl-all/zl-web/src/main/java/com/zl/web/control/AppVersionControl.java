@@ -31,7 +31,7 @@ public class AppVersionControl {
      * @param response
      */
     @RequestMapping("/newVersion")
-    @Security()
+    @Security
     public void newVersion(Integer appId, HttpServletRequest request, HttpServletResponse response) {
         TVersion newVersion = versionService.getNewVersionByAppId(appId);
         WebUtil.ajaxOutput(AjaxResult.newSuccessResult(newVersion), response);
