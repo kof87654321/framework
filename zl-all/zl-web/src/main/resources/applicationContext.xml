@@ -22,5 +22,13 @@
 	
 	<import resource="classpath*:*-beans.xml" />   
 	
+	<!-- 阿里云OSS工具类 -->
+	<bean id="ossUtil" class="com.zl.common.util.oss.OssUtil">
+		<constructor-arg name="accessKeyId" value="${oss.access.key}"></constructor-arg>		
+		<constructor-arg name="accessKeySecret" value="${oss.access.keysecret}"></constructor-arg>		
+		<constructor-arg name="endPoint" value="${oss.endpoint}"></constructor-arg>		
+		<constructor-arg name="bucketName" value="${oss.bucket.name}"></constructor-arg>		
+	</bean>
+	
 	
 </beans>  

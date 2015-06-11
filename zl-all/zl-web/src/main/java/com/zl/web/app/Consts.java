@@ -47,15 +47,15 @@ public interface Consts {
 			/**
 			 * 头像文件
 			 */
-			BIZ_TYPE_USERPHOTO((byte)1 , "/userphoto"),
+			BIZ_TYPE_USERPHOTO((byte)1 , "userphoto"),
 			/**
 			 * 动态文件
 			 */
-			BIZ_TYPE_FEDD((byte)2 , "/feedfile"),
+			BIZ_TYPE_FEDD((byte)2 , "feedfile"),
 			/**
 			 * 聊天文件
 			 */
-			BIZ_TYPE_CHAT((byte)3 , "/chatfile") ;
+			BIZ_TYPE_CHAT((byte)3 , "chatfile") ;
 			/**
 			 * 业务类型
 			 */
