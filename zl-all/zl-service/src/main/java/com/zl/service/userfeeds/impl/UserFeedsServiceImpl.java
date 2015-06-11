@@ -39,6 +39,7 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		if (bigId>0) {
 			criteria.andIdGreaterThanOrEqualTo(bigId);
 		}
+		tUserFeedsExample.setOrderByClause("CreateTime DESC");
 		return this.userFeedsMapperExt.countByExample(tUserFeedsExample);
 	}
 
@@ -52,6 +53,7 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		if (bigId>0) {
 			criteria.andIdGreaterThanOrEqualTo(bigId);
 		}
+		tUserFeedsExample.setOrderByClause("CreateTime DESC");
 		tUserFeedsExample.setPage(page);
 		return this.userFeedsMapperExt.selectByExample(tUserFeedsExample);
 	}
