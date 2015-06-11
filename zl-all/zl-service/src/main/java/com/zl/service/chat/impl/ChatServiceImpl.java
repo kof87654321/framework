@@ -54,7 +54,7 @@ public class ChatServiceImpl implements ChatService {
     /**
      * 聊天记录按时间戳来增量查询
      * app端记录上一次获取记录的第一条记录的modifyTime，作为since参数上传
-     * app端记录上一次获取记录的最后一条记录的modifyTime，作为Max参数上传
+     * max参数为当前时间？
      * @see com.zl.client.chat.ChatService#readMsg(com.zl.pojo.ChatQuery)
      */
     @Override
