@@ -40,10 +40,8 @@ public class UserFeedsControl {
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
 
 		Page page = new Page();
-		page.setBegin((pageNo - 1) * pageSize);
-		page.setLength(pageSize);
 		List<TUserFeeds> list = userFeedsService.getUserFeedsList4TUserFeedsExample(userId,
-				greaterThanOrEqualToPicCount, 0l, page);
+				greaterThanOrEqualToPicCount, 0l, page.setPageByPageNoAndPageSize(pageNo, pageSize));
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userFeedsList", list);
@@ -59,10 +57,9 @@ public class UserFeedsControl {
 		int count = userFeedsService.addLike(feedsId, 1);
 		if (count > 0) {
 			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(true), response);
-		}else {
+		} else {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "server error", Consts.ERRORCode.SERVER_ERROR), response);
 		}
-		
 
 	}
 

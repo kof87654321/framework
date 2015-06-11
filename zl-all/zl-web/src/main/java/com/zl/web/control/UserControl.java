@@ -52,7 +52,7 @@ public class UserControl {
 		}
 
 		TUserVO tUserVO = tUserService.getUserVOById(userId, true, false);
-		//TODO 是否还缺少某个用户看过另一个用户的内容 
+		// TODO 是否还缺少某个用户看过另一个用户的内容
 		int noReadFeedsCount = userFeedsService.getUserFeedsCount4TUserFeedsExample(userId, 0, bigId);
 		List<TUserFeeds> listFeeds = null;
 		if (noReadFeedsCount > 0) {
@@ -67,4 +67,21 @@ public class UserControl {
 		map.put("list", listFeeds);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
+
+	@RequestMapping("/searchUserList")
+	@Security
+	public void searchUserList(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
+			@RequestParam(value = "area", required = false, defaultValue = "0") Integer area,
+			@RequestParam(value = "industry", required = false, defaultValue = "0") Integer industry,
+			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
+		Page page = new Page();
+		List<TUserVO> listSearchTUserVO = this.tUserService.getListByAreaAndIndustry(area, industry,
+				page.setPageByPageNoAndPageSize(pageNo, pageSize));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("listSearchTUserVO", listSearchTUserVO);
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
+	}
+
 }
