@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+						   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+						   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
 	
+	<aop:aspectj-autoproxy proxy-target-class="true" /> 
 	<mvc:annotation-driven />
-	<context:component-scan base-package="com.zl.web.control" />  
-		
+	<context:component-scan base-package="com.zl.web" />  
 	<!-- Controller注解处理 -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
 <!-- 	<mvc:interceptors> -->
@@ -19,7 +23,7 @@
 <!-- 	</mvc:interceptors> -->
  
 	<!-- Controller异常处理器 -->
-	<bean id="controllerExceptionHandler"  class="com.zl.web.app.handler.ControlExceptionHandler"/>  
+	<bean id="controllerExceptionHandler"  class="com.zl.web.app.handler.ControlExceptionHandler"/> 
 
 	<!-- layout 视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver" id="viewResolver">

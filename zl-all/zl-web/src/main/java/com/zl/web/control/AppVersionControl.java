@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zl.client.verson.VersionService;
 import com.zl.pojo.TVersion;
+import com.zl.web.annotation.Security;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
@@ -18,21 +19,22 @@ import com.zl.web.app.vo.AjaxResult;
 @RequestMapping("/app/version")
 public class AppVersionControl {
 
-	private static final Logger log = LoggerFactory.getLogger(AppVersionControl.class);
+    private static final Logger log = LoggerFactory.getLogger(AppVersionControl.class);
 
-	@Autowired
-	private VersionService versionService ;
+    @Autowired
+    private VersionService      versionService;
 
-	/**
-	 * 获取最新版本，通过浏览器{host:port}/app/version/newVersion.htm?appId=1进行访问
-	 * @param appId
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping("/newVersion") 
-	public void newVersion(Integer appId , HttpServletRequest request, HttpServletResponse response) {
-		TVersion newVersion = versionService.getNewVersionByAppId(appId); 
-		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(newVersion), response);  
-	}
+    /**
+     * 获取最新版本，通过浏览器{host:port}/app/version/newVersion.htm?appId=1进行访问
+     * @param appId
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/newVersion")
+    @Security()
+    public void newVersion(Integer appId, HttpServletRequest request, HttpServletResponse response) {
+        TVersion newVersion = versionService.getNewVersionByAppId(appId);
+        WebUtil.ajaxOutput(AjaxResult.newSuccessResult(newVersion), response);
+    }
 
 }
