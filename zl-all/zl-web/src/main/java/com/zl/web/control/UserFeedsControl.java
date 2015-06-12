@@ -63,16 +63,17 @@ public class UserFeedsControl {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userFeedsList", list);
+		map.put("count", count);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
 
-	@RequestMapping("/addLike")
+	@RequestMapping("/addPraise")
 	@Security
-	public void getFeedsByUserId(HttpServletRequest request, HttpServletResponse response,
+	public void addPraise(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "feedsId", required = true, defaultValue = "0") Long feedsId) {
 
-		int count = userFeedsService.addLike(feedsId, 1);
+		int count = userFeedsService.addPraise(feedsId, 1);
 		if (count > 0) {
 			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(true), response);
 		} else {
