@@ -13,6 +13,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.zl.client.user.TUserService;
+import com.zl.common.util.Constant;
+import com.zl.common.util.ProjectEnv;
 import com.zl.common.util.token.TokenUtils;
 import com.zl.pojo.TUser;
 import com.zl.web.app.Consts;
@@ -26,8 +28,22 @@ public class SecurityAop {
 	@Autowired
 	private TUserService tUserService;
 
+	@Autowired
+	private ProjectEnv projectEnv;
+
 	@Around("@annotation(com.zl.web.annotation.Security)")
 	public void doCheck(ProceedingJoinPoint joinPoint) {
+		if (projectEnv != null && StringUtils.isNotBlank(projectEnv.getEnv())
+				&& Constant.ENV.TEST.equals(projectEnv.getEnv())) {
+			try {
+				joinPoint.proceed();
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return ;
+		}
+
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getRequest();
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
