@@ -49,7 +49,7 @@ public final class Page implements Serializable {
 
 	public Page setPageByPageNoAndPageSize(int pageNo, int pageSize) {
 		if (pageNo < 1) {
-			pageSize = 1;
+			pageNo = 1;
 		}
 		if (pageSize < 1) {
 			pageSize = 10;
