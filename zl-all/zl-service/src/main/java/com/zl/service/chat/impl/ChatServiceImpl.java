@@ -66,7 +66,7 @@ public class ChatServiceImpl implements ChatService {
         Criteria criteria = condition.createCriteria();
         criteria.andToIdEqualTo(query.getUserId());
         if (query.getSince() != null) {
-            criteria.andModifyTimeGreaterThanOrEqualTo(query.getSince());
+            criteria.andModifyTimeGreaterThan(query.getSince());
         }
         if (query.getMax() != null) {
             criteria.andModifyTimeLessThanOrEqualTo(query.getMax());
