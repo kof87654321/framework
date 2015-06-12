@@ -8,7 +8,7 @@
 		update T_User_Feeds set praise = praise + #{addPraise} WHERE id = #{id}
 	</update>
 	
-	<update id="addLikeCount">
+	<update id="addPraiseCount">
 		update T_User_Feeds set praise = praise + #{addPraise} WHERE id = #{id}
 	</update>
 
