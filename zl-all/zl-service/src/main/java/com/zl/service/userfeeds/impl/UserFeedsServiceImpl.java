@@ -21,11 +21,13 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 	@Autowired
 	private TUserFeedsMapperExt userFeedsMapperExt;
  
-	public int insertTUserFeeds(TUserFeeds tUserFeeds) {
+	public Long insertTUserFeeds(TUserFeeds tUserFeeds) {
 		Date date = new Date();
 		tUserFeeds.setCreateTime(date);
 		tUserFeeds.setModifyTime(date);
-		return this.userFeedsMapperExt.insert(tUserFeeds);
+		this.userFeedsMapperExt.insert(tUserFeeds);
+		return tUserFeeds.getId();
+		
 	}
 
 	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime) {
