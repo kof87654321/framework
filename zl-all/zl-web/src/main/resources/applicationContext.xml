@@ -30,5 +30,11 @@
 		<constructor-arg name="bucketName" value="${oss.bucket.name}"></constructor-arg>		
 	</bean>
 	
+	<!-- 互亿短信服务工具类 -->
+	<bean id="huYiSmsUtil" class="com.zl.common.util.oss.HuYiSmsUtil">
+		<constructor-arg name="account" value="${sms.huyi.account}"></constructor-arg>		
+		<constructor-arg name="password" value="${sms.huyi.password}"></constructor-arg>
+	</bean>
+	
 	
 </beans>  
