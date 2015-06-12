@@ -13,9 +13,9 @@ public interface TUserService {
 
     public TUserVO updateUser(TUserVO tUserVO, boolean profile);
 
-    public int updateTUserProfile(TUserProfile tUserProfile, long userId, long id);
+    public Long updateTUserProfile(TUserProfile tUserProfile, long userId, long id);
     
-    public int insertTUserProfile(List<TUserProfile> tUserProfileList, long userId);
+    public Long insertTUserProfile(List<TUserProfile> tUserProfileList, long userId);
 
     public List<TUserProfile> getTUserProfileList(long userId, long id,Page page);
 
