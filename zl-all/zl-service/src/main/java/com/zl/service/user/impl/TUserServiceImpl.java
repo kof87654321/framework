@@ -134,6 +134,8 @@ public class TUserServiceImpl implements TUserService {
 				|| tUserProfile.getId() != id) {
 			return 0;
 		}
+		
+		tUserProfile.setModifyTime(new Date());
 
 		// TUserProfileExample tUserProfileExample = new TUserProfileExample();
 		// Criteria criteria = tUserProfileExample.createCriteria();
@@ -212,6 +214,8 @@ public class TUserServiceImpl implements TUserService {
 			if (tUserProfile.getUserId() == null || tUserProfile.getUserId().longValue() != userId) {
 				continue;
 			}
+			tUserProfile.setCreateTime(new Date());
+			tUserProfile.setModifyTime(new Date());
 			count = this.userProfileMapperExt.insert(tUserProfile);
 		}
 
