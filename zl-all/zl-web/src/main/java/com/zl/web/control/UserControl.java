@@ -80,7 +80,7 @@ public class UserControl {
 	@RequestMapping("/searchUserList")
 	@Security
 	public void searchUserList(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
+			@RequestParam(value = "userId", required = false, defaultValue = "0") Long userId,
 			@RequestParam(value = "area", required = false, defaultValue = "0") Integer area,
 			@RequestParam(value = "industry", required = false, defaultValue = "0") Integer industry,
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
