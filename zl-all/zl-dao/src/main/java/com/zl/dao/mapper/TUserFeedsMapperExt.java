@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Param;
  * 23:56:33
  */
 public interface TUserFeedsMapperExt extends TUserFeedsMapper {
-	void addLike(Map<String, Object> map);
+	void addPraise(Map<String, Object> map);
 	
-	void addLikeCount(@Param("addLike") int addLike ,@Param("id") Long id);
+	void addLikeCount(@Param("addPraise") int addLike ,@Param("id") Long id);
 	
 }
