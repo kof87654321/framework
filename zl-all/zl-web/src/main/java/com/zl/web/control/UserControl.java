@@ -196,8 +196,8 @@ public class UserControl {
 		tUserProfile.setUserId(userId);
 		tUserProfile.setStatus(Constant.STATUS.NOMARL);
 		tUserProfileList.add(tUserProfile);
-		int count = this.tUserService.insertTUserProfile(tUserProfileList, userId);
-		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(count), response);
+		long id = this.tUserService.insertTUserProfile(tUserProfileList, userId);
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
 
 	}
 
@@ -234,7 +234,7 @@ public class UserControl {
 		List<TUserProfile> tUserProfileListDB = new ArrayList<TUserProfile>();
 		tUserProfileListDB.add(tUserProfile);
 
-		int count = this.tUserService.insertTUserProfile(tUserProfileListDB, userId);
+		this.tUserService.insertTUserProfile(tUserProfileListDB, userId);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
 
 	}
