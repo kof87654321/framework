@@ -1,1 +1,1 @@
-{"group":"version","headerKeyValues":[],"method":"get","name":"获取最新版本信息","params":{"appId":"1"},"paramsKeyValues":[{"key":"appId","value":"1"}],"url":"http://127.0.0.1:8080/app/version/newVersion.htm"}
+{"apiRemark":"通过该接口能获取到当前最新的app版本","group":"version","headerKeyValues":[],"method":"get","name":"获取最新版本信息","params":{"appId":"1"},"paramsKeyValues":[{"key":"appId","value":"1"}],"url":"http://127.0.0.1:8080/app/version/newVersion.htm"}

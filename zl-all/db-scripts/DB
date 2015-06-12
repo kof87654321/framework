@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`T_User_Profile` (
   `Introduce` VARCHAR(60) NULL COMMENT '介绍',
   `CreateTime` DATETIME NULL,
   `ModifyTime` DATETIME NULL,
+  `Status` int(2) NULL COMENT '状态',
   `Attributes` VARCHAR(1024) NULL COMMENT '描述：Json格式',
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
