@@ -10,7 +10,7 @@ public interface Constant {
 
 	public static interface ENV {
 		public static String TEST = "test";
-		public static String YUFA = "yufa";
+		public static String PRE = "pre";
 		public static String ONLINE = "online";
 	}
 }
