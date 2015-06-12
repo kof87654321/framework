@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zl.client.user.TUserService;
+import com.zl.common.util.Constant;
+import com.zl.common.util.ListUtil;
 import com.zl.common.util.token.TokenUtils;
 import com.zl.dao.mapper.TUserInfoMapperExt;
 import com.zl.dao.mapper.TUserMapperExt;
@@ -46,16 +48,14 @@ public class TUserServiceImpl implements TUserService {
 		}
 
 		if (token) {
-			String strToken = TokenUtils.getToken(tUser.getId(),
-					tUser.getPassword(), tUser.getLastLoginTime());
+			String strToken = TokenUtils.getToken(tUser.getId(), tUser.getPassword(), tUser.getLastLoginTime());
 			if (StringUtils.isNotBlank(strToken)) {
 				tUser.setToken(strToken);
 			}
 		}
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
 		tUserInfoExample.createCriteria().andUserIdEqualTo(userId);
-		List<TUserInfo> tUserInfoList = this.userInfoMapperExt
-				.selectByExample(tUserInfoExample);
+		List<TUserInfo> tUserInfoList = this.userInfoMapperExt.selectByExample(tUserInfoExample);
 		TUserInfo tUserInfo = null;
 		if (tUserInfoList != null && tUserInfoList.size() > 0) {
 			tUserInfo = tUserInfoList.get(0);
@@ -64,8 +64,7 @@ public class TUserServiceImpl implements TUserService {
 		if (profile) {
 			TUserProfileExample tUserProfileExample = new TUserProfileExample();
 			tUserProfileExample.createCriteria().andUserIdEqualTo(userId);
-			tUserProfileList = this.userProfileMapperExt
-					.selectByExample(tUserProfileExample);
+			tUserProfileList = this.userProfileMapperExt.selectByExample(tUserProfileExample);
 		}
 
 		TUserVO tUserVO = new TUserVO();
@@ -80,14 +79,11 @@ public class TUserServiceImpl implements TUserService {
 		if (tUserVO == null) {
 			return null;
 		}
-		this.userInfoMapperExt.updateByPrimaryKeySelective(tUserVO
-				.gettUserInfo());
+		this.userInfoMapperExt.updateByPrimaryKeySelective(tUserVO.gettUserInfo());
 		this.userMapperExt.updateByPrimaryKeySelective(tUserVO.gettUser());
-		if (profile && tUserVO.gettUserProfileList() != null
-				&& tUserVO.gettUserProfileList().size() > 0) {
+		if (profile && tUserVO.gettUserProfileList() != null && tUserVO.gettUserProfileList().size() > 0) {
 			for (int i = 0; i < tUserVO.gettUserProfileList().size(); i++) {
-				this.userProfileMapperExt.updateByPrimaryKey(tUserVO
-						.gettUserProfileList().get(i));
+				this.userProfileMapperExt.updateByPrimaryKey(tUserVO.gettUserProfileList().get(i));
 			}
 		}
 		return this.getUserVOById(tUserVO.gettUser().getId(), false, true);
@@ -133,10 +129,8 @@ public class TUserServiceImpl implements TUserService {
 	}
 
 	@Override
-	public int updateTUserProfile(TUserProfile tUserProfile, long userId,
-			long id) {
-		if (userId <= 0 || id <= 0 || tUserProfile == null
-				|| tUserProfile.getUserId() != userId
+	public int updateTUserProfile(TUserProfile tUserProfile, long userId, long id) {
+		if (userId <= 0 || id <= 0 || tUserProfile == null || tUserProfile.getUserId() != userId
 				|| tUserProfile.getId() != id) {
 			return 0;
 		}
@@ -144,13 +138,11 @@ public class TUserServiceImpl implements TUserService {
 		// TUserProfileExample tUserProfileExample = new TUserProfileExample();
 		// Criteria criteria = tUserProfileExample.createCriteria();
 		// criteria.andIdEqualTo(id);
-		return this.userProfileMapperExt
-				.updateByPrimaryKeySelective(tUserProfile);
+		return this.userProfileMapperExt.updateByPrimaryKeySelective(tUserProfile);
 	}
 
 	@Override
-	public List<TUserProfile> getTUserProfileList(long userId, long id,
-			Page page) {
+	public List<TUserProfile> getTUserProfileList(long userId, long id, Page page) {
 
 		if (userId <= 0 && id <= 0) {
 			return null;
@@ -160,8 +152,7 @@ public class TUserServiceImpl implements TUserService {
 		}
 		List<TUserProfile> list = new ArrayList<TUserProfile>();
 		if (id > 0) {
-			TUserProfile tUserProfile = this.userProfileMapperExt
-					.selectByPrimaryKey(id);
+			TUserProfile tUserProfile = this.userProfileMapperExt.selectByPrimaryKey(id);
 			list.add(tUserProfile);
 			return list;
 		}
@@ -172,6 +163,7 @@ public class TUserServiceImpl implements TUserService {
 			criteria.andIdEqualTo(id);
 		}
 		criteria.andUserIdEqualTo(userId);
+		criteria.andStatusIn(ListUtil.getIntegerList(Constant.STATUS.CHECKED, Constant.STATUS.NOMARL));
 		tUserProfileExample.setOrderByClause("CreateTime DESC");
 		tUserProfileExample.setPage(page);
 		return this.userProfileMapperExt.selectByExample(tUserProfileExample);
@@ -187,11 +179,9 @@ public class TUserServiceImpl implements TUserService {
 	}
 
 	@Override
-	public List<TUserVO> getListByAreaAndIndustry(int area, int industry,
-			Page page) {
+	public List<TUserVO> getListByAreaAndIndustry(int area, int industry, Page page) {
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
-		com.zl.pojo.TUserInfoExample.Criteria criteria = tUserInfoExample
-				.createCriteria();
+		com.zl.pojo.TUserInfoExample.Criteria criteria = tUserInfoExample.createCriteria();
 		if (area > 0) {
 			criteria.andAreaEqualTo(area);
 		}
@@ -200,17 +190,46 @@ public class TUserServiceImpl implements TUserService {
 		}
 		tUserInfoExample.setOrderByClause("CreateTime DESC");
 		tUserInfoExample.setPage(page);
-		List<TUserInfo> list = this.userInfoMapperExt
-				.selectByExample(tUserInfoExample);
+		List<TUserInfo> list = this.userInfoMapperExt.selectByExample(tUserInfoExample);
 		if (list == null || list.size() <= 0) {
 			return null;
 		}
 		List<TUserVO> returnlist = new ArrayList<TUserVO>();
 		for (TUserInfo tUserInfo : list) {
-			TUserVO tUserVO = this.getUserVOById(tUserInfo.getUserId(), false,
-					false);
+			TUserVO tUserVO = this.getUserVOById(tUserInfo.getUserId(), false, false);
 			returnlist.add(tUserVO);
 		}
 		return returnlist;
+	}
+
+	@Override
+	public int insertTUserProfile(List<TUserProfile> tUserProfileList, long userId) {
+		if (userId <= 0 || tUserProfileList == null || tUserProfileList.size() <= 0) {
+			return 0;
+		}
+		int count = 0;
+		for (TUserProfile tUserProfile : tUserProfileList) {
+			if (tUserProfile.getUserId() == null || tUserProfile.getUserId().longValue() != userId) {
+				continue;
+			}
+			count = this.userProfileMapperExt.insert(tUserProfile);
+		}
+
+		return count;
+	}
+
+	@Override
+	public int deleteTUserProfileByIdAndUserId(Long userId, long id) {
+		// return this.userProfileMapperExt.;
+		if (userId == null || userId <= 0 || id <= 0) {
+			return 0;
+		}
+		TUserProfile tUserProfile = this.userProfileMapperExt.selectByPrimaryKey(id);
+		if (tUserProfile == null || tUserProfile.getUserId().longValue() != userId) {
+			return 0;
+		}
+
+		tUserProfile.setStatus(Constant.STATUS.DELETE);
+		return this.userProfileMapperExt.updateByPrimaryKey(tUserProfile);
 	}
 }
