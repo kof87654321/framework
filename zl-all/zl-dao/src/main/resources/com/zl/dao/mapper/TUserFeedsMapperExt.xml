@@ -4,12 +4,12 @@
 	<!-- 用于扩展com.zl.dao.mapper.TUserFeedsMapper接口 可通过com.zl.dao.mapper.TUserFeedsMapper.BaseResultMap 
 		和com.zl.dao.mapper.TUserFeedsMapper.Base_Column_List对其进行引用 by is_zhoufeng@163.com 
 		2015-06-05 23:56:33. -->
-	<update id="addLike" parameterType="java.util.Map">
-		update T_User_Feeds set Like = Like + #{addLike} WHERE id = #{id}
+	<update id="addPraise" parameterType="java.util.Map">
+		update T_User_Feeds set praise = praise + #{addPraise} WHERE id = #{id}
 	</update>
 	
 	<update id="addLikeCount">
-		update T_User_Feeds set Like = Like + #{addLike} WHERE id = #{id}
+		update T_User_Feeds set praise = praise + #{addPraise} WHERE id = #{id}
 	</update>
 
 </mapper>
