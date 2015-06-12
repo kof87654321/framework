@@ -6,7 +6,7 @@ import com.zl.pojo.Page;
 import com.zl.pojo.TUserFeeds;
 
 public interface UserFeedsService {
-	public int insertTUserFeeds(TUserFeeds tUserFeeds);
+	public Long insertTUserFeeds(TUserFeeds tUserFeeds);
 	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime,Page page);
 	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime);
 	public int addLike(Long id, int count);
