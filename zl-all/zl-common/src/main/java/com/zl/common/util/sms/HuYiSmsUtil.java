@@ -3,7 +3,6 @@ package com.zl.common.util.sms;
 import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Document;
@@ -74,12 +73,8 @@ public class HuYiSmsUtil {
 			}else{
 				log.error("短信提交失败,{}" ,info);  
 			}
-		} catch (HttpException e) {
-			log.error(e.getMessage() , e);
-		} catch (IOException e) {
-			log.error(e.getMessage() , e);
-		} catch (DocumentException e) {
-			log.error(e.getMessage() , e);
+		} catch ( IOException | DocumentException e) {
+			log.error("短信发送失败" , e); 
 		}	
 		return false ; 
 	}
