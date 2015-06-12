@@ -2,7 +2,7 @@ package com.zl.common;
 
 import org.junit.Test;
 
-import com.zl.common.util.oss.HuYiSmsUtil;
+import com.zl.common.util.sms.HuYiSmsUtil;
 
 public class HuYiSmsTest {
 	

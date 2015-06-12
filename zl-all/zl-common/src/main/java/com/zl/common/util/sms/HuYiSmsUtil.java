@@ -1,4 +1,4 @@
-package com.zl.common.util.oss;
+package com.zl.common.util.sms;
 
 import java.io.IOException;
 
