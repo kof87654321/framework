@@ -2,6 +2,7 @@ package com.zl.client.user;
 
 import java.util.List;
 
+import com.zl.pojo.Page;
 import com.zl.pojo.TUser;
 import com.zl.pojo.TUserProfile;
 import com.zl.vo.TUserVO;
@@ -14,10 +15,12 @@ public interface TUserService {
 
     public int updateTUserProfile(TUserProfile tUserProfile, long userId, long id);
 
-    public List<TUserProfile> getTUserProfileList(long userId, long id);
+    public List<TUserProfile> getTUserProfileList(long userId, long id,Page page);
 
     public TUserVO insertUser(TUserVO tUserVO);
 
     public TUser getUserById(Long userId);
+    
+    public List<TUserVO> getListByAreaAndIndustry(int area,int industry,Page page);
 
 }

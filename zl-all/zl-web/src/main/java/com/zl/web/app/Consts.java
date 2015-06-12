@@ -105,5 +105,10 @@ public interface Consts {
 		
 	}
 	
+	
+	public static interface ERRORCode{
+		public static int SERVER_ERROR = -404; // 系统异常
+		public static int TOKEN_ERROR = -403; //token异常
+	}
 
 }

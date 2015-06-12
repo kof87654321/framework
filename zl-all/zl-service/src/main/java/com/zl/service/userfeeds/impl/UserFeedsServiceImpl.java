@@ -28,30 +28,32 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return this.userFeedsMapperExt.insert(tUserFeeds);
 	}
 
-	public int getUserFeedsCount4TUserFeedsExample(long userId, int bigPageCount,long bigId) {
+	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long bigId) {
 
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
 		Criteria criteria = tUserFeedsExample.createCriteria();
 		criteria.andUserIdEqualTo(userId );
-		if (bigPageCount > 0) {
-			criteria.andPageCountGreaterThanOrEqualTo(bigPageCount);
+		if (greaterThanOrEqualToPicCount > 0) {
+			criteria.andPageCountGreaterThanOrEqualTo(greaterThanOrEqualToPicCount);
 		}
 		if (bigId>0) {
 			criteria.andIdGreaterThanOrEqualTo(bigId);
 		}
+		tUserFeedsExample.setOrderByClause("CreateTime DESC");
 		return this.userFeedsMapperExt.countByExample(tUserFeedsExample);
 	}
 
-	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int bigPageCount,long bigId, Page page) {
+	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long bigId, Page page) {
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
 		Criteria criteria = tUserFeedsExample.createCriteria();
 		criteria.andUserIdEqualTo(userId );
-		if (bigPageCount > 0) {
-			criteria.andPageCountGreaterThanOrEqualTo(bigPageCount);
+		if (greaterThanOrEqualToPicCount > 0) {
+			criteria.andPageCountGreaterThanOrEqualTo(greaterThanOrEqualToPicCount);
 		}
 		if (bigId>0) {
 			criteria.andIdGreaterThanOrEqualTo(bigId);
 		}
+		tUserFeedsExample.setOrderByClause("CreateTime DESC");
 		tUserFeedsExample.setPage(page);
 		return this.userFeedsMapperExt.selectByExample(tUserFeedsExample);
 	}
