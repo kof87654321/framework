@@ -235,7 +235,7 @@ public class UserControl {
 		tUserProfileListDB.add(tUserProfile);
 
 		int count = this.tUserService.insertTUserProfile(tUserProfileListDB, userId);
-		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(count), response);
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
 
 	}
 
