@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,7 +22,8 @@ import com.zl.web.app.Consts;
 import com.zl.web.app.util.HttpParamUtil;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
-
+@Controller
+@RequestMapping("/userFeeds")
 public class UserFeedsControl {
 
 	private static final Logger log = LoggerFactory.getLogger(UserFeedsControl.class);
