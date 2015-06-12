@@ -51,14 +51,15 @@ public class UserFeedsControl {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
-			@RequestParam(value = "all", required = false, defaultValue = "0") Long all,
+			@RequestParam(value = "modifyTime", required = false, defaultValue = "0") Long modifyTime,
 			@RequestParam(value = "greaterThanOrEqualToPicCount", required = false, defaultValue = "0") Integer greaterThanOrEqualToPicCount,
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
 
 		Page page = new Page();
+		int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(userId, greaterThanOrEqualToPicCount, modifyTime);
 		List<TUserFeeds> list = userFeedsService.getUserFeedsList4TUserFeedsExample(userId,
-				greaterThanOrEqualToPicCount, 0l, page.setPageByPageNoAndPageSize(pageNo, pageSize));
+				greaterThanOrEqualToPicCount, modifyTime, page.setPageByPageNoAndPageSize(pageNo, pageSize));
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userFeedsList", list);
