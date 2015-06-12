@@ -109,7 +109,7 @@ public class TUserServiceTest extends BaseServiceTest {
 		for (int i = 0; i < list.size(); i++) {
 			TUserProfile tUserProfile = list.get(i);
 			tUserProfile.setPosition("帅哥11");
-			int count = this.tUserService.updateTUserProfile(tUserProfile, tUserProfile.getUserId(),
+			long count = this.tUserService.updateTUserProfile(tUserProfile, tUserProfile.getUserId(),
 					tUserProfile.getId());
 			System.out.println("count=" + count);
 		}
