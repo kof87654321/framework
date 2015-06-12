@@ -129,10 +129,10 @@ public class TUserServiceImpl implements TUserService {
 	}
 
 	@Override
-	public int updateTUserProfile(TUserProfile tUserProfile, long userId, long id) {
+	public Long updateTUserProfile(TUserProfile tUserProfile, long userId, long id) {
 		if (userId <= 0 || id <= 0 || tUserProfile == null || tUserProfile.getUserId() != userId
 				|| tUserProfile.getId() != id) {
-			return 0;
+			return 0l;
 		}
 		
 		tUserProfile.setModifyTime(new Date());
@@ -140,7 +140,8 @@ public class TUserServiceImpl implements TUserService {
 		// TUserProfileExample tUserProfileExample = new TUserProfileExample();
 		// Criteria criteria = tUserProfileExample.createCriteria();
 		// criteria.andIdEqualTo(id);
-		return this.userProfileMapperExt.updateByPrimaryKeySelective(tUserProfile);
+		this.userProfileMapperExt.updateByPrimaryKeySelective(tUserProfile);
+		return id;
 	}
 
 	@Override
@@ -205,21 +206,22 @@ public class TUserServiceImpl implements TUserService {
 	}
 
 	@Override
-	public int insertTUserProfile(List<TUserProfile> tUserProfileList, long userId) {
+	public Long insertTUserProfile(List<TUserProfile> tUserProfileList, long userId) {
 		if (userId <= 0 || tUserProfileList == null || tUserProfileList.size() <= 0) {
-			return 0;
+			return 0l;
 		}
-		int count = 0;
+		Long id = 0l;
 		for (TUserProfile tUserProfile : tUserProfileList) {
 			if (tUserProfile.getUserId() == null || tUserProfile.getUserId().longValue() != userId) {
 				continue;
 			}
 			tUserProfile.setCreateTime(new Date());
 			tUserProfile.setModifyTime(new Date());
-			count = this.userProfileMapperExt.insert(tUserProfile);
+			this.userProfileMapperExt.insert(tUserProfile);
+			id = tUserProfile.getId();
 		}
 
-		return count;
+		return id;
 	}
 
 	@Override
