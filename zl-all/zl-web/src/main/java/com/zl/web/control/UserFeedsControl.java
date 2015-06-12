@@ -18,6 +18,7 @@ import com.zl.pojo.Page;
 import com.zl.pojo.TUserFeeds;
 import com.zl.web.annotation.Security;
 import com.zl.web.app.Consts;
+import com.zl.web.app.util.HttpParamUtil;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
@@ -27,6 +28,20 @@ public class UserFeedsControl {
 
 	@Autowired
 	private UserFeedsService userFeedsService;
+
+	@RequestMapping("/postUserFeeds")
+	@Security
+	public void postUserFeeds(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId) {
+
+		TUserFeeds tUserFeeds = new TUserFeeds();
+		tUserFeeds.setContent(request.getParameter("content"));
+		tUserFeeds.setUserId(userId);
+		tUserFeeds.setPraise(0);
+		tUserFeeds.setPageCount(HttpParamUtil.integerParam(request, "pageCount"));
+		Long id = this.userFeedsService.insertTUserFeeds(tUserFeeds);
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
+	}
 
 	@RequestMapping("/getUserFeedsByUserId")
 	@Security
