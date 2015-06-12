@@ -195,8 +195,10 @@ public class UserControl {
 		tUserProfile.setPosition(request.getParameter("position"));
 		tUserProfile.setUserId(userId);
 		tUserProfile.setStatus(Constant.STATUS.NOMARL);
+		tUserProfile.setModifyTime(new Date());
+		tUserProfile.setCreateTime(new Date());
 		tUserProfileList.add(tUserProfile);
-		long id = this.tUserService.insertTUserProfile(tUserProfileList, userId);
+		Long id = this.tUserService.insertTUserProfile(tUserProfileList, userId);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
 
 	}
