@@ -14,6 +14,8 @@ public interface TUserService {
     public TUserVO updateUser(TUserVO tUserVO, boolean profile);
 
     public int updateTUserProfile(TUserProfile tUserProfile, long userId, long id);
+    
+    public int insertTUserProfile(List<TUserProfile> tUserProfileList, long userId);
 
     public List<TUserProfile> getTUserProfileList(long userId, long id,Page page);
 
@@ -22,5 +24,7 @@ public interface TUserService {
     public TUser getUserById(Long userId);
     
     public List<TUserVO> getListByAreaAndIndustry(int area,int industry,Page page);
+    
+    public int deleteTUserProfileByIdAndUserId(Long userId,long id);
 
 }
