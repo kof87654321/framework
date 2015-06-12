@@ -60,11 +60,11 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return this.userFeedsMapperExt.selectByExample(tUserFeedsExample);
 	}
 
-	public int addLike(Long id, int count) {
+	public int addPraise(Long id, int count) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
-		map.put("addLike", count);
-		this.userFeedsMapperExt.addLike(map);
+		map.put("addPraise", count);
+		this.userFeedsMapperExt.addPraise(map);
 		return 1;
 	}
 
