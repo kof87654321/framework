@@ -26,7 +26,7 @@ public class UserFeedsServiceTest extends BaseServiceTest {
 		tUserFeeds.setPageCount(1);
 		tUserFeeds.setUserId(1l);
 		tUserFeeds.setContent("123");
-		int id = userFeedsService.insertTUserFeeds(tUserFeeds);
+		long id = userFeedsService.insertTUserFeeds(tUserFeeds);
 		System.out.println("id=" + id);
 	}
 
