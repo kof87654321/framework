@@ -2,7 +2,7 @@
 <configuration scan="false" scanPeriod="60 seconds" debug="false">
 	<!-- <configuration scan="false" scanPeriod="60 seconds" debug="false"> -->
 
-	<property name="log.level" value="DEBUG" />
+	<property name="log.level" value="INFO" />
 	<property name="log.dir" value="D:/zl_logs/web" />
 
 	<!-- 控制台打印 -->

@@ -38,23 +38,7 @@
 		<servlet-class>com.zl.web.app.servlet.InitContextServlet</servlet-class> 
 		<load-on-startup>2</load-on-startup>
 	</servlet>
-	
-	<!-- *********ApiUtil******** -->
-	<servlet>
-		<servlet-name>initAppUtil</servlet-name>
-		<servlet-class>com.zl.web.app.servlet.InitAppUtilServlet</servlet-class> 
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-	<servlet>
-		<servlet-name>api</servlet-name>
-		<servlet-class>api.sevlet.ApiUtilServlet</servlet-class>
-	</servlet> 
-	<servlet-mapping>
-		<servlet-name>api</servlet-name> 
-		<url-pattern>/api.json</url-pattern>
-	</servlet-mapping>
-	<!-- *********ApiUtil******** -->
-	
+		
 	<filter>
 		<filter-name>charsetFilter</filter-name>
 		<filter-class>com.zl.web.app.filter.CharsetEncodeFilter</filter-class>

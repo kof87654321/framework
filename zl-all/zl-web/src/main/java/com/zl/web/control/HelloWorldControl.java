@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import com.zl.common.util.bit.PropertiesConfigure;
 import com.zl.web.app.Consts;
 import com.zl.web.app.util.WebUtil;
@@ -53,7 +56,11 @@ public class HelloWorldControl {
 	 * @param modelMap
 	 */
 	@RequestMapping("json") 
-	public void json(HttpServletRequest request, HttpServletResponse response) {
+	@ApiOperation(value="JSON测试",httpMethod = "POST" , notes = "JSON测试。。。")
+	public void json(
+			@ApiParam(required = false ,name = "param" , value = "随便什么参数")
+			@RequestParam(value="param" , required = false )Integer param , 
+			HttpServletRequest request, HttpServletResponse response) {
 		
 		//业务成功，使用如下方式输出
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult("success"), response); 
