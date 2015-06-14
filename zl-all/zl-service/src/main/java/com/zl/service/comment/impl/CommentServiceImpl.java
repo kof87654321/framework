@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zl.client.comment.CommentService;
+import com.zl.common.util.Constant;
+import com.zl.common.util.ListUtil;
 import com.zl.dao.mapper.TCommentMapperExt;
 import com.zl.pojo.Page;
 import com.zl.pojo.TComment;
@@ -32,6 +34,7 @@ public class CommentServiceImpl implements CommentService {
 		TCommentExample commentExample = new TCommentExample();
 		Criteria criteria = commentExample.createCriteria();
 		criteria.andParentIdEqualTo(userFeedsId);
+		criteria.andStatusIn(ListUtil.getIntegerList(Constant.STATUS.CHECKED, Constant.STATUS.NOMARL));
 		// criteria.and
 		commentExample.setPage(page);
 		return this.commentMapperExt.selectByExample(commentExample);
@@ -42,6 +45,7 @@ public class CommentServiceImpl implements CommentService {
 		TCommentExample commentExample = new TCommentExample();
 		Criteria criteria = commentExample.createCriteria();
 		criteria.andParentIdEqualTo(userFeedsId);
+		criteria.andStatusIn(ListUtil.getIntegerList(Constant.STATUS.CHECKED, Constant.STATUS.NOMARL));
 		// criteria.and
 		return this.commentMapperExt.countByExample(commentExample);
 	}
