@@ -33,8 +33,9 @@ public class ValidCodeUtil {
         boolean result = sms.sendSms(mobile, valid);
         if (result) {
             ValidCode.put(mobile, code);
+            return code;
         }
-        return code;
+        return null;
     }
 
     public static boolean checkValid(String mobile, String valid) {
