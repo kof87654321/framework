@@ -24,8 +24,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public TComment insertTComment(TComment tComment) {
-		int id = commentMapperExt.insert(tComment);
-		tComment.setId((long) id);
+		commentMapperExt.insert(tComment);
 		return tComment;
 	}
 
