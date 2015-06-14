@@ -20,42 +20,47 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 
 	@Autowired
 	private TUserFeedsMapperExt userFeedsMapperExt;
- 
+
 	public Long insertTUserFeeds(TUserFeeds tUserFeeds) {
 		Date date = new Date();
 		tUserFeeds.setCreateTime(date);
 		tUserFeeds.setModifyTime(date);
 		this.userFeedsMapperExt.insert(tUserFeeds);
 		return tUserFeeds.getId();
-		
+
 	}
 
-	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime) {
+	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount, long modifyTime) {
 
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
 		Criteria criteria = tUserFeedsExample.createCriteria();
-		criteria.andUserIdEqualTo(userId );
+		if (userId > 0) {
+			criteria.andUserIdEqualTo(userId);
+		}
 		if (greaterThanOrEqualToPicCount > 0) {
 			criteria.andPageCountGreaterThanOrEqualTo(greaterThanOrEqualToPicCount);
 		}
-		if (modifyTime>0) {
+		if (modifyTime > 0) {
 			criteria.andModifyTimeGreaterThan(new Date(modifyTime));
 		}
-		tUserFeedsExample.setOrderByClause("CreateTime DESC");
+		tUserFeedsExample.setOrderByClause("ModifyTime DESC");
 		return this.userFeedsMapperExt.countByExample(tUserFeedsExample);
 	}
 
-	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime, Page page) {
+	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,
+			long modifyTime, Page page) {
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
 		Criteria criteria = tUserFeedsExample.createCriteria();
-		criteria.andUserIdEqualTo(userId );
+		if (userId > 0) {
+			criteria.andUserIdEqualTo(userId);
+		}
 		if (greaterThanOrEqualToPicCount > 0) {
 			criteria.andPageCountGreaterThanOrEqualTo(greaterThanOrEqualToPicCount);
 		}
-		if (modifyTime>0) {
+		if (modifyTime > 0) {
 			criteria.andModifyTimeGreaterThan(new Date(modifyTime));
 		}
-		tUserFeedsExample.setOrderByClause("CreateTime DESC");
+		tUserFeedsExample.setOrderByClause("ModifyTime DESC");
 		tUserFeedsExample.setPage(page);
 		return this.userFeedsMapperExt.selectByExample(tUserFeedsExample);
 	}
@@ -66,6 +71,11 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		map.put("addPraise", count);
 		this.userFeedsMapperExt.addPraise(map);
 		return 1;
+	}
+
+	@Override
+	public TUserFeeds getTUserFeedsById(long id) {
+		return this.userFeedsMapperExt.selectByPrimaryKey(id);
 	}
 
 }
