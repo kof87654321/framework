@@ -20,6 +20,7 @@ import com.zl.client.comment.CommentAndUserBiz;
 import com.zl.client.comment.CommentService;
 import com.zl.client.user.TUserService;
 import com.zl.client.userFeeds.UserFeedsService;
+import com.zl.common.util.Constant;
 import com.zl.pojo.Page;
 import com.zl.pojo.TComment;
 import com.zl.pojo.TUserFeeds;
@@ -93,6 +94,7 @@ public class UserFeedsControl {
 		tComment.setModifyTime(new Date());
 		tComment.setParentId(userFeedsId);
 		tComment.setUserId(userId);
+		tComment.setStatus(Constant.STATUS.NOMARL);
 
 		this.commentService.insertTComment(tComment);
 		if (tComment.getId() != null && tComment.getId() > 0) {
