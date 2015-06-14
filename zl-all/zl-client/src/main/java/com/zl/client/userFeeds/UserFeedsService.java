@@ -11,5 +11,6 @@ public interface UserFeedsService {
 	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime);
 	public int addPraise(Long id, int count);
 	public TUserFeeds getTUserFeedsById(long id);
+	public int addCommentCount(Long id, int count);
 	
 }
