@@ -12,9 +12,8 @@
 	<select id="countsByParentIdsAndExample" parameterType="com.zl.pojo.TCommentExample"
 		resultMap="BaseVOResultMap">
 		select count(*) as commentCount,ParentId from T_Comment
-		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
-		</if>
+		<include refid="com.zl.dao.mapper.TCommentMapper.Example_Where_Clause" />
+		group by ParentId
 	</select>
 
 </mapper>
