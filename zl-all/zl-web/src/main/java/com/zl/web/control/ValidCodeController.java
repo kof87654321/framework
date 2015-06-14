@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zl.common.util.sms.ValidCode;
-import com.zl.common.util.sms.ValidCodeUtil;
+import com.zl.web.app.util.ValidCodeUtil;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
