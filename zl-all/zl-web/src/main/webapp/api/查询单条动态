@@ -1,0 +1,1 @@
+{"group":"动态","headerKeyValues":[],"method":"get","name":"查询单条动态","params":{"pageNo":"1","pageSize":"10","id":"4"},"paramsKeyValues":[{"key":"id","value":"4"},{"key":"pageNo","value":"1"},{"key":"pageSize","value":"10"}],"url":"http://127.0.0.1:8080/userFeeds/getUserFeedsById.htm"}

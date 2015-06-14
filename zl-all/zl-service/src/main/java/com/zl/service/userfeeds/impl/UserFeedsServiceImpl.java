@@ -73,6 +73,11 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return 1;
 	}
 
+	public int addCommentCount(Long id, int count) {
+		this.userFeedsMapperExt.addCommentCount(count, id);
+		return 1;
+	}
+
 	@Override
 	public TUserFeeds getTUserFeedsById(long id) {
 		return this.userFeedsMapperExt.selectByPrimaryKey(id);

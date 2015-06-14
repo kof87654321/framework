@@ -29,6 +29,7 @@ import com.zl.vo.TUserVO;
 import com.zl.web.annotation.Security;
 import com.zl.web.app.Consts;
 import com.zl.web.app.util.HttpParamUtil;
+import com.zl.web.app.util.ValidCodeUtil;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
@@ -96,7 +97,15 @@ public class UserControl {
 	@RequestMapping("/registerUser")
 	public void registerUser(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userName", required = true, defaultValue = "0") String userName,
-			@RequestParam(value = "passWord", required = true, defaultValue = "0") String passWord) {
+			@RequestParam(value = "passWord", required = true, defaultValue = "0") String passWord,
+			@RequestParam(value = "valid", required = true, defaultValue = "0") String valid,
+			@RequestParam(value = "mobile", required = true, defaultValue = "0") String mobile) {
+
+		boolean checkValid = ValidCodeUtil.checkValid(mobile, valid);
+		if (checkValid == false) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "valid error", Consts.ERRORCode.VALID_ERROR), response);
+			return ;
+		}
 
 		TUserVO tUserVO = new TUserVO();
 		TUser tUser = new TUser();

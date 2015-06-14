@@ -112,6 +112,7 @@ public interface Consts {
 		public static int USER_ID_ERROR = -100;// userid 有问题
 		public static int BIZ_ID_ERROR = -101;// 业务主键有问题
 		public static int PARAM_ERROR = -300;// 参数异常
+		public static int VALID_ERROR = -200;//验证码失败
 	}
 
 }

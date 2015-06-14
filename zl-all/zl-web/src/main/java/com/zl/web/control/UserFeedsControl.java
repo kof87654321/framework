@@ -98,6 +98,7 @@ public class UserFeedsControl {
 		tComment.setStatus(Constant.STATUS.NOMARL);
 
 		this.commentService.insertTComment(tComment);
+		this.userFeedsService.addCommentCount(userFeedsId, 1);
 		if (tComment.getId() != null && tComment.getId() > 0) {
 
 		}

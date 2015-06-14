@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Param;
 public interface TUserFeedsMapperExt extends TUserFeedsMapper {
 	void addPraise(Map<String, Object> map);
 	
-	void addPraiseCount(@Param("addPraise") int addLike ,@Param("id") Long id);
+	void addCommentCount(@Param("addCommentCount") int addCommentCount ,@Param("id") Long id);
+	
+	void addPraiseCount(@Param("addPraise") int addPraise ,@Param("id") Long id);
 	
 }
