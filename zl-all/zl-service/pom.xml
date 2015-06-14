@@ -36,6 +36,26 @@
 		 <version>0.0.1-SNAPSHOT</version>
 	</dependency>
   	
+  	<!-- UmengPush 依赖 -->
+  	
+  	<dependency>
+	    <groupId>push</groupId>
+	    <artifactId>umeng-push</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  	
+  	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20090211</version>
+    </dependency>
+    
+    <dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+    </dependency>
+    <!--  UmengPush 依赖 -->
+  	
   	<!-- ***************************** 测试用 *************************** -->
  	<dependency>
 		<groupId>org.springframework</groupId>
