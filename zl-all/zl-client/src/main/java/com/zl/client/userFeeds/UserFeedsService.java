@@ -10,5 +10,6 @@ public interface UserFeedsService {
 	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime,Page page);
 	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,long modifyTime);
 	public int addPraise(Long id, int count);
+	public TUserFeeds getTUserFeedsById(long id);
 	
 }
