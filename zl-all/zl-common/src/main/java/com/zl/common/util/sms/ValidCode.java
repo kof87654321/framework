@@ -11,6 +11,7 @@ public class ValidCode implements Serializable {
 
 	private int tryCount;
 	private String validCode;
+	private String mobile;
 
 	/**
 	 * 偿试次数加1
@@ -33,6 +34,14 @@ public class ValidCode implements Serializable {
 
 	public void setValidCode(String validCode) {
 		this.validCode = validCode;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 }

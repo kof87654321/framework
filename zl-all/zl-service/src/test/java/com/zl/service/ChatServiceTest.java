@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.zl.client.chat.ChatService;
 import com.zl.pojo.ChatQuery;
+import com.zl.pojo.Page;
 import com.zl.pojo.TChat;
 
 /**
@@ -38,8 +39,7 @@ public class ChatServiceTest extends BaseServiceTest {
     public void testRead() {
         ChatQuery query = new ChatQuery();
         query.setUserId(6L);
-        query.setLimit(10);
-        query.setOffset(0);
+        query.setPage(new Page().setPageByPageNoAndPageSize(1, 10));
         List<TChat> result = chatService.readMsg(query);
         System.out.println(result == null);
         if (result != null) {

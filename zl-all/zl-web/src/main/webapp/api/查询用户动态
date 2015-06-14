@@ -1,0 +1,1 @@
+{"group":"动态","headerKeyValues":[],"method":"post","name":"查询用户动态","params":{"userId":"15"},"paramsKeyValues":[{"key":"userId","value":"15"}],"url":"http://127.0.0.1:8080/userFeeds/getUserFeedsByUserId.htm"}

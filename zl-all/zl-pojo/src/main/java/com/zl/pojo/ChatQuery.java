@@ -5,57 +5,57 @@ import java.util.Date;
 
 public class ChatQuery implements Serializable {
 
-    /**  */
-    private static final long serialVersionUID = -8199178486449651952L;
+	/**  */
+	private static final long serialVersionUID = -8199178486449651952L;
 
-    private Long              userId;
+	private Long userId;
 
-    private int               offset;
+	private Page page;
 
-    private int               limit;
+	private Date since;
 
-    private Date              since;
+	private Date max;
 
-    private Date              max;
+	private Integer status;
 
-    public Long getUserId() {
-        return userId;
-    }
+	public Long getUserId() {
+		return userId;
+	}
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
-    public int getOffset() {
-        return offset;
-    }
+	public Date getSince() {
+		return since;
+	}
 
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
+	public void setSince(Date since) {
+		this.since = since;
+	}
 
-    public int getLimit() {
-        return limit;
-    }
+	public Date getMax() {
+		return max;
+	}
 
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
+	public void setMax(Date max) {
+		this.max = max;
+	}
 
-    public Date getSince() {
-        return since;
-    }
+	public Page getPage() {
+		return page;
+	}
 
-    public void setSince(Date since) {
-        this.since = since;
-    }
+	public void setPage(Page page) {
+		this.page = page;
+	}
 
-    public Date getMax() {
-        return max;
-    }
+	public Integer getStatus() {
+		return status;
+	}
 
-    public void setMax(Date max) {
-        this.max = max;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 }
