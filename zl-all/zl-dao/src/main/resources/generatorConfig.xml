@@ -51,7 +51,7 @@
 		</javaClientGenerator>
 		
 		<!-- 需要生成的表 -->
-		<table schema="T_User" tableName="T_User"> 
+		<table schema="T_User_Feeds" tableName="T_User_Feeds"> 
 			<property name="useActualColumnNames" value="true" />
 			<property name="generateExt" value="false" />
 			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
