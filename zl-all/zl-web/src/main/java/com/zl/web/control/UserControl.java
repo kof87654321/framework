@@ -104,7 +104,7 @@ public class UserControl {
 		boolean checkValid = ValidCodeUtil.checkValid(mobile, valid);
 		if (checkValid == false) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "valid error", Consts.ERRORCode.VALID_ERROR), response);
-			return ;
+			return;
 		}
 
 		TUserVO tUserVO = new TUserVO();
@@ -113,6 +113,7 @@ public class UserControl {
 		tUser.setStatus(Constant.STATUS.NOMARL);
 		tUser.setPassword(passWord);
 		tUser.setUserName(userName);
+		tUser.setInviteCode(request.getParameter("inviteCode"));
 
 		TUserInfo tUserInfo = new TUserInfo();
 
