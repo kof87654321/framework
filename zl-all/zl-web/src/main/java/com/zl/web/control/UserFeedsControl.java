@@ -67,6 +67,7 @@ public class UserFeedsControl {
 		tUserFeeds.setContent(request.getParameter("content"));
 		tUserFeeds.setUserId(userId);
 		tUserFeeds.setPraise(0);
+		tUserFeeds.setCommentCount(0);
 		tUserFeeds.setPageCount(HttpParamUtil.integerParam(request, "pageCount"));
 		Long id = this.userFeedsService.insertTUserFeeds(tUserFeeds);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
