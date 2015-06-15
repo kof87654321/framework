@@ -16,18 +16,43 @@ import com.zl.pojo.TCommentExample;
 import com.zl.pojo.TCommentExample.Criteria;
 import com.zl.vo.TCommentCountVO;
 
+/**
+ * 
+* @ClassName: CommentServiceImpl 
+* @Description: 评论service
+* @author youbush
+* @date 2015年6月15日 下午8:32:39 
+*
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private TCommentMapperExt commentMapperExt;
 
+	/*
+	 * 
+	* <p>Title: insertTComment</p> 
+	* <p>Description: 插入单条评论</p> 
+	* @param tComment
+	* @return 
+	* @see com.zl.client.comment.CommentService#insertTComment(com.zl.pojo.TComment)
+	 */
 	@Override
 	public TComment insertTComment(TComment tComment) {
 		commentMapperExt.insert(tComment);
 		return tComment;
 	}
 
+	/*
+	 * 
+	* <p>Title: getListTComment4UserFeedsId</p> 
+	* <p>Description: 根据动态id，查询评论的列表</p> 
+	* @param userFeedsId
+	* @param page
+	* @return 
+	* @see com.zl.client.comment.CommentService#getListTComment4UserFeedsId(long, com.zl.pojo.Page)
+	 */
 	@Override
 	public List<TComment> getListTComment4UserFeedsId(long userFeedsId, Page page) {
 		TCommentExample commentExample = new TCommentExample();
@@ -39,6 +64,14 @@ public class CommentServiceImpl implements CommentService {
 		return this.commentMapperExt.selectByExample(commentExample);
 	}
 
+	/*
+	 * 
+	* <p>Title: getCountTComment4UserFeedsIds</p> 
+	* <p>Description: 根据动态id，查询评论的总数</p> 
+	* @param userFeedsId
+	* @return 
+	* @see com.zl.client.comment.CommentService#getCountTComment4UserFeedsIds(long)
+	 */
 	@Override
 	public int getCountTComment4UserFeedsIds(long userFeedsId) {
 		TCommentExample commentExample = new TCommentExample();
@@ -49,6 +82,14 @@ public class CommentServiceImpl implements CommentService {
 		return this.commentMapperExt.countByExample(commentExample);
 	}
 
+	/*
+	 * 
+	* <p>Title: getTCommentVOList4UserFeedsIds</p> 
+	* <p>Description: 根据评论ids，查询每个ids的TCommentCountVO</p> 
+	* @param userFeedsIds
+	* @return 
+	* @see com.zl.client.comment.CommentService#getTCommentVOList4UserFeedsIds(java.lang.Long[])
+	 */
 	@Override
 	public List<TCommentCountVO> getTCommentVOList4UserFeedsIds(Long... userFeedsIds) {
 		TCommentExample commentExample = new TCommentExample();
