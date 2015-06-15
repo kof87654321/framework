@@ -128,6 +128,11 @@ public class UserControl {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "valid error", Consts.ERRORCode.VALID_ERROR), response);
 			return;
 		}
+		
+		TUserInfo tUserInfoMobile = this.tUserService.getUserInfoByMobile(mobile);
+		if (tUserInfoMobile != null) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "mobile ready register", Consts.ERRORCode.MOBILE_HAS_USEED_ERROR), response);
+		}
 
 		TUserVO tUserVO = new TUserVO();
 		TUser tUser = new TUser();
