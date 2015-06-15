@@ -88,7 +88,7 @@ public class UmengPushServiceImpl implements PushService , InitializingBean{
 	}
 
 	@Override
-	public void groupcast(PushMessage message) {
+	public void broadcast(PushMessage message) {
 
 	}
 

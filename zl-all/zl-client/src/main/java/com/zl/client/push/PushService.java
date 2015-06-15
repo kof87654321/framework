@@ -29,7 +29,7 @@ public interface PushService {
 	 * 广播（所有用户手动啊）
 	 * @param message 要推送的消息
 	 */
-	void groupcast(PushMessage message);
+	void broadcast(PushMessage message);
 	
 	
 	

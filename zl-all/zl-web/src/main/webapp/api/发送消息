@@ -1,0 +1,1 @@
+{"apiRemark":"保存模板前在这里可以输入接口说明..","group":"聊天","headerKeyValues":[],"method":"get","name":"发送消息","params":{"toId":"5","msg":"咱们聊个天吧","userId":"6"},"paramsKeyValues":[{"key":"userId","value":"6"},{"key":"toId","value":"5"},{"key":"msg","value":"咱们聊个天吧"}],"url":"http://127.0.01:8080/chat/send.htm"}
