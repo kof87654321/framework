@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zl.pojo.Page;
 import com.zl.pojo.TUser;
+import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserProfile;
 import com.zl.vo.TUserVO;
 
@@ -33,6 +34,6 @@ public interface TUserService {
 
 	public int deleteTUserProfileByIdAndUserId(Long userId, long id);
 	
-	public TUserVO getUserVOByMobile(String mobile, boolean profile, boolean token); 
+	public TUserInfo getUserInfoByMobile(String mobile); 
 
 }
