@@ -28,11 +28,11 @@ import com.zl.vo.TUserVO;
 
 /**
  * 
-* @ClassName: TUserServiceImpl 
-* @Description: 用户信息的service 底层调用Mapper
-* @author youbush
-* @date 2015年6月15日 下午8:07:15 
-*
+ * @ClassName: TUserServiceImpl
+ * @Description: 用户信息的service 底层调用Mapper
+ * @author youbush
+ * @date 2015年6月15日 下午8:07:15
+ *
  */
 @Service
 public class TUserServiceImpl implements TUserService {
@@ -369,5 +369,30 @@ public class TUserServiceImpl implements TUserService {
 
 		tUserProfile.setStatus(Constant.STATUS.DELETE);
 		return this.userProfileMapperExt.updateByPrimaryKey(tUserProfile);
+	}
+
+	/*
+	 * 
+	 * <p>Title: getUserInfoByMobile</p> <p>Description: 根据电话查询用户对象，用于判断是否注册</p>
+	 * 
+	 * @param mobile
+	 * 
+	 * @return
+	 * 
+	 * @see
+	 * com.zl.client.user.TUserService#getUserInfoByMobile(java.lang.String)
+	 */
+	public TUserInfo getUserInfoByMobile(String mobile) {
+		if (StringUtils.isBlank(mobile)) {
+			return null;
+		}
+		TUserInfoExample tUserInfoExample = new TUserInfoExample();
+		com.zl.pojo.TUserInfoExample.Criteria criteria = tUserInfoExample.createCriteria();
+		criteria.andMobileEqualTo(mobile.trim());
+		List<TUserInfo> list = this.userInfoMapperExt.selectByExample(tUserInfoExample);
+		if (list == null || list.size() <= 0) {
+			return null;
+		}
+		return list.get(0);
 	}
 }
