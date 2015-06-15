@@ -33,19 +33,26 @@ import com.zl.web.app.util.ValidCodeUtil;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
+/**
+ * 用户页面入口
+ * 
+ * @author youbush
+ *
+ */
 @Controller
 @RequestMapping("/user")
 public class UserControl {
 	private static final Logger log = LoggerFactory.getLogger(UserControl.class);
 
 	@Autowired
-	private TUserService tUserService;
+	/* 用户service */private TUserService tUserService;
 
 	@Autowired
-	private UserFeedsService userFeedsService;
+	/* 用户动态service */private UserFeedsService userFeedsService;
 
 	/**
-	 * 获取最新版本，通过浏览器{host:port}/user/getMyPage.htm?userId=1&bigId=0&pageNo=1&
+	 * 􏰢􏰐􏰢􏰐个人中心页面调用http接口
+	 * 通过浏览器{host:port}/user/getMyPage.htm?userId=1&bigId=0&pageNo=1&
 	 * pageSize=10&token=888进行访问
 	 * 
 	 */
@@ -62,38 +69,53 @@ public class UserControl {
 		}
 
 		TUserVO tUserVO = tUserService.getUserVOById(userId, true, false);
-		// TODO 是否还缺少某个用户看过另一个用户的内容
+		// 查询有多少条动态
 		int noReadFeedsCount = userFeedsService.getUserFeedsCount4TUserFeedsExample(userId, 0, modifyTime);
-		List<TUserFeeds> listFeeds = null;
+		// 有图片的动态
+		List<TUserFeeds> listHasPicFeeds = null;
 		if (noReadFeedsCount > 0) {
 			Page page = new Page();
 			page.setBegin(pageNo);
 			page.setLength(pageSize);
-			listFeeds = userFeedsService.getUserFeedsList4TUserFeedsExample(userId, 1, modifyTime, page);
+			listHasPicFeeds = userFeedsService.getUserFeedsList4TUserFeedsExample(userId, 1, modifyTime, page);
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tUserVO", tUserVO);
 		map.put("noReadFeedsCount", noReadFeedsCount);
-		map.put("list", listFeeds);
+		map.put("listHasPicFeeds", listHasPicFeeds);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
 
+	/**
+	 * 􏰢􏰐􏰢􏰐搜索用户页面调用http接口 通过浏览器{host:port}/user/searchUserList.htm进行访问
+	 * 
+	 */
 	@RequestMapping("/searchUserList")
 	@Security
 	public void searchUserList(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = false, defaultValue = "0") Long userId,
 			@RequestParam(value = "area", required = false, defaultValue = "0") Integer area,
 			@RequestParam(value = "industry", required = false, defaultValue = "0") Integer industry,
+			@RequestParam(value = "key", required = false, defaultValue = "") String key,
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
 		Page page = new Page();
-		List<TUserVO> listSearchTUserVO = this.tUserService.getListByAreaAndIndustry(area, industry,
+		List<TUserVO> listSearchTUserVO = this.tUserService.getListByAreaAndIndustry(area, industry, key,
 				page.setPageByPageNoAndPageSize(pageNo, pageSize));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("listSearchTUserVO", listSearchTUserVO);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
 
+	/**
+	 * 用户注册http接口  通过浏览器{host:port}/user/registerUser.htm进行访问
+	 * @param request
+	 * @param response
+	 * @param userName
+	 * @param passWord
+	 * @param valid
+	 * @param mobile
+	 */
 	@RequestMapping("/registerUser")
 	public void registerUser(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userName", required = true, defaultValue = "0") String userName,
@@ -139,6 +161,14 @@ public class UserControl {
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(returnTUserVO), response);
 	}
 
+	/**
+	 * 更新用户账号密码http接口 通过浏览器{host:port}/user/updateUser.htm进行访问
+	 * @param request
+	 * @param response
+	 * @param userId
+	 * @param userName
+	 * @param passWord
+	 */
 	@RequestMapping("/updateUser")
 	@Security
 	public void updateUser(HttpServletRequest request, HttpServletResponse response,
@@ -190,6 +220,12 @@ public class UserControl {
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(returnTUserVO), response);
 	}
 
+	/**
+	 * 插入单条用户经历
+	 * @param request
+	 * @param response
+	 * @param userId
+	 */
 	@RequestMapping("/insertUserProfile")
 	@Security
 	public void insertUserProfile(HttpServletRequest request, HttpServletResponse response,
@@ -213,6 +249,13 @@ public class UserControl {
 
 	}
 
+	/**
+	 * 更新用户经历
+	 * @param request
+	 * @param response
+	 * @param userId
+	 * @param id
+	 */
 	@RequestMapping("/updateUserProfile")
 	@Security
 	public void updateUserProfile(HttpServletRequest request, HttpServletResponse response,
@@ -251,6 +294,13 @@ public class UserControl {
 
 	}
 
+	/**
+	 * 删除用户经历
+	 * @param request
+	 * @param response
+	 * @param userId
+	 * @param id
+	 */
 	@RequestMapping("/deleteUserProfileById")
 	@Security
 	public void deleteUserProfileById(HttpServletRequest request, HttpServletResponse response,
