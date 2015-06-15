@@ -23,6 +23,12 @@ import com.zl.web.annotation.Security;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
+/**
+ * 聊天controller
+ * 
+ * @author zhangxianjun
+ * @version $Id: ChattControl.java, v 0.1 2015年6月15日 下午7:53:40 zhangxianjun Exp $
+ */
 @Controller
 @RequestMapping("/chat")
 public class ChattControl {
@@ -32,6 +38,15 @@ public class ChattControl {
     @Autowired
     private ChatService         chatService;
 
+    /**
+     * 发送聊天信息
+     * 
+     * @param request
+     * @param response
+     * @param userId
+     * @param toId
+     * @param message
+     */
     @RequestMapping("/send")
     @Security
     public void sendMessage(HttpServletRequest request, HttpServletResponse response,
@@ -56,6 +71,18 @@ public class ChattControl {
         }
     }
 
+    /**
+     * 读取聊天信息
+     * 
+     * @param request
+     * @param response
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @param since
+     * @param max
+     * @param status
+     */
     @RequestMapping("/read")
     @Security
     public void readMessage(HttpServletRequest request, HttpServletResponse response,

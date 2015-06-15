@@ -16,6 +16,12 @@ import org.springframework.util.StringUtils;
 
 import com.zl.common.util.encrypt.DesUtils;
 
+/**
+ * token工具类
+ * 
+ * @author zhangxianjun
+ * @version $Id: TokenUtils.java, v 0.1 2015年6月15日 下午7:50:31 zhangxianjun Exp $
+ */
 public class TokenUtils {
     private static final Logger LOGGER      = LoggerFactory.getLogger(TokenUtils.class);
 
@@ -23,6 +29,14 @@ public class TokenUtils {
 
     private static String       HENGXIAN    = "_";
 
+    /**
+     * 生成token
+     * 
+     * @param userId
+     * @param password
+     * @param lastLoginTime
+     * @return
+     */
     public static String getToken(Long userId, String password, Date lastLoginTime) {
         String message = MessageFormat.format("{0}" + HENGXIAN + "{1}" + HENGXIAN + "{2}", String.valueOf(userId),
             password, String.valueOf(lastLoginTime.getTime()));
@@ -36,6 +50,14 @@ public class TokenUtils {
         return token;
     }
 
+    /**
+     * 校验token
+     * 
+     * @param userId
+     * @param password
+     * @param token
+     * @return
+     */
     public static boolean checkToken(Long userId, String password, String token) {
         token = StringUtils.replace(token, " ", "+");
         String tokenSource = null;

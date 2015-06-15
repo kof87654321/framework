@@ -27,6 +27,13 @@ public class ValidCodeController {
 
     private static final Logger log = LoggerFactory.getLogger(ValidCodeController.class);
 
+    /**
+     * 发送验证码
+     * 
+     * @param request
+     * @param response
+     * @param mobile
+     */
     @RequestMapping("/send")
     public void sendValidCode(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(value = "mobile", required = true, defaultValue = "") String mobile) {

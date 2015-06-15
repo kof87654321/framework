@@ -3,6 +3,12 @@ package com.zl.vo;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 聊天对象
+ * 
+ * @author zhangxianjun
+ * @version $Id: TChatVO.java, v 0.1 2015年6月15日 下午7:51:10 zhangxianjun Exp $
+ */
 public class TChatVO implements Serializable {
 
     /**  */

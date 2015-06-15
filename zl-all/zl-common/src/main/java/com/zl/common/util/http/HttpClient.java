@@ -43,8 +43,14 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * HTTP工具类-支持HTTPS
+ * 
+ * @author zhangxianjun
+ * @version $Id: HttpClient.java, v 0.1 2015年6月15日 下午7:48:07 zhangxianjun Exp $
+ */
 public class HttpClient {
-	private final static Logger                       logger      = LoggerFactory.getLogger(HttpClient.class);
+    private final static Logger                       logger      = LoggerFactory.getLogger(HttpClient.class);
 
     private static PoolingHttpClientConnectionManager connManager = null;
     private static CloseableHttpClient                httpclient  = null;

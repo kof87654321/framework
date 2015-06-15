@@ -21,56 +21,62 @@ import com.zl.web.app.Consts;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
+/**
+ * Security注解的AOP实现
+ * 
+ * @author zhangxianjun
+ * @version $Id: SecurityAop.java, v 0.1 2015年6月15日 下午7:52:05 zhangxianjun Exp $
+ */
 @Aspect
 @Component
 public class SecurityAop {
 
-	@Autowired
-	private TUserService tUserService;
+    @Autowired
+    private TUserService tUserService;
 
-	@Autowired
-	private ProjectEnv projectEnv;
+    @Autowired
+    private ProjectEnv   projectEnv;
 
-	@Around("@annotation(com.zl.web.annotation.Security)")
-	public void doCheck(ProceedingJoinPoint joinPoint) {
-		if (projectEnv != null && StringUtils.isNotBlank(projectEnv.getEnv())
-				&& Constant.ENV.TEST.equals(projectEnv.getEnv())) {
-			try {
-				joinPoint.proceed();
-			} catch (Throwable e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return ;
-		}
+    @Around("@annotation(com.zl.web.annotation.Security)")
+    public void doCheck(ProceedingJoinPoint joinPoint) {
+        if (projectEnv != null && StringUtils.isNotBlank(projectEnv.getEnv())
+            && Constant.ENV.TEST.equals(projectEnv.getEnv())) {
+            try {
+                joinPoint.proceed();
+            } catch (Throwable e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return;
+        }
 
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-				.getRequest();
-		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-				.getResponse();
-		String uid = request.getParameter("userId");
-		String token = request.getParameter("token");
-		if (StringUtils.isBlank(uid) || StringUtils.isBlank(token)) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "参数错误", Consts.ERRORCode.TOKEN_ERROR), response);
-			return;
-		}
-		Long userId = Long.valueOf(uid);
-		TUser user = tUserService.getUserById(userId);
-		if (user == null) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "用户不存在", Consts.ERRORCode.TOKEN_ERROR), response);
-			return;
-		}
-		boolean flag = TokenUtils.checkToken(user.getId(), user.getPassword(), token);
-		if (!flag) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "token校验失败，请检查是否登录", Consts.ERRORCode.TOKEN_ERROR),
-					response);
-			return;
-		}
-		try {
-			joinPoint.proceed();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+            .getRequest();
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+            .getResponse();
+        String uid = request.getParameter("userId");
+        String token = request.getParameter("token");
+        if (StringUtils.isBlank(uid) || StringUtils.isBlank(token)) {
+            WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "参数错误", Consts.ERRORCode.TOKEN_ERROR), response);
+            return;
+        }
+        Long userId = Long.valueOf(uid);
+        TUser user = tUserService.getUserById(userId);
+        if (user == null) {
+            WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "用户不存在", Consts.ERRORCode.TOKEN_ERROR), response);
+            return;
+        }
+        boolean flag = TokenUtils.checkToken(user.getId(), user.getPassword(), token);
+        if (!flag) {
+            WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "token校验失败，请检查是否登录", Consts.ERRORCode.TOKEN_ERROR),
+                response);
+            return;
+        }
+        try {
+            joinPoint.proceed();
+        } catch (Throwable e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }

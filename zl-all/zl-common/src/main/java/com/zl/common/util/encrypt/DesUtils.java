@@ -15,11 +15,17 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.util.Base64;
 
+/**
+ * 加解密工具类
+ * 
+ * @author zhangxianjun
+ * @version $Id: DesUtils.java, v 0.1 2015年6月15日 下午7:48:59 zhangxianjun Exp $
+ */
 public class DesUtils {
-	/**
+    /**
      * 加密算法的名称
      */
-    private static String       Algorithm   = "DESede";
+    private static String      Algorithm   = "DESede";
     /**
      * 默认的Key键
      */
@@ -135,7 +141,7 @@ public class DesUtils {
             try {
                 bytes = Base64.decodeBase64(value);
             } catch (Exception e) {
-                bytes = null;   
+                bytes = null;
             }
             desCipher.init(Cipher.DECRYPT_MODE, deskey);// 初始化密码器，用密钥deskey,进入解密模式
             bytesCipher = desCipher.doFinal(bytes);
