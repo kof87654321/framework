@@ -26,20 +26,42 @@ import com.zl.pojo.TUserProfileExample;
 import com.zl.pojo.TUserProfileExample.Criteria;
 import com.zl.vo.TUserVO;
 
+/**
+ * 
+* @ClassName: TUserServiceImpl 
+* @Description: 用户信息的service 底层调用Mapper
+* @author youbush
+* @date 2015年6月15日 下午8:07:15 
+*
+ */
 @Service
 public class TUserServiceImpl implements TUserService {
 
 	private Logger log = LoggerFactory.getLogger(TUserServiceImpl.class);
 
 	@Autowired
-	private TUserInfoMapperExt userInfoMapperExt;
+	/* 用户扩展信息底层 */private TUserInfoMapperExt userInfoMapperExt;
 
 	@Autowired
-	private TUserMapperExt userMapperExt;
+	/* 用户基本信息底层 */private TUserMapperExt userMapperExt;
 
 	@Autowired
-	private TUserProfileMapperExt userProfileMapperExt;
+	/* 用户职业经历底层 */private TUserProfileMapperExt userProfileMapperExt;
 
+	/*
+	 * <p>Title: getUserVOById</p> <p>Description:获取用户的vo对象，用于前台展示使用 </p>
+	 * 
+	 * @param userId 用户id
+	 * 
+	 * @param profile 是否查询工作经历
+	 * 
+	 * @param token 是否返回token
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.user.TUserService#getUserVOById(java.lang.Long,
+	 * boolean, boolean)
+	 */
 	public TUserVO getUserVOById(Long userId, boolean profile, boolean token) {
 		TUser tUser = this.userMapperExt.selectByPrimaryKey(userId);
 
@@ -75,6 +97,18 @@ public class TUserServiceImpl implements TUserService {
 
 	}
 
+	/*
+	 * <p>Title: updateUser</p> <p>Description: 更新用户信息</p>
+	 * 
+	 * @param tUserVO
+	 * 
+	 * @param profile 是否需要更新个人经历
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.user.TUserService#updateUser(com.zl.vo.TUserVO,
+	 * boolean)
+	 */
 	public TUserVO updateUser(TUserVO tUserVO, boolean profile) {
 		if (tUserVO == null) {
 			return null;
@@ -89,6 +123,16 @@ public class TUserServiceImpl implements TUserService {
 		return this.getUserVOById(tUserVO.gettUser().getId(), false, true);
 	}
 
+	/*
+	 * 
+	 * <p>Title: insertUser</p> <p>Description:用户注册使用接口 会操作三个数据表</p>
+	 * 
+	 * @param tUserVO
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.user.TUserService#insertUser(com.zl.vo.TUserVO)
+	 */
 	public TUserVO insertUser(TUserVO tUserVO) {
 		if (tUserVO == null) {
 			return null;
@@ -128,13 +172,30 @@ public class TUserServiceImpl implements TUserService {
 		return this.getUserVOById(userId, false, true);
 	}
 
+	/*
+	 * 
+	 * <p>Title: updateTUserProfile</p> <p>Description:
+	 * 根据用户id，以及用户经历的主键，更新用户经历</p>
+	 * 
+	 * @param tUserProfile 需要更新的对象
+	 * 
+	 * @param userId 用户id
+	 * 
+	 * @param id 更新对象的主键
+	 * 
+	 * @return
+	 * 
+	 * @see
+	 * com.zl.client.user.TUserService#updateTUserProfile(com.zl.pojo.TUserProfile
+	 * , long, long)
+	 */
 	@Override
 	public Long updateTUserProfile(TUserProfile tUserProfile, long userId, long id) {
 		if (userId <= 0 || id <= 0 || tUserProfile == null || tUserProfile.getUserId() != userId
 				|| tUserProfile.getId() != id) {
 			return 0l;
 		}
-		
+
 		tUserProfile.setModifyTime(new Date());
 
 		// TUserProfileExample tUserProfileExample = new TUserProfileExample();
@@ -144,6 +205,21 @@ public class TUserServiceImpl implements TUserService {
 		return id;
 	}
 
+	/*
+	 * 
+	 * <p>Title: getTUserProfileList</p> <p>Description:获取用户经历list </p>
+	 * 
+	 * @param userId
+	 * 
+	 * @param id 传入id主键的时候，查询单条数据
+	 * 
+	 * @param page 分页对象
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.user.TUserService#getTUserProfileList(long, long,
+	 * com.zl.pojo.Page)
+	 */
 	@Override
 	public List<TUserProfile> getTUserProfileList(long userId, long id, Page page) {
 
@@ -172,6 +248,16 @@ public class TUserServiceImpl implements TUserService {
 		return this.userProfileMapperExt.selectByExample(tUserProfileExample);
 	}
 
+	/*
+	 * 
+	 * <p>Title: getUserById</p> <p>Description: 获取用户基本对象信息</p>
+	 * 
+	 * @param userId
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.user.TUserService#getUserById(java.lang.Long)
+	 */
 	@Override
 	public TUser getUserById(Long userId) {
 		if (userId == null) {
@@ -181,8 +267,26 @@ public class TUserServiceImpl implements TUserService {
 		return tUser;
 	}
 
+	/*
+	 * 
+	 * <p>Title: getListByAreaAndIndustry</p> <p>Description:
+	 * 根据区域以及行业关键词查询用户</p>
+	 * 
+	 * @param area 区域id
+	 * 
+	 * @param industry 行业id
+	 * 
+	 * @param key 关键词
+	 * 
+	 * @param page
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.user.TUserService#getListByAreaAndIndustry(int, int,
+	 * java.lang.String, com.zl.pojo.Page)
+	 */
 	@Override
-	public List<TUserVO> getListByAreaAndIndustry(int area, int industry, Page page) {
+	public List<TUserVO> getListByAreaAndIndustry(int area, int industry, String key, Page page) {
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
 		com.zl.pojo.TUserInfoExample.Criteria criteria = tUserInfoExample.createCriteria();
 		if (area > 0) {
@@ -205,6 +309,19 @@ public class TUserServiceImpl implements TUserService {
 		return returnlist;
 	}
 
+	/*
+	 * 
+	 * <p>Title: insertTUserProfile</p> <p>Description: 插入单条职业经历</p>
+	 * 
+	 * @param tUserProfileList
+	 * 
+	 * @param userId
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.user.TUserService#insertTUserProfile(java.util.List,
+	 * long)
+	 */
 	@Override
 	public Long insertTUserProfile(List<TUserProfile> tUserProfileList, long userId) {
 		if (userId <= 0 || tUserProfileList == null || tUserProfileList.size() <= 0) {
@@ -224,6 +341,21 @@ public class TUserServiceImpl implements TUserService {
 		return id;
 	}
 
+	/*
+	 * 
+	 * <p>Title: deleteTUserProfileByIdAndUserId</p> <p>Description:
+	 * 删除单条职业经历</p>
+	 * 
+	 * @param userId
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 * 
+	 * @see
+	 * com.zl.client.user.TUserService#deleteTUserProfileByIdAndUserId(java.
+	 * lang.Long, long)
+	 */
 	@Override
 	public int deleteTUserProfileByIdAndUserId(Long userId, long id) {
 		// return this.userProfileMapperExt.;
