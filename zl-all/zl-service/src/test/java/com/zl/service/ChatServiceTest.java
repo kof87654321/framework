@@ -11,6 +11,7 @@ import com.zl.client.chat.ChatService;
 import com.zl.pojo.ChatQuery;
 import com.zl.pojo.Page;
 import com.zl.pojo.TChat;
+import com.zl.vo.TChatVO;
 
 /**
  * 测试VersionService示例
@@ -40,11 +41,11 @@ public class ChatServiceTest extends BaseServiceTest {
         ChatQuery query = new ChatQuery();
         query.setUserId(6L);
         query.setPage(new Page().setPageByPageNoAndPageSize(1, 10));
-        List<TChat> result = chatService.readMsg(query);
+        List<TChatVO> result = chatService.readMsg(query);
         System.out.println(result == null);
         if (result != null) {
             System.out.println(result.size());
-            for (TChat chat : result) {
+            for (TChatVO chat : result) {
                 System.out.println(chat.getCreateTime());
             }
         }
