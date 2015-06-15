@@ -52,7 +52,7 @@ public class UserFeedsControl {
 	private CommentAndUserBiz commentAndUserBiz;
 
 	/**
-	 * 插入
+	 * 插入动态
 	 * 
 	 * @param request
 	 * @param response
@@ -74,7 +74,7 @@ public class UserFeedsControl {
 	}
 
 	/**
-	 * 插入评论
+	 * 插入某条动态的评论
 	 * 
 	 * @param request
 	 * @param response
@@ -106,6 +106,16 @@ public class UserFeedsControl {
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tComment), response);
 	}
 
+	/**
+	 * 根据用户获取动态列表
+	 * @param request
+	 * @param response
+	 * @param userId
+	 * @param modifyTime
+	 * @param greaterThanOrEqualToPicCount
+	 * @param pageNo
+	 * @param pageSize
+	 */
 	@RequestMapping("/getUserFeedsByUserId")
 	@Security
 	public void getUserFeedsByUserId(
@@ -130,7 +140,7 @@ public class UserFeedsControl {
 				tUserVO = tUserService.getUserVOById(userId, false, false);
 				tUserFeedsVO = new TUserFeedsVO();
 				tUserFeedsVO.settUserFeeds(tUserFeeds);
-				tUserFeedsVO.settUserVO(tUserVO);
+				tUserFeedsVO.settPostUserFeedsUserVO(tUserVO);
 				tUserFeedsVOList.add(tUserFeedsVO);
 			}
 		}
@@ -159,6 +169,14 @@ public class UserFeedsControl {
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
 
+	/**
+	 * 获取单条用户动态的对象，包含评论列表
+	 * @param request
+	 * @param response
+	 * @param id
+	 * @param pageNo
+	 * @param pageSize
+	 */
 	@RequestMapping("/getUserFeedsById")
 	@Security
 	public void getUserFeedsVOById(HttpServletRequest request, HttpServletResponse response,
@@ -176,7 +194,7 @@ public class UserFeedsControl {
 		tUserVO = tUserService.getUserVOById(tUserFeeds.getUserId(), false, false);
 		tUserFeedsVO = new TUserFeedsVO();
 		tUserFeedsVO.settUserFeeds(tUserFeeds);
-		tUserFeedsVO.settUserVO(tUserVO);
+		tUserFeedsVO.settPostUserFeedsUserVO(tUserVO);
 		tUserFeedsVO.settCommentAndUserVOList(tCommentAndUserVOList);
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -184,6 +202,13 @@ public class UserFeedsControl {
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
 
+	/**
+	 * 点赞
+	 * @param request
+	 * @param response
+	 * @param userId
+	 * @param feedsId
+	 */
 	@RequestMapping("/addPraise")
 	@Security
 	public void addPraise(HttpServletRequest request, HttpServletResponse response,
