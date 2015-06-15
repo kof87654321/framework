@@ -113,6 +113,7 @@ public interface Consts {
 		public static int BIZ_ID_ERROR = -101;// 业务主键有问题
 		public static int PARAM_ERROR = -300;// 参数异常
 		public static int VALID_ERROR = -200;//验证码失败
+		public static int MOBILE_HAS_USEED_ERROR = -600;//电话号码已经注册过
 	}
 
 }
