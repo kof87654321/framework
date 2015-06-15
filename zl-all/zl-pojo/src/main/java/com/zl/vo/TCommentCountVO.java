@@ -4,13 +4,18 @@ import java.io.Serializable;
 
 import com.zl.pojo.TComment;
 
+/**
+ * 评论的count vo对象
+ * @author youbush
+ *
+ */
 public class TCommentCountVO implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2168896223981769326L;
-	private long userFeedsId;
-	private int commentCount;
+	private long userFeedsId;//动态的主键id
+	private int commentCount;//此动态有多少条评论
 
 	public long getUserFeedsId() {
 		return userFeedsId;
