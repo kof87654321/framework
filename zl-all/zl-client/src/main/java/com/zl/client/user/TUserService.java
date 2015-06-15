@@ -32,5 +32,7 @@ public interface TUserService {
 	public List<TUserVO> getListByAreaAndIndustry(int area, int industry, String key, Page page);
 
 	public int deleteTUserProfileByIdAndUserId(Long userId, long id);
+	
+	public TUserVO getUserVOByMobile(String mobile, boolean profile, boolean token); 
 
 }
