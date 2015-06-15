@@ -15,12 +15,32 @@ import com.zl.pojo.TUserFeeds;
 import com.zl.pojo.TUserFeedsExample;
 import com.zl.pojo.TUserFeedsExample.Criteria;
 
+/**
+ * 
+ * @ClassName: UserFeedsServiceImpl
+ * @Description: 用户动态service
+ * @author youbush
+ * @date 2015年6月15日 下午8:28:49
+ *
+ */
 @Service
 public class UserFeedsServiceImpl implements UserFeedsService {
 
 	@Autowired
 	private TUserFeedsMapperExt userFeedsMapperExt;
 
+	/*
+	 * 
+	 * <p>Title: insertTUserFeeds</p> <p>Description: 插入单条用户动态</p>
+	 * 
+	 * @param tUserFeeds
+	 * 
+	 * @return
+	 * 
+	 * @see
+	 * com.zl.client.userFeeds.UserFeedsService#insertTUserFeeds(com.zl.pojo
+	 * .TUserFeeds)
+	 */
 	public Long insertTUserFeeds(TUserFeeds tUserFeeds) {
 		Date date = new Date();
 		tUserFeeds.setCreateTime(date);
@@ -30,6 +50,23 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 
 	}
 
+	/*
+	 * 
+	 * <p>Title: getUserFeedsCount4TUserFeedsExample</p> <p>Description:
+	 * 根据查询属性查询用户动态总数</p>
+	 * 
+	 * @param userId
+	 * 
+	 * @param greaterThanOrEqualToPicCount
+	 * 
+	 * @param modifyTime
+	 * 
+	 * @return
+	 * 
+	 * @see
+	 * com.zl.client.userFeeds.UserFeedsService#getUserFeedsCount4TUserFeedsExample
+	 * (long, int, long)
+	 */
 	public int getUserFeedsCount4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount, long modifyTime) {
 
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
@@ -47,6 +84,25 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return this.userFeedsMapperExt.countByExample(tUserFeedsExample);
 	}
 
+	/*
+	 * 
+	 * <p>Title: getUserFeedsList4TUserFeedsExample</p> <p>Description:
+	 * 根据查询属性，查询用户动态列表</p>
+	 * 
+	 * @param userId
+	 * 
+	 * @param greaterThanOrEqualToPicCount
+	 * 
+	 * @param modifyTime
+	 * 
+	 * @param page
+	 * 
+	 * @return
+	 * 
+	 * @see
+	 * com.zl.client.userFeeds.UserFeedsService#getUserFeedsList4TUserFeedsExample
+	 * (long, int, long, com.zl.pojo.Page)
+	 */
 	public List<TUserFeeds> getUserFeedsList4TUserFeedsExample(long userId, int greaterThanOrEqualToPicCount,
 			long modifyTime, Page page) {
 		TUserFeedsExample tUserFeedsExample = new TUserFeedsExample();
@@ -65,6 +121,19 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return this.userFeedsMapperExt.selectByExample(tUserFeedsExample);
 	}
 
+	/*
+	 * 
+	 * <p>Title: addPraise</p> <p>Description:点赞异步接口 </p>
+	 * 
+	 * @param id
+	 * 
+	 * @param count
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.userFeeds.UserFeedsService#addPraise(java.lang.Long,
+	 * int)
+	 */
 	public int addPraise(Long id, int count) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
@@ -73,11 +142,35 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return 1;
 	}
 
+	/*
+	 * 
+	 * <p>Title: addCommentCount</p> <p>Description: 增加动态的评论总数接口</p>
+	 * 
+	 * @param id
+	 * 
+	 * @param count
+	 * 
+	 * @return
+	 * 
+	 * @see
+	 * com.zl.client.userFeeds.UserFeedsService#addCommentCount(java.lang.Long,
+	 * int)
+	 */
 	public int addCommentCount(Long id, int count) {
 		this.userFeedsMapperExt.addCommentCount(count, id);
 		return 1;
 	}
 
+	/*
+	 * 
+	 * <p>Title: getTUserFeedsById</p> <p>Description: 根据主键查询动态对象</p>
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 * 
+	 * @see com.zl.client.userFeeds.UserFeedsService#getTUserFeedsById(long)
+	 */
 	@Override
 	public TUserFeeds getTUserFeedsById(long id) {
 		return this.userFeedsMapperExt.selectByPrimaryKey(id);
