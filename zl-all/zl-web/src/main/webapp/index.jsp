@@ -8,6 +8,6 @@
 </head>
 <body>
 正在为您跳转...
-<jsp:forward page="index.htm" />   
+
 </body>
 </html>
