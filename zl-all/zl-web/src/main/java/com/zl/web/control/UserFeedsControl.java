@@ -105,8 +105,7 @@ public class UserFeedsControl {
 
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tComment), response);
 	}
-	
-	
+
 	/**
 	 * 根据用户获取动态列表
 	 * 
@@ -129,10 +128,11 @@ public class UserFeedsControl {
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
 
 		Page page = new Page();
-//		int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(0l, greaterThanOrEqualToPicCount,
-//				modifyTime);
-		List<TUserFeeds> list = userFeedsService.getUserFeedsList4TUserFeedsExample(0l,
-				greaterThanOrEqualToPicCount, modifyTime, page.setPageByPageNoAndPageSize(pageNo, pageSize));
+		// int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(0l,
+		// greaterThanOrEqualToPicCount,
+		// modifyTime);
+		List<TUserFeeds> list = userFeedsService.getUserFeedsList4TUserFeedsExample(0l, greaterThanOrEqualToPicCount,
+				modifyTime, page.setPageByPageNoAndPageSize(pageNo, pageSize));
 		List<TUserFeedsVO> tUserFeedsVOList = new ArrayList<TUserFeedsVO>();
 		if (list != null && list.size() > 0) {
 			TUserVO tUserVO = null;
@@ -148,7 +148,7 @@ public class UserFeedsControl {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tUserFeedsVOList", tUserFeedsVOList);
-//		map.put("count", count);
+		// map.put("count", count);
 		map.put("count", 0);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
@@ -218,7 +218,8 @@ public class UserFeedsControl {
 		Page page = new Page();
 		List<TCommentAndUserVO> tCommentAndUserVOList = this.commentAndUserBiz.getTCommentAndUserVOListByUserFeedId(id,
 				page.setPageByPageNoAndPageSize(pageNo, pageSize), false, true);
-
+		// 当取单条用户动态的时候，则将所有评论至为已读
+		this.userFeedsService.updateStatus4TUserFeedsId(Constant.STATUS.CHECKED,Constant.STATUS.NO_CHECK, id);
 		TUserFeeds tUserFeeds = this.userFeedsService.getTUserFeedsById(id);
 		TUserVO tUserVO = null;
 		TUserFeedsVO tUserFeedsVO = null;

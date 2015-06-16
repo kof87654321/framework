@@ -176,4 +176,15 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		return this.userFeedsMapperExt.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public void updateStatus4TComments(int status, int oldstatus, Long... ids) {
+		this.userFeedsMapperExt.updateStatus4TComments(ids, status, oldstatus);
+	}
+
+	@Override
+	public void updateStatus4TUserFeedsId(int status, int oldstatus, long tUserFeedsId) {
+		this.userFeedsMapperExt.updateStatus4TUserFeedsId(tUserFeedsId, status, oldstatus);
+	}
+
+
 }

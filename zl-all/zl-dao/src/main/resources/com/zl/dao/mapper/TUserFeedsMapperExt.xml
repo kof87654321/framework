@@ -5,15 +5,33 @@
 		和com.zl.dao.mapper.TUserFeedsMapper.Base_Column_List对其进行引用 by is_zhoufeng@163.com 
 		2015-06-05 23:56:33. -->
 	<update id="addPraise" parameterType="java.util.Map">
-		update T_User_Feeds set Praise = Praise + #{addPraise} WHERE id = #{id}
+		update T_User_Feeds set
+		Praise = Praise + #{addPraise} WHERE id = #{id}
 	</update>
-	
+
 	<update id="addCommentCount" parameterType="java.util.Map">
-		update T_User_Feeds set CommentCount = CommentCount + #{addCommentCount} WHERE id = #{id}
+		update T_User_Feeds
+		set CommentCount = CommentCount + #{addCommentCount} WHERE id = #{id}
 	</update>
-	
+
 	<update id="addPraiseCount">
-		update T_User_Feeds set Praise = Praise + #{addPraise} WHERE id = #{id}
+		update T_User_Feeds set Praise = Praise +
+		#{addPraise} WHERE id = #{id}
+	</update>
+
+	<update id="updateStatus4TUserFeedsId">
+		update T_User_Feeds set Status = #{status} WHERE
+		id in
+		<foreach collection="array" index="index" item="ids" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+
+	<update id="updateStatus4TComments">
+		update T_User_Feeds set Status = #{status} WHERE
+		ParentId = #{tUserFeedsId}
 	</update>
 
 </mapper>
