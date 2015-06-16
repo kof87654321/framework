@@ -105,9 +105,57 @@ public class UserFeedsControl {
 
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tComment), response);
 	}
+	
+	
+	/**
+	 * 根据用户获取动态列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @param userId
+	 * @param modifyTime
+	 * @param greaterThanOrEqualToPicCount
+	 * @param pageNo
+	 * @param pageSize
+	 */
+	@RequestMapping("/getHome")
+	@Security
+	public void getHome(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "modifyTime", required = false, defaultValue = "0") Long modifyTime,
+			@RequestParam(value = "greaterThanOrEqualToPicCount", required = false, defaultValue = "0") Integer greaterThanOrEqualToPicCount,
+			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
+
+		Page page = new Page();
+//		int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(0l, greaterThanOrEqualToPicCount,
+//				modifyTime);
+		List<TUserFeeds> list = userFeedsService.getUserFeedsList4TUserFeedsExample(0l,
+				greaterThanOrEqualToPicCount, modifyTime, page.setPageByPageNoAndPageSize(pageNo, pageSize));
+		List<TUserFeedsVO> tUserFeedsVOList = new ArrayList<TUserFeedsVO>();
+		if (list != null && list.size() > 0) {
+			TUserVO tUserVO = null;
+			TUserFeedsVO tUserFeedsVO = null;
+			for (TUserFeeds tUserFeeds : list) {
+				tUserVO = tUserService.getUserVOById(tUserFeeds.getUserId(), false, false);
+				tUserFeedsVO = new TUserFeedsVO();
+				tUserFeedsVO.settUserFeeds(tUserFeeds);
+				tUserFeedsVO.settPostUserFeedsUserVO(tUserVO);
+				tUserFeedsVOList.add(tUserFeedsVO);
+			}
+		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tUserFeedsVOList", tUserFeedsVOList);
+//		map.put("count", count);
+		map.put("count", 0);
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
+	}
 
 	/**
 	 * 根据用户获取动态列表
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -145,24 +193,6 @@ public class UserFeedsControl {
 			}
 		}
 
-		/*
-		 * List<TUserFeedsVO> tUserFeedsVOList = new ArrayList<TUserFeedsVO>();
-		 * if (list == null || list.size() <= 0) { } else { int i = 0; Long[]
-		 * userFeedsIds = new Long[list.size()]; for (TUserFeeds tUserFeeds :
-		 * list) { userFeedsIds[i] = tUserFeeds.getId(); i++; } List<TCommentVO>
-		 * commentVOList =
-		 * this.commentService.getTCommentVOList4UserFeedsIds(userFeedsIds); if
-		 * (commentVOList != null && commentVOList.size() > 0) { TUserFeedsVO
-		 * tUserFeedsVO = null; for (TUserFeeds tUserFeeds : list) {
-		 * for(TCommentVO tCommentVO : commentVOList){ if
-		 * (tUserFeeds.getId().longValue() == tCommentVO.getUserFeedsId()) {
-		 * tUserFeedsVO = new TUserFeedsVO();
-		 * tUserFeedsVO.settCommentVO(tCommentVO);
-		 * tUserFeedsVO.settUserFeeds(tUserFeeds);
-		 * tUserFeedsVOList.add(tUserFeedsVO); } } } }
-		 * 
-		 * }
-		 */
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tUserFeedsVOList", tUserFeedsVOList);
 		map.put("count", count);
@@ -171,6 +201,7 @@ public class UserFeedsControl {
 
 	/**
 	 * 获取单条用户动态的对象，包含评论列表
+	 * 
 	 * @param request
 	 * @param response
 	 * @param id
@@ -204,6 +235,7 @@ public class UserFeedsControl {
 
 	/**
 	 * 点赞
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -223,56 +255,5 @@ public class UserFeedsControl {
 		}
 
 	}
-
-	/*
-	 * @RequestMapping("/getUserFeeds4HomePage")
-	 * 
-	 * @Security public void getUserFeeds4HomePage( HttpServletRequest request,
-	 * HttpServletResponse response,
-	 * 
-	 * @RequestParam(value = "userId", required = false, defaultValue = "0")
-	 * Long userId,
-	 * 
-	 * @RequestParam(value = "modifyTime", required = false, defaultValue = "0")
-	 * Long modifyTime,
-	 * 
-	 * @RequestParam(value = "greaterThanOrEqualToPicCount", required = false,
-	 * defaultValue = "0") Integer greaterThanOrEqualToPicCount,
-	 * 
-	 * @RequestParam(value = "pageNo", required = false, defaultValue = "1")
-	 * Integer pageNo,
-	 * 
-	 * @RequestParam(value = "pageSize", required = false, defaultValue = "20")
-	 * Integer pageSize) {
-	 * 
-	 * Page page = new Page(); int count =
-	 * userFeedsService.getUserFeedsCount4TUserFeedsExample(userId,
-	 * greaterThanOrEqualToPicCount, modifyTime); List<TUserFeeds> list =
-	 * userFeedsService.getUserFeedsList4TUserFeedsExample(userId,
-	 * greaterThanOrEqualToPicCount, modifyTime,
-	 * page.setPageByPageNoAndPageSize(pageNo, pageSize)); List<TUserFeedsVO>
-	 * tUserFeedsVOList = new ArrayList<TUserFeedsVO>(); if (list != null &&
-	 * list.size()>0) { TUserVO tUserVO = null; TUserFeedsVO tUserFeedsVO =
-	 * null;
-	 * 
-	 * int i = 0; Long[] userFeedsIds = new Long[list.size()]; for (TUserFeeds
-	 * tUserFeeds : list) { userFeedsIds[i] = tUserFeeds.getId(); i++; }
-	 * List<TCommentVO> commentVOList =
-	 * this.commentService.getTCommentVOList4UserFeedsIds(userFeedsIds);
-	 * 
-	 * for (TUserFeeds tUserFeeds : list) { tUserVO =
-	 * tUserService.getUserVOById(userId, false, false); tUserFeedsVO = new
-	 * TUserFeedsVO(); if (commentVOList != null && commentVOList.size() > 0) {
-	 * for(TCommentVO tCommentVO : commentVOList){ if
-	 * (tUserFeeds.getId().longValue() == tCommentVO.getUserFeedsId()) {
-	 * tUserFeedsVO.settCommentVO(tCommentVO); continue; } } }
-	 * 
-	 * tUserFeedsVO.settUserFeeds(tUserFeeds); tUserFeedsVO.settUserVO(tUserVO);
-	 * tUserFeedsVOList.add(tUserFeedsVO); } }
-	 * 
-	 * Map<String, Object> map = new HashMap<String, Object>();
-	 * map.put("tUserFeedsVOList", tUserFeedsVOList); map.put("count", count);
-	 * WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response); }
-	 */
 
 }
