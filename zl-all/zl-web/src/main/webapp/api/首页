@@ -1,0 +1,1 @@
+{"apiRemark":"保存模板前在这里可以输入接口说明..","group":"首页","headerKeyValues":[],"method":"get","name":"首页","params":{"modifyTime":"0","pageNo":"1","pageSize":"20"},"paramsKeyValues":[{"key":"pageNo","value":"1"},{"key":"pageSize","value":"20"},{"key":"modifyTime","value":"0"}],"url":"http://127.0.0.1:8080/userFeeds/getHome.htm"}

@@ -1,1 +1,1 @@
-{"apiRemark":"保存模板前在这里可以输入接口说明..","group":"验证码","headerKeyValues":[],"method":"get","name":"发送验证码","params":{"mobile":"18657131295"},"paramsKeyValues":[{"key":"mobile","value":"18657131295"}],"url":"http://127.0.01:8080/valid/send.htm"}
+{"group":"验证码","headerKeyValues":[],"method":"get","name":"发送验证码","params":{"mobile":"18657131295"},"paramsKeyValues":[{"key":"mobile","value":"18657131295"}],"url":"http://127.0.0.1:8080/valid/send.htm"}

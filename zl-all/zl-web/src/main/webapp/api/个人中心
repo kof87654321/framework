@@ -1,0 +1,1 @@
+{"apiRemark":"","group":"用户","headerKeyValues":[],"method":"get","name":"个人中心","params":{"userId":"5"},"paramsKeyValues":[{"key":"userId","value":"5"}],"url":"http://127.0.0.1:8080/user/getMyPage.htm"}

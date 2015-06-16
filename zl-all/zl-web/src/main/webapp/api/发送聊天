@@ -1,0 +1,1 @@
+{"group":"聊天","headerKeyValues":[],"method":"get","name":"发送聊天","params":{"toId":"5","msg":"我是一条消息","userId":"15"},"paramsKeyValues":[{"key":"userId","value":"15"},{"key":"toId","value":"5"},{"key":"msg","value":"我是一条消息"}],"url":"http://127.0.0.1:8080/chat/send.htm"}
