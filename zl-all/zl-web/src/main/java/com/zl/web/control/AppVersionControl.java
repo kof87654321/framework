@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zl.client.verson.VersionService;
 import com.zl.pojo.TVersion;
-import com.zl.web.annotation.Security;
 import com.zl.web.app.util.WebUtil;
 import com.zl.web.app.vo.AjaxResult;
 
@@ -31,7 +30,6 @@ public class AppVersionControl {
      * @param response
      */
     @RequestMapping("/newVersion")
-    @Security
     public void newVersion(Integer appId, HttpServletRequest request, HttpServletResponse response) {
         TVersion newVersion = versionService.getNewVersionByAppId(appId);
         WebUtil.ajaxOutput(AjaxResult.newSuccessResult(newVersion), response);
