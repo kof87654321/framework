@@ -19,6 +19,7 @@ import com.zl.dao.mapper.TUserMapperExt;
 import com.zl.dao.mapper.TUserProfileMapperExt;
 import com.zl.pojo.Page;
 import com.zl.pojo.TUser;
+import com.zl.pojo.TUserExample;
 import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserInfoExample;
 import com.zl.pojo.TUserProfile;
@@ -391,6 +392,28 @@ public class TUserServiceImpl implements TUserService {
 		criteria.andMobileEqualTo(mobile.trim());
 		List<TUserInfo> list = this.userInfoMapperExt.selectByExample(tUserInfoExample);
 		if (list == null || list.size() <= 0) {
+			return null;
+		}
+		return list.get(0);
+	}
+
+	/*
+	 * 
+	* <p>Title: getTUserByLogin</p> 
+	* <p>Description: 用户登录接口</p> 
+	* @param userName
+	* @param passWord
+	* @return 
+	* @see com.zl.client.user.TUserService#getTUserByLogin(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public TUser getTUserByLogin(String userName, String passWord) {
+		TUserExample tUserExample = new TUserExample();
+		com.zl.pojo.TUserExample.Criteria  criteria = tUserExample.createCriteria();
+		criteria.andUserNameEqualTo(userName.trim());
+		criteria.andPasswordEqualTo(passWord.trim());
+		List<TUser> list = this.userMapperExt.selectByExample(tUserExample);
+		if (list == null || list.size()<=0) {
 			return null;
 		}
 		return list.get(0);
