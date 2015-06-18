@@ -407,7 +407,7 @@ public class TUserServiceImpl implements TUserService {
 	* @see com.zl.client.user.TUserService#getTUserByLogin(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public TUser getTUserByLogin(String userName, String passWord) {
+	public TUserVO getTUserByLogin(String userName, String passWord) {
 		TUserExample tUserExample = new TUserExample();
 		com.zl.pojo.TUserExample.Criteria  criteria = tUserExample.createCriteria();
 		criteria.andUserNameEqualTo(userName.trim());
@@ -416,6 +416,7 @@ public class TUserServiceImpl implements TUserService {
 		if (list == null || list.size()<=0) {
 			return null;
 		}
-		return list.get(0);
+		TUser tUser = list.get(0);
+		return this.getUserVOById(tUser.getId(), false, true);
 	}
 }
