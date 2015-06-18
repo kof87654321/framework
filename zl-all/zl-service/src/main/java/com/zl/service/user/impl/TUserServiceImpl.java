@@ -69,7 +69,12 @@ public class TUserServiceImpl implements TUserService {
 		if (tUser == null) {
 			return null;
 		}
-
+		
+		//修改用户最后登录时间
+		Date lastLoginTime = new Date();
+		updateLastLoginTime(userId, lastLoginTime); 
+		tUser.setLastLoginTime(lastLoginTime); 
+		
 		if (token) {
 			String strToken = TokenUtils.getToken(tUser.getId(), tUser.getPassword(), tUser.getLastLoginTime());
 			if (StringUtils.isNotBlank(strToken)) {
@@ -418,5 +423,17 @@ public class TUserServiceImpl implements TUserService {
 		}
 		TUser tUser = list.get(0);
 		return this.getUserVOById(tUser.getId(), false, true);
+	}
+	
+	/**
+	 * 修改用户最后登录时间 by:is_zhoufeng
+	 * @param userId
+	 * @param lastLoginTime
+	 */
+	private void updateLastLoginTime(Long userId , Date lastLoginTime){
+		TUser updateUser = new TUser() ;
+		updateUser.setId(userId);
+		updateUser.setLastLoginTime(lastLoginTime); 
+		userMapperExt.updateByPrimaryKeySelective(updateUser);
 	}
 }
