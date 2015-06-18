@@ -70,12 +70,14 @@ public class TUserServiceImpl implements TUserService {
 			return null;
 		}
 		
-		//修改用户最后登录时间
-		Date lastLoginTime = new Date();
-		updateLastLoginTime(userId, lastLoginTime); 
-		tUser.setLastLoginTime(lastLoginTime); 
 		
-		if (token) {
+		if (token) {  //如果token为true表示调用该方法是为了用户登录
+			
+			//修改用户最后登录时间
+			Date lastLoginTime = new Date();
+			updateLastLoginTime(userId, lastLoginTime); 
+			tUser.setLastLoginTime(lastLoginTime); 
+			
 			String strToken = TokenUtils.getToken(tUser.getId(), tUser.getPassword(), tUser.getLastLoginTime());
 			if (StringUtils.isNotBlank(strToken)) {
 				tUser.setToken(strToken);
