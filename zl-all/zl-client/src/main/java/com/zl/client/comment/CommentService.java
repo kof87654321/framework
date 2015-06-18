@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zl.pojo.Page;
 import com.zl.pojo.TComment;
+import com.zl.vo.TCommentAndUserVO;
 import com.zl.vo.TCommentCountVO;
 
 public interface CommentService {
@@ -16,4 +17,9 @@ public interface CommentService {
 	// public int getCountTComment4UserFeedsIds(long userFeedsId);
 
 	public List<TCommentCountVO> getTCommentVOList4UserFeedsIds(Long... userFeedsIds);
+	
+	
+	public int getCountTComment4UserId(long userId, long modifyTime,Integer[] types);
+	
+	public List<TComment> getListTComment4UserId(long userId,long modifyTime, Integer[] types ,Page page);
 }
