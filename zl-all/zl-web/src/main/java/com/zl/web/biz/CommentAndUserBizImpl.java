@@ -53,6 +53,7 @@ public class CommentAndUserBizImpl implements CommentAndUserBiz {
 				TUserVO tCommentPostUserVO = this.tUserService.getUserVOById(tComment.getUserId(), false, false);
 				tCommentAndUserVO.settCommentPostUserVO(tCommentPostUserVO);
 			}
+			tCommentAndUserVO.settComment(tComment);
 			tCommentAndUserVO.settUserFeedsUserVO(tUserFeedsUserVO);
 			tCommentAndUserVOList.add(tCommentAndUserVO);
 		}
