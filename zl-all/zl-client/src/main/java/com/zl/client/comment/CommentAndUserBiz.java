@@ -8,6 +8,6 @@ import com.zl.vo.TCommentAndUserVO;
 public interface CommentAndUserBiz {
 
 	public List<TCommentAndUserVO> getTCommentAndUserVOListByUserFeedId(long userFeedsId, Page page,
-			boolean showUserFeedsUerVO, boolean showTcommentUserVO);
+			boolean showUserFeedsUerVO, boolean showTcommentUserVO,boolean showPraiseList);
 
 }

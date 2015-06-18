@@ -62,7 +62,11 @@ public class UserFeedsControl {
 	@Security
 	public void postUserFeeds(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId) {
-
+		if (userId == null || userId <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
+					response);
+			return;
+		}
 		TUserFeeds tUserFeeds = new TUserFeeds();
 		tUserFeeds.setContent(request.getParameter("content"));
 		tUserFeeds.setUserId(userId);
@@ -84,9 +88,15 @@ public class UserFeedsControl {
 	@Security
 	public void postTcomment(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
-			@RequestParam(value = "user2Id", required = true, defaultValue = "0") Long user2Id,
+			@RequestParam(value = "user2Id", required = false, defaultValue = "0") Long user2Id,
 			@RequestParam(value = "userFeedsId", required = true, defaultValue = "0") Long userFeedsId,
+			@RequestParam(value = "type", required = true, defaultValue = "0") Integer type,
 			@RequestParam(value = "content", required = true, defaultValue = "") String content) {
+
+		if (userId == null || userId <= 0 || user2Id == null || user2Id <= 0 || userFeedsId <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "PARAM_ERROR", Consts.ERRORCode.PARAM_ERROR), response);
+			return;
+		}
 
 		TComment tComment = new TComment();
 		tComment.setAuthorId(userId);
@@ -96,6 +106,7 @@ public class UserFeedsControl {
 		tComment.setParentId(userFeedsId);
 		tComment.setUserId(userId);
 		tComment.setStatus(Constant.STATUS.NOMARL);
+		tComment.setType(type);
 
 		this.commentService.insertTComment(tComment);
 		this.userFeedsService.addCommentCount(userFeedsId, 1);
@@ -175,6 +186,12 @@ public class UserFeedsControl {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
 
+		if (userId == null || userId <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
+					response);
+			return;
+		}
+
 		Page page = new Page();
 		int count = userFeedsService.getUserFeedsCount4TUserFeedsExample(userId, greaterThanOrEqualToPicCount,
 				modifyTime);
@@ -215,11 +232,17 @@ public class UserFeedsControl {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
 
+		if (id == null || id <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "id is null", Consts.ERRORCode.PARAM_ERROR), response);
+			return;
+		}
+
 		Page page = new Page();
 		List<TCommentAndUserVO> tCommentAndUserVOList = this.commentAndUserBiz.getTCommentAndUserVOListByUserFeedId(id,
-				page.setPageByPageNoAndPageSize(pageNo, pageSize), false, true);
+				page.setPageByPageNoAndPageSize(pageNo, pageSize), false, true,false);
 		// 当取单条用户动态的时候，则将所有评论至为已读
-//		this.userFeedsService.updateStatus4TUserFeedsId(Constant.STATUS.CHECKED,Constant.STATUS.NO_CHECK, id);
+		// this.userFeedsService.updateStatus4TUserFeedsId(Constant.STATUS.CHECKED,Constant.STATUS.NO_CHECK,
+		// id);
 		TUserFeeds tUserFeeds = this.userFeedsService.getTUserFeedsById(id);
 		TUserVO tUserVO = null;
 		TUserFeedsVO tUserFeedsVO = null;
@@ -248,6 +271,22 @@ public class UserFeedsControl {
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "feedsId", required = true, defaultValue = "0") Long feedsId) {
 
+		if (userId == null || userId <= 0 || feedsId <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "PARAM_ERROR", Consts.ERRORCode.PARAM_ERROR),
+					response);
+			return;
+		}
+		TComment tComment = new TComment();
+		tComment.setAuthorId(userId);
+		tComment.setContent("");
+		tComment.setCreateTime(new Date());
+		tComment.setModifyTime(new Date());
+		tComment.setParentId(feedsId);
+		tComment.setUserId(userId);
+		tComment.setStatus(Constant.STATUS.NOMARL);
+		tComment.setType(2);
+
+		this.commentService.insertTComment(tComment);
 		int count = userFeedsService.addPraise(feedsId, 1);
 		if (count > 0) {
 			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(true), response);

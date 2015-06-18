@@ -73,7 +73,6 @@ public class ChatServiceImpl implements ChatService {
         TChatExample condition = new TChatExample();
         Criteria criteria = condition.createCriteria();
         criteria.andToIdEqualTo(query.getUserId());
-        criteria.andToIdEqualTo(query.getUserId());
         if (query.getSince() != null) {
             criteria.andModifyTimeGreaterThan(query.getSince());
         }

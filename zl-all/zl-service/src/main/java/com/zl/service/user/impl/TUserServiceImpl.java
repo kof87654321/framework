@@ -19,6 +19,7 @@ import com.zl.dao.mapper.TUserMapperExt;
 import com.zl.dao.mapper.TUserProfileMapperExt;
 import com.zl.pojo.Page;
 import com.zl.pojo.TUser;
+import com.zl.pojo.TUserExample;
 import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserInfoExample;
 import com.zl.pojo.TUserProfile;
@@ -68,13 +69,20 @@ public class TUserServiceImpl implements TUserService {
 		if (tUser == null) {
 			return null;
 		}
-
-		if (token) {
+		
+		if (token) {  //如果token为true表示调用该方法是为了用户登录
+			
+			//修改用户最后登录时间
+			Date lastLoginTime = new Date();
+			updateLastLoginTime(userId, lastLoginTime); 
+			tUser.setLastLoginTime(lastLoginTime); 
+			
 			String strToken = TokenUtils.getToken(tUser.getId(), tUser.getPassword(), tUser.getLastLoginTime());
 			if (StringUtils.isNotBlank(strToken)) {
 				tUser.setToken(strToken);
 			}
 		}
+		
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
 		tUserInfoExample.createCriteria().andUserIdEqualTo(userId);
 		List<TUserInfo> tUserInfoList = this.userInfoMapperExt.selectByExample(tUserInfoExample);
@@ -394,5 +402,40 @@ public class TUserServiceImpl implements TUserService {
 			return null;
 		}
 		return list.get(0);
+	}
+
+	/*
+	 * 
+	* <p>Title: getTUserByLogin</p> 
+	* <p>Description: 用户登录接口</p> 
+	* @param userName
+	* @param passWord
+	* @return 
+	* @see com.zl.client.user.TUserService#getTUserByLogin(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public TUserVO getTUserByLogin(String userName, String passWord) {
+		TUserExample tUserExample = new TUserExample();
+		com.zl.pojo.TUserExample.Criteria  criteria = tUserExample.createCriteria();
+		criteria.andUserNameEqualTo(userName.trim());
+		criteria.andPasswordEqualTo(passWord.trim());
+		List<TUser> list = this.userMapperExt.selectByExample(tUserExample);
+		if (list == null || list.size()<=0) {
+			return null;
+		}
+		TUser tUser = list.get(0);
+		return this.getUserVOById(tUser.getId(), false, true);
+	}
+	
+	/**
+	 * 修改用户最后登录时间 by:is_zhoufeng
+	 * @param userId
+	 * @param lastLoginTime
+	 */
+	private void updateLastLoginTime(Long userId , Date lastLoginTime){
+		TUser updateUser = new TUser() ;
+		updateUser.setId(userId);
+		updateUser.setLastLoginTime(lastLoginTime); 
+		userMapperExt.updateByPrimaryKeySelective(updateUser);
 	}
 }

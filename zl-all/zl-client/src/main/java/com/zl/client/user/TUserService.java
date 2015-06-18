@@ -35,5 +35,7 @@ public interface TUserService {
 	public int deleteTUserProfileByIdAndUserId(Long userId, long id);
 	
 	public TUserInfo getUserInfoByMobile(String mobile); 
+	
+	public TUserVO getTUserByLogin(String userName,String passWord);
 
 }

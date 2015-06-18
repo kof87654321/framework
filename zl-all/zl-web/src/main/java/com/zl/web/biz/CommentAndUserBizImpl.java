@@ -28,11 +28,22 @@ public class CommentAndUserBizImpl implements CommentAndUserBiz {
 	@Autowired
 	private TUserService tUserService;
 
+	/*
+	 * showPraiseList 是否查点赞list
+	 * showTcommentUserVO 是否显示评论的用户vo
+	 * showUserFeedsUerVO 是否显示动态的用户vo
+	 * (non-Javadoc)
+	 * @see com.zl.client.comment.CommentAndUserBiz#getTCommentAndUserVOListByUserFeedId(long, com.zl.pojo.Page, boolean, boolean, boolean)
+	 */
 	@Override
 	public List<TCommentAndUserVO> getTCommentAndUserVOListByUserFeedId(long userFeedsId, Page page,
-			boolean showUserFeedsUerVO, boolean showTcommentUserVO) {
+			boolean showUserFeedsUerVO, boolean showTcommentUserVO,boolean showPraiseList) {
 		List<TCommentAndUserVO> tCommentAndUserVOList = new ArrayList<TCommentAndUserVO>();
-		List<TComment> tCommentList = this.commentService.getListTComment4UserFeedsId(userFeedsId, page);
+		Integer[] types = null;
+		if (showPraiseList == false) {
+			types = new Integer[]{0,1};
+		}
+		List<TComment> tCommentList = this.commentService.getListTComment4UserFeedsId(userFeedsId,types, page);
 		if (tCommentList == null || tCommentList.size() <= 0) {
 			return tCommentAndUserVOList;
 		}
@@ -53,6 +64,7 @@ public class CommentAndUserBizImpl implements CommentAndUserBiz {
 				TUserVO tCommentPostUserVO = this.tUserService.getUserVOById(tComment.getUserId(), false, false);
 				tCommentAndUserVO.settCommentPostUserVO(tCommentPostUserVO);
 			}
+			tCommentAndUserVO.settComment(tComment);
 			tCommentAndUserVO.settUserFeedsUserVO(tUserFeedsUserVO);
 			tCommentAndUserVOList.add(tCommentAndUserVO);
 		}
