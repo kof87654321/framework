@@ -14,6 +14,7 @@ public class TCommentAndUserVO implements Serializable {
 	private TComment tComment;
 	private TUserVO tUserFeedsUserVO;// 朋友圈内容的发布者
 	private TUserVO tCommentPostUserVO;//评论发布者
+	private TUserVO tReviceUserVO;//评论接受着
 
 	public TComment gettComment() {
 		return tComment;
@@ -37,6 +38,14 @@ public class TCommentAndUserVO implements Serializable {
 
 	public void settCommentPostUserVO(TUserVO tCommentPostUserVO) {
 		this.tCommentPostUserVO = tCommentPostUserVO;
+	}
+
+	public TUserVO gettReviceUserVO() {
+		return tReviceUserVO;
+	}
+
+	public void settReviceUserVO(TUserVO tReviceUserVO) {
+		this.tReviceUserVO = tReviceUserVO;
 	}
 
 }

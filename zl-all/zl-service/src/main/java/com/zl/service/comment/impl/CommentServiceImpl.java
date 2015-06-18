@@ -1,6 +1,7 @@
 package com.zl.service.comment.impl;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,40 @@ public class CommentServiceImpl implements CommentService {
 		Criteria criteria = commentExample.createCriteria();
 		criteria.andParentIdIn(Arrays.asList(userFeedsIds));
 		return this.commentMapperExt.countsByParentIdsAndExample(commentExample);
+	}
+
+	@Override
+	public int getCountTComment4UserId(long userId, long modifyTime,Integer[] types) {
+		TCommentExample commentExample = new TCommentExample();
+		Criteria criteria = commentExample.createCriteria();
+		criteria.andAuthorIdEqualTo(userId);
+		if (types!=null) {
+			criteria.andTypeIn(Arrays.asList(types));
+		}
+		if (modifyTime>0) {
+			criteria.andModifyTimeGreaterThan(new Date(modifyTime));
+		}
+		
+		criteria.andStatusIn(ListUtil.getIntegerList(Constant.STATUS.CHECKED, Constant.STATUS.NOMARL));
+		// criteria.and
+		return this.commentMapperExt.countByExample(commentExample);
+	}
+
+	@Override
+	public List<TComment> getListTComment4UserId(long userId, long modifyTime,Integer[] types, Page page) {
+		TCommentExample commentExample = new TCommentExample();
+		Criteria criteria = commentExample.createCriteria();
+		criteria.andAuthorIdEqualTo(userId);
+		if (types!=null) {
+			criteria.andTypeIn(Arrays.asList(types));
+		}
+		if (modifyTime>0) {
+			criteria.andModifyTimeGreaterThan(new Date(modifyTime));
+		}
+		
+		criteria.andStatusIn(ListUtil.getIntegerList(Constant.STATUS.CHECKED, Constant.STATUS.NOMARL));
+		commentExample.setPage(page);
+		return this.commentMapperExt.selectByExample(commentExample);
 	}
 
 }
