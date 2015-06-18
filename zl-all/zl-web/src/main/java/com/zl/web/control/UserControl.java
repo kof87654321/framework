@@ -190,7 +190,7 @@ public class UserControl {
 	@Security
 	public void updateUser(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
-			@RequestParam(value = "userName", required = false, defaultValue = "") String userName,
+			@RequestParam(value = "nickName", required = false, defaultValue = "") String nickName,
 			@RequestParam(value = "passWord", required = false, defaultValue = "") String passWord) {
 
 		if (userId == null || userId <= 0) {
@@ -224,8 +224,8 @@ public class UserControl {
 		// tUserInfo.setFriends(0);
 		tUserInfo.setIndustry(HttpParamUtil.integerParam(request, "industry"));
 		// tUserInfo.setMobile(request.getParameter("mobile"));
-		if (StringUtils.isNotBlank(userName)) {
-			tUserInfo.setNickName(userName);
+		if (StringUtils.isNotBlank(nickName)) {
+			tUserInfo.setNickName(nickName);
 		}
 		// tUserInfo.setPraise(0);
 		if (StringUtils.isNotBlank(request.getParameter("qrCode"))) {
