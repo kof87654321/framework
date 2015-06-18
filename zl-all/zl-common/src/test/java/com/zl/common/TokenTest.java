@@ -11,7 +11,7 @@ public class TokenTest {
 	@Test
 	public void test01(){
 		String token = TokenUtils.getToken(1L, "111111", new Date()) ;
-		System.out.println(token.trim()); 
+		System.out.print(token); 
 	}
 
 	@Test
