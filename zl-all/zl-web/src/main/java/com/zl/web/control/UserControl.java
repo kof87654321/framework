@@ -183,8 +183,8 @@ public class UserControl {
 	@Security
 	public void updateUser(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
-			@RequestParam(value = "userName", required = true, defaultValue = "0") String userName,
-			@RequestParam(value = "passWord", required = true, defaultValue = "0") String passWord) {
+			@RequestParam(value = "userName", required = false, defaultValue = "0") String userName,
+			@RequestParam(value = "passWord", required = false, defaultValue = "0") String passWord) {
 
 		if (userId == null || userId <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
@@ -194,8 +194,12 @@ public class UserControl {
 		TUserVO tUserVO = this.tUserService.getUserVOById(userId, false, false);
 		TUser tUser = tUserVO.gettUser();
 		tUser.setLastLoginTime(new Date());
-		tUser.setPassword(passWord);
-		tUser.setUserName(userName);
+		if (!StringUtils.isBlank(userName)) {
+			tUser.setUserName(userName);
+		}
+		if (!StringUtils.isBlank(passWord)) {
+			tUser.setPassword(passWord);
+		}
 
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 
