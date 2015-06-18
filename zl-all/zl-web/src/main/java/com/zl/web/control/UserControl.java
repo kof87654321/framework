@@ -108,7 +108,8 @@ public class UserControl {
 	}
 
 	/**
-	 * 用户注册http接口  通过浏览器{host:port}/user/registerUser.htm进行访问
+	 * 用户注册http接口 通过浏览器{host:port}/user/registerUser.htm进行访问
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userName
@@ -128,10 +129,13 @@ public class UserControl {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "valid error", Consts.ERRORCode.VALID_ERROR), response);
 			return;
 		}
-		
+
 		TUserInfo tUserInfoMobile = this.tUserService.getUserInfoByMobile(mobile);
 		if (tUserInfoMobile != null) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "mobile ready register", Consts.ERRORCode.MOBILE_HAS_USEED_ERROR), response);
+			WebUtil.ajaxOutput(
+					AjaxResult.newFailResult(null, "mobile ready register", Consts.ERRORCode.MOBILE_HAS_USEED_ERROR),
+					response);
+			return;
 		}
 
 		TUserVO tUserVO = new TUserVO();
@@ -168,6 +172,7 @@ public class UserControl {
 
 	/**
 	 * 更新用户账号密码http接口 通过浏览器{host:port}/user/updateUser.htm进行访问
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -227,6 +232,7 @@ public class UserControl {
 
 	/**
 	 * 插入单条用户经历
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -256,6 +262,7 @@ public class UserControl {
 
 	/**
 	 * 更新用户经历
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -301,6 +308,7 @@ public class UserControl {
 
 	/**
 	 * 删除用户经历
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -329,6 +337,31 @@ public class UserControl {
 		int count = this.tUserService.deleteTUserProfileByIdAndUserId(userId, id);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(count), response);
 
+	}
+
+	/**
+	 * 用户注册http接口 通过浏览器{host:port}/user/registerUser.htm进行访问
+	 * 
+	 * @param request
+	 * @param response
+	 * @param userName
+	 * @param passWord
+	 * @param valid
+	 * @param mobile
+	 */
+	@RequestMapping("/loginUser")
+	public void loginUser(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "userName", required = true, defaultValue = "0") String userName,
+			@RequestParam(value = "passWord", required = true, defaultValue = "0") String passWord) {
+
+		if (StringUtils.isBlank(userName) || StringUtils.isBlank(passWord)) {
+			WebUtil.ajaxOutput(
+					AjaxResult.newFailResult(null, "userName passWord is null", Consts.ERRORCode.PARAM_ERROR), response);
+			return;
+		}
+		TUserVO tUserVO = this.tUserService.getTUserByLogin(userName, passWord);
+
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tUserVO), response);
 	}
 
 }
