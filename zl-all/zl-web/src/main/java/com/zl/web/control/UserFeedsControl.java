@@ -276,7 +276,17 @@ public class UserFeedsControl {
 					response);
 			return;
 		}
+		TComment tComment = new TComment();
+		tComment.setAuthorId(userId);
+		tComment.setContent("");
+		tComment.setCreateTime(new Date());
+		tComment.setModifyTime(new Date());
+		tComment.setParentId(feedsId);
+		tComment.setUserId(userId);
+		tComment.setStatus(Constant.STATUS.NOMARL);
+		tComment.setType(2);
 
+		this.commentService.insertTComment(tComment);
 		int count = userFeedsService.addPraise(feedsId, 1);
 		if (count > 0) {
 			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(true), response);
