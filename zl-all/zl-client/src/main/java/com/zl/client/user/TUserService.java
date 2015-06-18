@@ -36,6 +36,6 @@ public interface TUserService {
 	
 	public TUserInfo getUserInfoByMobile(String mobile); 
 	
-	public TUser getTUserByLogin(String userName,String passWord);
+	public TUserVO getTUserByLogin(String userName,String passWord);
 
 }
