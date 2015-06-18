@@ -70,7 +70,6 @@ public class TUserServiceImpl implements TUserService {
 			return null;
 		}
 		
-		
 		if (token) {  //如果token为true表示调用该方法是为了用户登录
 			
 			//修改用户最后登录时间
@@ -83,6 +82,7 @@ public class TUserServiceImpl implements TUserService {
 				tUser.setToken(strToken);
 			}
 		}
+		
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
 		tUserInfoExample.createCriteria().andUserIdEqualTo(userId);
 		List<TUserInfo> tUserInfoList = this.userInfoMapperExt.selectByExample(tUserInfoExample);
