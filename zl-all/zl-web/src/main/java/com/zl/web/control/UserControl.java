@@ -61,8 +61,8 @@ public class UserControl {
 	public void myPage(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "modifyTime", required = false, defaultValue = "0") Long modifyTime,
-			@RequestParam(value = "pageNo", required = false, defaultValue = "0") Integer pageNo,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "0") Integer pageSize) {
+			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 		if (userId == null) {
 			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(null), response);
 			return;
@@ -108,7 +108,8 @@ public class UserControl {
 	}
 
 	/**
-	 * 用户注册http接口  通过浏览器{host:port}/user/registerUser.htm进行访问
+	 * 用户注册http接口 通过浏览器{host:port}/user/registerUser.htm进行访问
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userName
@@ -118,20 +119,29 @@ public class UserControl {
 	 */
 	@RequestMapping("/registerUser")
 	public void registerUser(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userName", required = true, defaultValue = "0") String userName,
-			@RequestParam(value = "passWord", required = true, defaultValue = "0") String passWord,
-			@RequestParam(value = "valid", required = true, defaultValue = "0") String valid,
-			@RequestParam(value = "mobile", required = true, defaultValue = "0") String mobile) {
+			@RequestParam(value = "userName", required = true, defaultValue = "") String userName,
+			@RequestParam(value = "passWord", required = true, defaultValue = "") String passWord,
+			@RequestParam(value = "valid", required = true, defaultValue = "") String valid,
+			@RequestParam(value = "mobile", required = true, defaultValue = "") String mobile) {
+
+		if (StringUtils.isBlank(userName) || StringUtils.isBlank(passWord) || StringUtils.isBlank(valid)
+				|| StringUtils.isBlank(mobile)) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "PARAM_ERROR", Consts.ERRORCode.PARAM_ERROR), response);
+			return;
+		}
 
 		boolean checkValid = ValidCodeUtil.checkValid(mobile, valid);
 		if (checkValid == false) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "valid error", Consts.ERRORCode.VALID_ERROR), response);
 			return;
 		}
-		
+
 		TUserInfo tUserInfoMobile = this.tUserService.getUserInfoByMobile(mobile);
 		if (tUserInfoMobile != null) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "mobile ready register", Consts.ERRORCode.MOBILE_HAS_USEED_ERROR), response);
+			WebUtil.ajaxOutput(
+					AjaxResult.newFailResult(null, "mobile ready register", Consts.ERRORCode.MOBILE_HAS_USEED_ERROR),
+					response);
+			return;
 		}
 
 		TUserVO tUserVO = new TUserVO();
@@ -139,7 +149,8 @@ public class UserControl {
 		tUser.setLastLoginTime(new Date());
 		tUser.setStatus(Constant.STATUS.NOMARL);
 		tUser.setPassword(passWord);
-		tUser.setUserName(userName);
+		// tUser.setUserName(userName);
+		tUser.setUserName(mobile);
 		tUser.setInviteCode(request.getParameter("inviteCode"));
 
 		TUserInfo tUserInfo = new TUserInfo();
@@ -151,8 +162,8 @@ public class UserControl {
 		tUserInfo.setFaceImg(request.getParameter("faceImg"));
 		tUserInfo.setFriends(0);
 		tUserInfo.setIndustry(HttpParamUtil.integerParam(request, "industry"));
-		tUserInfo.setMobile(request.getParameter("mobile"));
-		tUserInfo.setNickName(request.getParameter("nickName"));
+		tUserInfo.setMobile(mobile);
+		tUserInfo.setNickName(userName);
 		tUserInfo.setPraise(0);
 		tUserInfo.setQrCode(request.getParameter("qrCode"));
 		tUserInfo.setSex(HttpParamUtil.booleanParam(request, "sex"));
@@ -168,6 +179,7 @@ public class UserControl {
 
 	/**
 	 * 更新用户账号密码http接口 通过浏览器{host:port}/user/updateUser.htm进行访问
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -178,8 +190,8 @@ public class UserControl {
 	@Security
 	public void updateUser(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
-			@RequestParam(value = "userName", required = true, defaultValue = "0") String userName,
-			@RequestParam(value = "passWord", required = true, defaultValue = "0") String passWord) {
+			@RequestParam(value = "nickName", required = false, defaultValue = "") String nickName,
+			@RequestParam(value = "passWord", required = false, defaultValue = "") String passWord) {
 
 		if (userId == null || userId <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
@@ -189,8 +201,12 @@ public class UserControl {
 		TUserVO tUserVO = this.tUserService.getUserVOById(userId, false, false);
 		TUser tUser = tUserVO.gettUser();
 		tUser.setLastLoginTime(new Date());
-		tUser.setPassword(passWord);
-		tUser.setUserName(userName);
+		// if (!StringUtils.isBlank(userName)) {
+		// tUser.setUserName(userName);
+		// }
+		if (!StringUtils.isBlank(passWord)) {
+			tUser.setPassword(passWord);
+		}
 
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 
@@ -207,8 +223,10 @@ public class UserControl {
 		// tUserInfo.setFaceImg(request.getParameter("faceImg"));
 		// tUserInfo.setFriends(0);
 		tUserInfo.setIndustry(HttpParamUtil.integerParam(request, "industry"));
-		tUserInfo.setMobile(request.getParameter("mobile"));
-		tUserInfo.setNickName(request.getParameter("nickName"));
+		// tUserInfo.setMobile(request.getParameter("mobile"));
+		if (StringUtils.isNotBlank(nickName)) {
+			tUserInfo.setNickName(nickName);
+		}
 		// tUserInfo.setPraise(0);
 		if (StringUtils.isNotBlank(request.getParameter("qrCode"))) {
 			request.getParameter("qrCode");
@@ -227,6 +245,7 @@ public class UserControl {
 
 	/**
 	 * 插入单条用户经历
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -235,7 +254,11 @@ public class UserControl {
 	@Security
 	public void insertUserProfile(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId) {
-
+		if (userId == null || userId <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
+					response);
+			return;
+		}
 		List<TUserProfile> tUserProfileList = new ArrayList<TUserProfile>();
 		TUserProfile tUserProfile = new TUserProfile();
 		tUserProfile.setCompany(request.getParameter("company"));
@@ -256,6 +279,7 @@ public class UserControl {
 
 	/**
 	 * 更新用户经历
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -269,6 +293,12 @@ public class UserControl {
 
 		if (userId <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
+					response);
+			return;
+		}
+		
+		if (id == null || id <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "id is null", Consts.ERRORCode.PARAM_ERROR),
 					response);
 			return;
 		}
@@ -301,6 +331,7 @@ public class UserControl {
 
 	/**
 	 * 删除用户经历
+	 * 
 	 * @param request
 	 * @param response
 	 * @param userId
@@ -329,6 +360,31 @@ public class UserControl {
 		int count = this.tUserService.deleteTUserProfileByIdAndUserId(userId, id);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(count), response);
 
+	}
+
+	/**
+	 * 用户注册http接口 通过浏览器{host:port}/user/registerUser.htm进行访问
+	 * 
+	 * @param request
+	 * @param response
+	 * @param userName
+	 * @param passWord
+	 * @param valid
+	 * @param mobile
+	 */
+	@RequestMapping("/loginUser")
+	public void loginUser(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "mobile", required = true, defaultValue = "0") String mobile,
+			@RequestParam(value = "passWord", required = true, defaultValue = "0") String passWord) {
+
+		if (StringUtils.isBlank(mobile) || StringUtils.isBlank(passWord)) {
+			WebUtil.ajaxOutput(
+					AjaxResult.newFailResult(null, "userName passWord is null", Consts.ERRORCode.PARAM_ERROR), response);
+			return;
+		}
+		TUserVO tUserVO = this.tUserService.getTUserByLogin(mobile, passWord);
+
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tUserVO), response);
 	}
 
 }
