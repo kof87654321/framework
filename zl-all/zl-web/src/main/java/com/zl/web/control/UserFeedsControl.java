@@ -118,7 +118,7 @@ public class UserFeedsControl {
 	}
 
 	/**
-	 * 根据用户获取动态列表
+	 * 首页列表
 	 * 
 	 * @param request
 	 * @param response
@@ -294,6 +294,42 @@ public class UserFeedsControl {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "server error", Consts.ERRORCode.SERVER_ERROR), response);
 		}
 
+	}
+	
+	
+	/**
+	 * 根据用户获取动态列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @param userId
+	 * @param modifyTime
+	 * @param greaterThanOrEqualToPicCount
+	 * @param pageNo
+	 * @param pageSize
+	 */
+	@RequestMapping("/getTcommentByUserId")
+	@Security
+	public void getTcommentByUserId(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
+			@RequestParam(value = "modifyTime", required = false, defaultValue = "0") Long modifyTime,
+			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
+
+		if (userId == null || userId <= 0) {
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
+					response);
+			return;
+		}
+
+		int count = this.commentService.getCountTComment4UserId(userId, modifyTime, null);
+		List<TCommentAndUserVO> tCommentAndUserVOList = this.commentAndUserBiz.getListTComment4UserId(userId, modifyTime, null, new Page().setPageByPageNoAndPageSize(pageNo, pageSize));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tCommentAndUserVOList", tCommentAndUserVOList);
+		map.put("count", count);
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(map), response);
 	}
 
 }
