@@ -43,6 +43,7 @@ public class TokenUtils {
         String token = null;
         try {
             token = DesUtils.encryptString(ENCRYPT_KEY, message);
+            token = token.trim();
         } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
                 | BadPaddingException | UnsupportedEncodingException e) {
             LOGGER.error("get token error!", e);
