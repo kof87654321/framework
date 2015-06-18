@@ -88,8 +88,9 @@ public class UserFeedsControl {
 	@Security
 	public void postTcomment(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
-			@RequestParam(value = "user2Id", required = true, defaultValue = "0") Long user2Id,
+			@RequestParam(value = "user2Id", required = false, defaultValue = "0") Long user2Id,
 			@RequestParam(value = "userFeedsId", required = true, defaultValue = "0") Long userFeedsId,
+			@RequestParam(value = "type", required = true, defaultValue = "0") Integer type,
 			@RequestParam(value = "content", required = true, defaultValue = "") String content) {
 
 		if (userId == null || userId <= 0 || user2Id == null || user2Id <= 0 || userFeedsId <= 0) {
@@ -105,6 +106,7 @@ public class UserFeedsControl {
 		tComment.setParentId(userFeedsId);
 		tComment.setUserId(userId);
 		tComment.setStatus(Constant.STATUS.NOMARL);
+		tComment.setType(type);
 
 		this.commentService.insertTComment(tComment);
 		this.userFeedsService.addCommentCount(userFeedsId, 1);
