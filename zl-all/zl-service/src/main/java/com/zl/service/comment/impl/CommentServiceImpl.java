@@ -54,10 +54,13 @@ public class CommentServiceImpl implements CommentService {
 	* @see com.zl.client.comment.CommentService#getListTComment4UserFeedsId(long, com.zl.pojo.Page)
 	 */
 	@Override
-	public List<TComment> getListTComment4UserFeedsId(long userFeedsId, Page page) {
+	public List<TComment> getListTComment4UserFeedsId(long userFeedsId, Integer[] types, Page page) {
 		TCommentExample commentExample = new TCommentExample();
 		Criteria criteria = commentExample.createCriteria();
 		criteria.andParentIdEqualTo(userFeedsId);
+		if (types!=null) {
+			criteria.andTypeIn(Arrays.asList(types));
+		}
 		criteria.andStatusIn(ListUtil.getIntegerList(Constant.STATUS.CHECKED, Constant.STATUS.NOMARL));
 		// criteria.and
 		commentExample.setPage(page);

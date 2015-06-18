@@ -9,7 +9,7 @@ import com.zl.vo.TCommentCountVO;
 public interface CommentService {
 	public TComment insertTComment(TComment tComment);
 
-	public List<TComment> getListTComment4UserFeedsId(long userFeedsId, Page page);
+	public List<TComment> getListTComment4UserFeedsId(long userFeedsId, Integer[] types ,Page page);
 
 	public int getCountTComment4UserFeedsIds(long userFeedsId);
 

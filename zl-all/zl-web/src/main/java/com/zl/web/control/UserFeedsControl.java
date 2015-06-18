@@ -239,7 +239,7 @@ public class UserFeedsControl {
 
 		Page page = new Page();
 		List<TCommentAndUserVO> tCommentAndUserVOList = this.commentAndUserBiz.getTCommentAndUserVOListByUserFeedId(id,
-				page.setPageByPageNoAndPageSize(pageNo, pageSize), false, true);
+				page.setPageByPageNoAndPageSize(pageNo, pageSize), false, true,false);
 		// 当取单条用户动态的时候，则将所有评论至为已读
 		// this.userFeedsService.updateStatus4TUserFeedsId(Constant.STATUS.CHECKED,Constant.STATUS.NO_CHECK,
 		// id);
