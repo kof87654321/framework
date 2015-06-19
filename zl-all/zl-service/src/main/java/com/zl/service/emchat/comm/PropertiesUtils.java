@@ -11,8 +11,7 @@ public class PropertiesUtils {
         Properties p = new Properties();
 
         try {
-            InputStream inputStream = PropertiesUtils.class.getClassLoader().getResourceAsStream(
-                "RestAPIConfig.properties");
+            InputStream inputStream = PropertiesUtils.class.getClassLoader().getResourceAsStream("emchat.properties");
 
             p.load(inputStream);
 
