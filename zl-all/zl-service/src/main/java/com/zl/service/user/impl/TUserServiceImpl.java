@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zl.client.emchat.EMUserService;
 import com.zl.client.user.TUserService;
 import com.zl.common.util.Constant;
 import com.zl.common.util.ListUtil;
@@ -25,6 +26,7 @@ import com.zl.pojo.TUserInfoExample;
 import com.zl.pojo.TUserProfile;
 import com.zl.pojo.TUserProfileExample;
 import com.zl.pojo.TUserProfileExample.Criteria;
+import com.zl.vo.IMUserVO;
 import com.zl.vo.TUserVO;
 
 /**
@@ -49,6 +51,10 @@ public class TUserServiceImpl implements TUserService {
 	@Autowired
 	/* 用户职业经历底层 */private TUserProfileMapperExt userProfileMapperExt;
 
+
+	@Autowired
+	/* 环信服务 */ private EMUserService emUserService ;
+	
 	/*
 	 * <p>Title: getUserVOById</p> <p>Description:获取用户的vo对象，用于前台展示使用 </p>
 	 * 
@@ -133,7 +139,7 @@ public class TUserServiceImpl implements TUserService {
 
 	/*
 	 * 
-	 * <p>Title: insertUser</p> <p>Description:用户注册使用接口 会操作三个数据表</p>
+	 * <p>Title: insertUser</p> <p>Description:用户注册使用接口 会操作三个数据表，并添加环信用户</p>
 	 * 
 	 * @param tUserVO
 	 * 
@@ -176,7 +182,6 @@ public class TUserServiceImpl implements TUserService {
 			tUserProfile.setUserId(userId);
 			this.userProfileMapperExt.insert(tUserProfile);
 		}
-
 		return this.getUserVOById(userId, false, true);
 	}
 

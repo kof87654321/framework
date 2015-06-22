@@ -49,7 +49,7 @@ public class UserControl {
 
 	@Autowired
 	/* 用户动态service */private UserFeedsService userFeedsService;
-
+	
 	/**
 	 * 􏰢􏰐􏰢􏰐个人中心页面调用http接口
 	 * 通过浏览器{host:port}/user/getMyPage.htm?userId=1&bigId=0&pageNo=1&

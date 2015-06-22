@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -20,6 +21,7 @@ import com.zl.service.emchat.httpclient.vo.Credential;
 import com.zl.service.emchat.httpclient.vo.EndPoints;
 import com.zl.vo.IMUserVO;
 
+@Service
 public class EMUserServiceImpl implements EMUserService {
 
     private static final Logger          LOGGER         = LoggerFactory.getLogger(EMUserServiceImpl.class);

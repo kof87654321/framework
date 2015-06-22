@@ -39,13 +39,6 @@ public class HuYiSmsUtil {
 	 * @return
 	 */
 	public boolean sendSms(String mobile , String content){
-		/**
-		 * 测试阶段只能使用下面格式的短信，其他格式会发送失败，审核通过后，将下面代码块注释掉
-		 */
-		{
-			int mobile_code = (int)((Math.random()*9+1)*100000);
-			content = new String("您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。");
-		}
 		HttpClient client = new HttpClient(); 
 		PostMethod method = new PostMethod(Url); 
 		client.getParams().setContentCharset("UTF-8");

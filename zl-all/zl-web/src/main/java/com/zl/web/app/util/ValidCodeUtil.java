@@ -36,7 +36,11 @@ public class ValidCodeUtil {
         code.setValidCode(valid);
         code.setTryCount(0);
         code.setMobile(mobile);
-        boolean result = huYiSmsUtil.sendSms(mobile, valid);
+        /**
+		 * 测试阶段只能使用下面格式的短信，其他格式会发送失败，审核通过后，将下面代码块注释掉
+		 */
+        String conent = "您的验证码是：" + valid + "。请不要把验证码泄露给其他人。" ;
+        boolean result = huYiSmsUtil.sendSms(mobile, conent);
         if (result) {
             ValidCode.put(mobile, code);
             return code;
