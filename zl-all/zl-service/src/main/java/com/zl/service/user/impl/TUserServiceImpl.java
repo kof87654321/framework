@@ -182,6 +182,16 @@ public class TUserServiceImpl implements TUserService {
 			tUserProfile.setUserId(userId);
 			this.userProfileMapperExt.insert(tUserProfile);
 		}
+		
+		//添加环信用户
+		IMUserVO imUser = new IMUserVO() ;
+		imUser.setUsername(tUser.getUserName());
+		imUser.setPassword("123456");  
+		boolean imUserResult = emUserService.register(imUser);
+		if(!imUserResult){
+			log.error("添加环信用户失败,username:{}" , tUser.getUserName()); 
+		}
+		
 		return this.getUserVOById(userId, false, true);
 	}
 
