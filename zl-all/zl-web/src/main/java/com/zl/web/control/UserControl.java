@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.zl.client.invite.InviteCodeService;
 import com.zl.client.user.TUserService;
 import com.zl.client.userFeeds.UserFeedsService;
 import com.zl.common.util.Constant;
@@ -49,6 +50,9 @@ public class UserControl {
 
 	@Autowired
 	/* 用户动态service */private UserFeedsService userFeedsService;
+	
+	@Autowired
+	private InviteCodeService inviteCodeService ;
 	
 	/**
 	 * 􏰢􏰐􏰢􏰐个人中心页面调用http接口

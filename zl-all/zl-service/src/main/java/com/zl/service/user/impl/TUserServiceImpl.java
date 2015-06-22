@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zl.client.emchat.EMUserService;
+import com.zl.client.invite.InviteCodeService;
 import com.zl.client.user.TUserService;
 import com.zl.common.util.Constant;
 import com.zl.common.util.ListUtil;
@@ -19,6 +21,7 @@ import com.zl.dao.mapper.TUserInfoMapperExt;
 import com.zl.dao.mapper.TUserMapperExt;
 import com.zl.dao.mapper.TUserProfileMapperExt;
 import com.zl.pojo.Page;
+import com.zl.pojo.TInviteCode;
 import com.zl.pojo.TUser;
 import com.zl.pojo.TUserExample;
 import com.zl.pojo.TUserInfo;
@@ -51,7 +54,9 @@ public class TUserServiceImpl implements TUserService {
 	@Autowired
 	/* 用户职业经历底层 */private TUserProfileMapperExt userProfileMapperExt;
 
-
+	@Autowired
+	private InviteCodeService inviteCodeService ;
+	
 	@Autowired
 	/* 环信服务 */ private EMUserService emUserService ;
 	
@@ -190,6 +195,20 @@ public class TUserServiceImpl implements TUserService {
 		boolean imUserResult = emUserService.register(imUser);
 		if(!imUserResult){
 			log.error("添加环信用户失败,username:{}" , tUser.getUserName()); 
+		}
+		
+		//添加用户邀请码
+		TInviteCode inviteCode = new TInviteCode() ;
+		Date createTime = new Date();
+		inviteCode.setCode(String.valueOf(Math.random() * 100000)); 
+		inviteCode.setStartTime(createTime);
+		inviteCode.setEndTime(DateUtils.addYears(createTime, 1)); 
+		inviteCode.setStatus(1);
+		inviteCode.setUsedCount(0);
+		inviteCode.setUserId(userId); 
+		boolean inviteCodeResult = inviteCodeService.insert(inviteCode);
+		if(!inviteCodeResult){
+			log.error("插入用户邀请码失败!");  
 		}
 		
 		return this.getUserVOById(userId, false, true);
