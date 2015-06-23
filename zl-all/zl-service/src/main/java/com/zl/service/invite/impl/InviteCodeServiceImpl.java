@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zl.client.invite.InviteCodeService;
 import com.zl.dao.mapper.TInviteCodeMapperExt;
@@ -72,7 +74,7 @@ public class InviteCodeServiceImpl implements InviteCodeService{
 			return false ;
 		}
 		if(inviteCode.getUsedCount() >= 3){
-			log.warn("邀请码[{}]以使用3次或以上");
+			log.warn("邀请码[{}]已使用3次或以上");
 			return false ;
 		}
 		if(inviteCode.getStatus().equals(1)){
@@ -81,6 +83,7 @@ public class InviteCodeServiceImpl implements InviteCodeService{
 		return false ;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
 	public void incrUsedCount(String code) {
 		TInviteCode inviteCode = getInviteCode(code);
