@@ -26,7 +26,7 @@ public class ControlExceptionHandler implements HandlerExceptionResolver{
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception exception) {
-		log.error("后台异常,{}" + exception.getMessage()); 
+		log.error("后台异常,{}" , exception.getMessage()); 
 		HandlerMethod handlerMethod = (HandlerMethod)handler ;
 		Method controllerMethod = handlerMethod.getMethod();
 		Class<?> returnType = controllerMethod.getReturnType();
