@@ -175,17 +175,15 @@ public class TUserServiceImpl implements TUserService {
 		}
 
 		List<TUserProfile> tUserProfileList = tUserVO.gettUserProfileList();
-		if (tUserProfileList == null || tUserProfileList.size() <= 0) {
-			return this.getUserVOById(userId, false, true);
-		}
-
-		TUserProfile tUserProfile = null;
-		for (int i = 0; i < tUserProfileList.size(); i++) {
-			tUserProfile = tUserProfileList.get(i);
-			tUserProfile.setCreateTime(date);
-			tUserProfile.setModifyTime(date);
-			tUserProfile.setUserId(userId);
-			this.userProfileMapperExt.insert(tUserProfile);
+		if (tUserProfileList != null && tUserProfileList.size() > 0) {
+			TUserProfile tUserProfile = null;
+			for (int i = 0; i < tUserProfileList.size(); i++) {
+				tUserProfile = tUserProfileList.get(i);
+				tUserProfile.setCreateTime(date);
+				tUserProfile.setModifyTime(date);
+				tUserProfile.setUserId(userId);
+				this.userProfileMapperExt.insert(tUserProfile);
+			}
 		}
 		
 		//添加环信用户
@@ -200,7 +198,7 @@ public class TUserServiceImpl implements TUserService {
 		//添加用户邀请码
 		TInviteCode inviteCode = new TInviteCode() ;
 		Date createTime = new Date();
-		inviteCode.setCode(String.valueOf(Math.random() * 100000)); 
+		inviteCode.setCode(String.valueOf((int)(Math.random() * 1000000))); 
 		inviteCode.setStartTime(createTime);
 		inviteCode.setEndTime(DateUtils.addYears(createTime, 1)); 
 		inviteCode.setStatus(1);

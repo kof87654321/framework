@@ -22,6 +22,7 @@ import com.zl.client.user.TUserService;
 import com.zl.client.userFeeds.UserFeedsService;
 import com.zl.common.util.Constant;
 import com.zl.pojo.Page;
+import com.zl.pojo.TInviteCode;
 import com.zl.pojo.TUser;
 import com.zl.pojo.TUserFeeds;
 import com.zl.pojo.TUserInfo;
@@ -390,5 +391,18 @@ public class UserControl {
 
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tUserVO), response);
 	}
-
+	
+	
+	/**
+	 * 获取当前用户的邀请码
+	 * @param request
+	 * @param response
+	 */
+	@Security
+	@RequestMapping("/getMyInviteCode")
+	public void getMyInviteCode(HttpServletRequest request, HttpServletResponse response){
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		TInviteCode inviteCode = inviteCodeService.getInviteCode(currentUser.getId());
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(inviteCode), response); 
+	}
 }

@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 
 import com.alibaba.fastjson.JSON;
+import com.zl.pojo.TUser;
+import com.zl.web.app.Consts;
 import com.zl.web.app.vo.AjaxResult;
 import com.zl.web.app.vo.AjaxResultType;
 
@@ -42,6 +45,19 @@ public class WebUtil {
 				out.close();
 			}
 		}
+	}
+	
+	/**
+	 * 从Request中获取当前用户信息 （Controller方法加入了@Security注解才能使用）
+	 * @param request
+	 * @return
+	 */
+	public static TUser getCurrentUser(HttpServletRequest request){
+		Object obj = request.getAttribute(Consts.CURRENT_USER_REQUEST_KEY) ; 
+		if(obj == null){
+			return null ;
+		}
+		return (TUser)obj ;
 	}
 
 }

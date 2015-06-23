@@ -13,8 +13,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.zl.client.user.TUserService;
-import com.zl.common.util.Constant;
 import com.zl.common.util.ProjectEnv;
+import com.zl.common.util.token.TokenInfo;
 import com.zl.common.util.token.TokenUtils;
 import com.zl.pojo.TUser;
 import com.zl.web.app.Consts;
@@ -39,6 +39,7 @@ public class SecurityAop {
 
     @Around("@annotation(com.zl.web.annotation.Security)")
     public void doCheck(ProceedingJoinPoint joinPoint) {
+    	/*
         if (projectEnv != null && StringUtils.isNotBlank(projectEnv.getEnv())
             && Constant.ENV.TEST.equals(projectEnv.getEnv())) {
             try {
@@ -48,20 +49,19 @@ public class SecurityAop {
                 e.printStackTrace();
             }
             return;
-        }
+        }*/
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
             .getRequest();
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
             .getResponse();
-        String uid = request.getParameter("userId");
         String token = request.getParameter("token");
-        if (StringUtils.isBlank(uid) || StringUtils.isBlank(token)) {
+        if (StringUtils.isBlank(token)) {
             WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "参数错误", Consts.ERRORCode.TOKEN_ERROR), response);
             return;
         }
-        Long userId = Long.valueOf(uid);
-        TUser user = tUserService.getUserById(userId);
+        TokenInfo tokenInfo = TokenUtils.parseToken(token);
+        TUser user = tUserService.getUserById(tokenInfo.getUserId()); 
         if (user == null) {
             WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "用户不存在", Consts.ERRORCode.TOKEN_ERROR), response);
             return;
@@ -72,10 +72,10 @@ public class SecurityAop {
                 response);
             return;
         }
+        request.setAttribute(Consts.CURRENT_USER_REQUEST_KEY, user); 
         try {
             joinPoint.proceed();
         } catch (Throwable e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

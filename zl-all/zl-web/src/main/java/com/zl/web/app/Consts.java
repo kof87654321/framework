@@ -6,6 +6,11 @@ package com.zl.web.app;
  * @author is_zhoufeng
  */
 public interface Consts {
+	
+	/**
+	 * 当前用户在Request中的key
+	 */
+	public static final String CURRENT_USER_REQUEST_KEY = "currentUser";
 
 	/**
 	 * 资源文件中的key

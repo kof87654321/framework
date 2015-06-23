@@ -1,0 +1,1 @@
+{"apiRemark":"","group":"用户","headerKeyValues":[],"method":"get","name":"获取当前用户邀请码","params":{"token":"c6WGDxUnKAlkMB5+R8HG6P1ch6sJUNeI"},"paramsKeyValues":[{"key":"token","value":"c6WGDxUnKAlkMB5+R8HG6P1ch6sJUNeI"}],"url":"http://127.0.0.1:8080/user/getMyInviteCode.htm"}
