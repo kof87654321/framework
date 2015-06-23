@@ -64,7 +64,7 @@ public class EMUserServiceImpl implements EMUserService {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while register a uesr .");
         }
         return false;
     }
@@ -100,7 +100,7 @@ public class EMUserServiceImpl implements EMUserService {
                 return true;
             }
         } catch (Exception e) {
-            throw new RuntimeException("Some errors occurred while fetching a token by userName and password .");
+            throw new RuntimeException("Some errors occurred while login .");
         }
 
         return false;
@@ -122,7 +122,7 @@ public class EMUserServiceImpl implements EMUserService {
             URL userPrimaryUrl = HTTPClientUtils.getURL(Constants.APPKEY.replace("#", "/") + "/users/" + userName);
             objectNode = HTTPClientUtils.sendHTTPRequest(userPrimaryUrl, credential, null, HTTPMethod.METHOD_GET);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while get user info .");
         }
 
         return user;
@@ -157,7 +157,7 @@ public class EMUserServiceImpl implements EMUserService {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while modify password .");
         }
 
         return false;
@@ -186,7 +186,7 @@ public class EMUserServiceImpl implements EMUserService {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while delete user .");
         }
 
         return false;
@@ -220,7 +220,7 @@ public class EMUserServiceImpl implements EMUserService {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while add friend .");
         }
 
         return false;
@@ -252,7 +252,7 @@ public class EMUserServiceImpl implements EMUserService {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while delete friend .");
         }
         return false;
     }
@@ -279,7 +279,7 @@ public class EMUserServiceImpl implements EMUserService {
             objectNode = HTTPClientUtils.sendHTTPRequest(addFriendSingleUrl, credential, body, HTTPMethod.METHOD_GET);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while get friends .");
         }
     }
 
@@ -311,7 +311,7 @@ public class EMUserServiceImpl implements EMUserService {
                 HTTPMethod.METHOD_POST);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Some errors occurred while register user batch .");
         }
         return false;
     }
