@@ -23,6 +23,7 @@ import com.zl.client.userFeeds.UserFeedsService;
 import com.zl.common.util.Constant;
 import com.zl.pojo.Page;
 import com.zl.pojo.TComment;
+import com.zl.pojo.TUser;
 import com.zl.pojo.TUserFeeds;
 import com.zl.vo.TCommentAndUserVO;
 import com.zl.vo.TUserFeedsVO;
@@ -60,13 +61,9 @@ public class UserFeedsControl {
 	 */
 	@RequestMapping("/postUserFeeds")
 	@Security
-	public void postUserFeeds(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId) {
-		if (userId == null || userId <= 0) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
-					response);
-			return;
-		}
+	public void postUserFeeds(HttpServletRequest request, HttpServletResponse response) {
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
 		TUserFeeds tUserFeeds = new TUserFeeds();
 		tUserFeeds.setContent(request.getParameter("content"));
 		tUserFeeds.setUserId(userId);
@@ -87,13 +84,15 @@ public class UserFeedsControl {
 	@RequestMapping("/postTcomment")
 	@Security
 	public void postTcomment(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "user2Id", required = false, defaultValue = "0") Long user2Id,
 			@RequestParam(value = "userFeedsId", required = true, defaultValue = "0") Long userFeedsId,
 			@RequestParam(value = "type", required = true, defaultValue = "0") Integer type,
 			@RequestParam(value = "content", required = true, defaultValue = "") String content) {
 
-		if (userId == null || userId <= 0 || user2Id == null || user2Id <= 0 || userFeedsId <= 0) {
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
+		
+		if (user2Id == null || user2Id <= 0 || userFeedsId <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "PARAM_ERROR", Consts.ERRORCode.PARAM_ERROR), response);
 			return;
 		}
@@ -129,7 +128,6 @@ public class UserFeedsControl {
 	 * @param pageSize
 	 */
 	@RequestMapping("/getHome")
-	@Security
 	public void getHome(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -176,7 +174,6 @@ public class UserFeedsControl {
 	 * @param pageSize
 	 */
 	@RequestMapping("/getUserFeedsByUserId")
-	@Security
 	public void getUserFeedsByUserId(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -226,7 +223,6 @@ public class UserFeedsControl {
 	 * @param pageSize
 	 */
 	@RequestMapping("/getUserFeedsById")
-	@Security
 	public void getUserFeedsVOById(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "id", required = true, defaultValue = "0") Long id,
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
@@ -268,14 +264,12 @@ public class UserFeedsControl {
 	@RequestMapping("/addPraise")
 	@Security
 	public void addPraise(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "feedsId", required = true, defaultValue = "0") Long feedsId) {
 
-		if (userId == null || userId <= 0 || feedsId <= 0) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "PARAM_ERROR", Consts.ERRORCode.PARAM_ERROR),
-					response);
-			return;
-		}
+
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
+		
 		TComment tComment = new TComment();
 		tComment.setAuthorId(userId);
 		tComment.setContent("");
@@ -309,7 +303,6 @@ public class UserFeedsControl {
 	 * @param pageSize
 	 */
 	@RequestMapping("/getTcommentByUserId")
-	@Security
 	public void getTcommentByUserId(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -317,13 +310,11 @@ public class UserFeedsControl {
 			@RequestParam(value = "modifyTime", required = false, defaultValue = "0") Long modifyTime,
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
-
 		if (userId == null || userId <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
 					response);
 			return;
 		}
-
 		int count = this.commentService.getCountTComment4UserId(userId, modifyTime, null);
 		List<TCommentAndUserVO> tCommentAndUserVOList = this.commentAndUserBiz.getListTComment4UserId(userId, modifyTime, null, new Page().setPageByPageNoAndPageSize(pageNo, pageSize));
 		Map<String, Object> map = new HashMap<String, Object>();

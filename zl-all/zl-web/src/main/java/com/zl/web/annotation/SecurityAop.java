@@ -61,6 +61,10 @@ public class SecurityAop {
             return;
         }
         TokenInfo tokenInfo = TokenUtils.parseToken(token);
+        if(tokenInfo == null){
+        	 WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "token校验失败", Consts.ERRORCode.TOKEN_ERROR), response); 
+             return;
+        }
         TUser user = tUserService.getUserById(tokenInfo.getUserId()); 
         if (user == null) {
             WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "用户不存在", Consts.ERRORCode.TOKEN_ERROR), response);

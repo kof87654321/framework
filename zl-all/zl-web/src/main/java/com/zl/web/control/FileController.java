@@ -20,6 +20,8 @@ import com.zl.client.file.FileService;
 import com.zl.common.util.bit.PropertiesConfigure;
 import com.zl.common.util.oss.OssUtil;
 import com.zl.pojo.TFile;
+import com.zl.pojo.TUser;
+import com.zl.web.annotation.Security;
 import com.zl.web.app.Consts;
 import com.zl.web.app.Consts.Upload.BizType;
 import com.zl.web.app.util.WebUtil;
@@ -55,8 +57,13 @@ public class FileController {
 	 * @param model
 	 */
 	@RequestMapping("upload") 
+	@Security
 	public void uplaod(@RequestParam("file")MultipartFile file, Byte fileType,Byte bizType
 			,HttpServletRequest request, HttpServletResponse response ){
+		
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
+		
 		String filename = file.getOriginalFilename() ;
 		String extension = FilenameUtils.getExtension(filename);
 		String baseDir = propertiesConfigure.getProperties(Consts.PropertiesKey.APP_UPLOAD_DIR);
@@ -97,7 +104,7 @@ public class FileController {
 		tfile.setFileType(fileType);
 		tfile.setFileName(saveFileName); 
 		tfile.setUrl(saveFilePath); 
-		tfile.setUserId(1L); //TODO 设置成当前登录用户ID 
+		tfile.setUserId(userId); 
 		boolean insertResult = fileService.insert(tfile);
 		if(!insertResult){
 			log.error("文件信息保存到数据库失败"); 
@@ -115,8 +122,13 @@ public class FileController {
 	 * @param model
 	 */
 	@RequestMapping("oss/upload") 
+	@Security
 	public void uplaod2Oss(@RequestParam("file")MultipartFile file, Byte fileType,Byte bizType
 			,HttpServletRequest request, HttpServletResponse response ){
+		
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
+		
 		String filename = file.getOriginalFilename() ;
 		String extension = FilenameUtils.getExtension(filename);
 		BizType bizTypeEnum = Consts.Upload.BizType.getByType(bizType) ;
@@ -156,7 +168,7 @@ public class FileController {
 		tfile.setFileType(fileType);
 		tfile.setFileName(saveFileName); 
 		tfile.setUrl(saveFilePath); 
-		tfile.setUserId(1L); //TODO 设置成当前登录用户ID 
+		tfile.setUserId(userId); 
 		boolean insertResult = fileService.insert(tfile);
 		if(!insertResult){
 			log.error("文件信息保存到数据库失败"); 

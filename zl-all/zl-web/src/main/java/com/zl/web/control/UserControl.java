@@ -62,7 +62,6 @@ public class UserControl {
 	 * 
 	 */
 	@RequestMapping("/getMyPage")
-	@Security
 	public void myPage(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "modifyTime", required = false, defaultValue = "0") Long modifyTime,
@@ -96,7 +95,6 @@ public class UserControl {
 	 * 
 	 */
 	@RequestMapping("/searchUserList")
-	@Security
 	public void searchUserList(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "userId", required = false, defaultValue = "0") Long userId,
 			@RequestParam(value = "area", required = false, defaultValue = "0") Integer area,
@@ -194,15 +192,10 @@ public class UserControl {
 	@RequestMapping("/updateUser")
 	@Security
 	public void updateUser(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "nickName", required = false, defaultValue = "") String nickName,
 			@RequestParam(value = "passWord", required = false, defaultValue = "") String passWord) {
-
-		if (userId == null || userId <= 0) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
-					response);
-			return;
-		}
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
 		TUserVO tUserVO = this.tUserService.getUserVOById(userId, false, false);
 		TUser tUser = tUserVO.gettUser();
 		tUser.setLastLoginTime(new Date());
@@ -257,13 +250,9 @@ public class UserControl {
 	 */
 	@RequestMapping("/insertUserProfile")
 	@Security
-	public void insertUserProfile(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId) {
-		if (userId == null || userId <= 0) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
-					response);
-			return;
-		}
+	public void insertUserProfile(HttpServletRequest request, HttpServletResponse response) {
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
 		List<TUserProfile> tUserProfileList = new ArrayList<TUserProfile>();
 		TUserProfile tUserProfile = new TUserProfile();
 		tUserProfile.setCompany(request.getParameter("company"));
@@ -293,14 +282,10 @@ public class UserControl {
 	@RequestMapping("/updateUserProfile")
 	@Security
 	public void updateUserProfile(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "id", required = true, defaultValue = "0") Long id) {
-
-		if (userId <= 0) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.USER_ID_ERROR),
-					response);
-			return;
-		}
+		
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
 		
 		if (id == null || id <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "id is null", Consts.ERRORCode.PARAM_ERROR),
@@ -345,13 +330,10 @@ public class UserControl {
 	@RequestMapping("/deleteUserProfileById")
 	@Security
 	public void deleteUserProfileById(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "userId", required = true, defaultValue = "0") Long userId,
 			@RequestParam(value = "id", required = true, defaultValue = "0") Long id) {
 
-		if (userId <= 0 || id <= 0) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "userId is null", Consts.ERRORCode.PARAM_ERROR), response);
-			return;
-		}
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
 
 		// List<TUserProfile> list =
 		// this.tUserService.getTUserProfileList(userId, id, null);`
