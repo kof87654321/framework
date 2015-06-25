@@ -1,0 +1,1 @@
+{"apiRemark":"","group":"校验","headerKeyValues":[],"method":"get","name":"校验邀请码是否有效(注册时使用)","params":{"code":"b9oeew"},"paramsKeyValues":[{"key":"code","value":"b9oeew"}],"url":"http://127.0.0.1:8080/check/inviteCode.htm"}

@@ -16,6 +16,7 @@ import com.zl.client.invite.InviteCodeService;
 import com.zl.client.user.TUserService;
 import com.zl.common.util.Constant;
 import com.zl.common.util.ListUtil;
+import com.zl.common.util.invitecode.InviteCodeUtil;
 import com.zl.common.util.token.TokenUtils;
 import com.zl.dao.mapper.TUserInfoMapperExt;
 import com.zl.dao.mapper.TUserMapperExt;
@@ -201,7 +202,7 @@ public class TUserServiceImpl implements TUserService {
 		//添加用户邀请码
 		TInviteCode inviteCode = new TInviteCode() ;
 		Date createTime = new Date();
-		inviteCode.setCode(String.valueOf((int)(Math.random() * 1000000))); 
+		inviteCode.setCode(InviteCodeUtil.toSerialCode(userId));  
 		inviteCode.setStartTime(createTime);
 		inviteCode.setEndTime(DateUtils.addYears(createTime, 1)); 
 		inviteCode.setStatus(1);
