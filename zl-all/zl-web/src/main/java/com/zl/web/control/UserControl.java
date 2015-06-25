@@ -51,10 +51,10 @@ public class UserControl {
 
 	@Autowired
 	/* 用户动态service */private UserFeedsService userFeedsService;
-	
+
 	@Autowired
 	private InviteCodeService inviteCodeService ;
-	
+
 	/**
 	 * 􏰢􏰐􏰢􏰐个人中心页面调用http接口
 	 * 通过浏览器{host:port}/user/getMyPage.htm?userId=1&bigId=0&pageNo=1&
@@ -125,15 +125,24 @@ public class UserControl {
 			@RequestParam(value = "userName", required = true, defaultValue = "") String userName,
 			@RequestParam(value = "passWord", required = true, defaultValue = "") String passWord,
 			@RequestParam(value = "valid", required = true, defaultValue = "") String valid,
+			@RequestParam(value="inviteCode" , required = true , defaultValue = "") String inviteCode,
 			@RequestParam(value = "mobile", required = true, defaultValue = "") String mobile) {
 
-		if (StringUtils.isBlank(userName) || StringUtils.isBlank(passWord) || StringUtils.isBlank(valid)
+		if (StringUtils.isBlank(userName) || StringUtils.isBlank(passWord) || StringUtils.isBlank(valid) ||  StringUtils.isBlank(inviteCode)
 				|| StringUtils.isBlank(mobile)) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "PARAM_ERROR", Consts.ERRORCode.PARAM_ERROR), response);
 			return;
 		}
 
-		boolean checkValid = ValidCodeUtil.checkValid(mobile, valid);
+		//校验邀请码
+		boolean inviteCodeCheck = inviteCodeService.checkInviteCode(inviteCode);
+		if(!inviteCodeCheck){
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "inviteCode error", Consts.ERRORCode.INVITE_CODE_ERROR), response);
+			return;
+		}
+
+		//校验手机验证码
+		boolean checkValid = ValidCodeUtil.checkValid(mobile, valid,true);
 		if (checkValid == false) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "valid error", Consts.ERRORCode.VALID_ERROR), response);
 			return;
@@ -154,7 +163,7 @@ public class UserControl {
 		tUser.setPassword(passWord);
 		// tUser.setUserName(userName);
 		tUser.setUserName(mobile);
-		tUser.setInviteCode(request.getParameter("inviteCode"));
+		tUser.setInviteCode(inviteCode);
 
 		TUserInfo tUserInfo = new TUserInfo();
 
@@ -283,10 +292,10 @@ public class UserControl {
 	@Security
 	public void updateUserProfile(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "id", required = true, defaultValue = "0") Long id) {
-		
+
 		TUser currentUser = WebUtil.getCurrentUser(request);
 		Long userId = currentUser.getId();
-		
+
 		if (id == null || id <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "id is null", Consts.ERRORCode.PARAM_ERROR),
 					response);
@@ -373,8 +382,8 @@ public class UserControl {
 
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tUserVO), response);
 	}
-	
-	
+
+
 	/**
 	 * 获取当前用户的邀请码
 	 * @param request

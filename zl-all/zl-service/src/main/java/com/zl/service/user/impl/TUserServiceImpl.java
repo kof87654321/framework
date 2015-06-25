@@ -165,6 +165,9 @@ public class TUserServiceImpl implements TUserService {
 			log.warn("插入用户信息失败");
 			return null;
 		}
+		//将邀请码使用次数+1
+		inviteCodeService.incrUsedCount(tUser.getInviteCode()); 
+		
 		Long userId = tUser.getId();
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 		if (tUserInfo != null) {

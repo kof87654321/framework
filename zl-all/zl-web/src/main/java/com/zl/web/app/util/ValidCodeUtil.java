@@ -45,18 +45,25 @@ public class ValidCodeUtil {
 		/**
 		 * 测试阶段只能使用下面格式的短信，其他格式会发送失败，审核通过后，将下面代码块注释掉
 		 */
-		 String conent = "您的验证码是：" + valid + "。请不要把验证码泄露给其他人。" ;
-		 if(Constant.ENV.ONLINE.equals(projectEnv.getEnv())){  //线上环境才发送验证码
-			 result = huYiSmsUtil.sendSms(mobile, conent);
-		 }
-		 if (result) {
-			 ValidCode.put(mobile, code);
-			 return code;
-		 }
-		 return null;
+		String conent = "您的验证码是：" + valid + "。请不要把验证码泄露给其他人。" ;
+		if(Constant.ENV.ONLINE.equals(projectEnv.getEnv())){  //线上环境才发送验证码
+			result = huYiSmsUtil.sendSms(mobile, conent);
+		}
+		if (result) {
+			ValidCode.put(mobile, code);
+			return code;
+		}
+		return null;
 	}
 
-	public static boolean checkValid(String mobile, String valid) {
+	/**
+	 * 验证码校验
+	 * @param mobile
+	 * @param valid
+	 * @param remove  校验成功后是否在服务端移除改验证码
+	 * @return
+	 */
+	public static boolean checkValid(String mobile, String valid , boolean remove) {
 		if (StringUtils.isBlank(mobile) || StringUtils.isBlank(valid)) {
 			return false;
 		}
@@ -64,16 +71,18 @@ public class ValidCodeUtil {
 		if (code == null) {
 			return false;
 		}
-		if (code.getTryCount() >= VALID_CODE_TRY_LIMIT) {
-			ValidCode.remove(mobile);
-			return false;
-		}
 		if (valid.equals(code.getValidCode())) {
-			ValidCode.remove(mobile);
+			if(remove){
+				ValidCode.remove(mobile);
+			}
 			return true;
 		} else {
 			code.increaseTryCount();
 			ValidCode.put(mobile, code);
+		}
+		if (code.getTryCount() >= VALID_CODE_TRY_LIMIT) {
+			ValidCode.remove(mobile);
+			return false;
 		}
 		return false;
 	}
