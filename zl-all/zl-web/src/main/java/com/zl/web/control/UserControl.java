@@ -379,8 +379,11 @@ public class UserControl {
 			return;
 		}
 		TUserVO tUserVO = this.tUserService.getTUserByLogin(mobile, passWord);
-
-		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tUserVO), response);
+		if(tUserVO == null){
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "login fail", -1), response); 
+		}else{  
+			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tUserVO), response);
+		}
 	}
 
 
