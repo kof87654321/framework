@@ -38,4 +38,15 @@ public class HttpParamUtil {
 			return false;
 		}
 	}
+	
+	public static Byte byteParam(HttpServletRequest request, String key) {
+		if (request == null || StringUtils.isBlank(key)) {
+			return 0;
+		}
+		try {
+			return Byte.valueOf(request.getParameter(key)); 
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 }

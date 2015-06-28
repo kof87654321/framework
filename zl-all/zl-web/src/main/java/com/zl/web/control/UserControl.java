@@ -178,7 +178,7 @@ public class UserControl {
 		tUserInfo.setNickName(userName);
 		tUserInfo.setPraise(0);
 		tUserInfo.setQrCode(request.getParameter("qrCode"));
-		tUserInfo.setSex(HttpParamUtil.booleanParam(request, "sex"));
+		tUserInfo.setSex(HttpParamUtil.byteParam(request, "sex")); 
 		tUserInfo.setTitle(request.getParameter("title"));
 
 		tUserVO.settUser(tUser);
@@ -239,7 +239,7 @@ public class UserControl {
 			request.getParameter("qrCode");
 		}
 		// tUserInfo.setQrCode(request.getParameter("qrCode"));
-		tUserInfo.setSex(HttpParamUtil.booleanParam(request, "sex"));
+		tUserInfo.setSex(HttpParamUtil.byteParam(request, "sex"));
 		tUserInfo.setTitle(request.getParameter("title"));
 
 		tUserVO.settUser(tUser);

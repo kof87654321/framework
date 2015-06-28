@@ -40,7 +40,7 @@ public class TUserServiceTest extends BaseServiceTest {
 		tUserInfo.setPraise(11);
 		tUserInfo.setMobile("13555555555");
 		tUserInfo.setNickName("昵称");
-		tUserInfo.setSex(true);
+		tUserInfo.setSex((byte)0);
 		tUserInfo.setTitle("title");
 
 		TUserProfile tUserProfile1 = new TUserProfile();
