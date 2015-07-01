@@ -9,8 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zl.client.comment.CommentAndUserBiz;
 import com.zl.client.comment.CommentService;
 import com.zl.client.user.TUserService;
@@ -75,11 +74,6 @@ public class UserFeedsControl {
 		tUserFeeds.setCommentCount(0);
 		if(imgs != null){
 			JSONObject attr = new JSONObject() ;
-			try {
-				attr.put("imgs", imgs) ;
-			} catch (JSONException e) {
-				log.error("解析图片失败" ,e);  
-			}
 			tUserFeeds.setAttributes(attr.toString());   
 		}
 		tUserFeeds.setPageCount(HttpParamUtil.integerParam(request, "pageCount"));
