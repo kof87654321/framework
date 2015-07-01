@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zl.client.file.FileService;
+import com.zl.client.user.TUserService;
 import com.zl.common.util.bit.PropertiesConfigure;
 import com.zl.common.util.oss.OssUtil;
+import com.zl.common.util.token.TokenInfo;
+import com.zl.common.util.token.TokenUtils;
 import com.zl.pojo.TFile;
 import com.zl.pojo.TUser;
 import com.zl.web.annotation.Security;
@@ -57,13 +60,14 @@ public class FileController {
 	 * @param model
 	 */
 	@RequestMapping("upload") 
-	@Security
 	public void uplaod(@RequestParam("file")MultipartFile file, Byte fileType,Byte bizType
-			,HttpServletRequest request, HttpServletResponse response ){
+			,String token , HttpServletRequest request, HttpServletResponse response ){
 		
-		TUser currentUser = WebUtil.getCurrentUser(request);
-		Long userId = currentUser.getId();
-		
+		TokenInfo tokenInfo = TokenUtils.parseToken(token);
+		if(tokenInfo == null){
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "token error!",403), response);  
+			return;
+		}
 		String filename = file.getOriginalFilename() ;
 		String extension = FilenameUtils.getExtension(filename);
 		String baseDir = propertiesConfigure.getProperties(Consts.PropertiesKey.APP_UPLOAD_DIR);
@@ -104,7 +108,7 @@ public class FileController {
 		tfile.setFileType(fileType);
 		tfile.setFileName(saveFileName); 
 		tfile.setUrl(saveFilePath); 
-		tfile.setUserId(userId); 
+		tfile.setUserId(tokenInfo.getUserId());  
 		boolean insertResult = fileService.insert(tfile);
 		if(!insertResult){
 			log.error("文件信息保存到数据库失败"); 

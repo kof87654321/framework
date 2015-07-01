@@ -7,6 +7,7 @@
         <form action="${ctx}/file/upload.htm"  method="post" enctype="multipart/form-data" >
 			<input type="hidden" name="fileType" value="1" />
 			<input type="hidden" name="bizType" value="2" /> 
+			<input type="hidden" name="token" value="hooEL7dGUqp5QTn9wvvjuNteZbIlQw2m" /> 
         	选择文件：<input type="file" name="file" /> 
         	<br/><br/>
         	<input type="submit" value="上传" /></form>
@@ -18,6 +19,7 @@
         <form action="${ctx}/file/oss/upload.htm"  method="post" enctype="multipart/form-data" >
 			<input type="hidden" name="fileType" value="1" />
 			<input type="hidden" name="bizType" value="2" /> 
+			<input type="hidden" name="token" value="hooEL7dGUqp5QTn9wvvjuNteZbIlQw2m" /> 
         	选择文件：<input type="file" name="file" /> 
         	<br/><br/>
         	<input type="submit" value="上传" /></form>
