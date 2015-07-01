@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zl.client.file.FileService;
-import com.zl.client.user.TUserService;
 import com.zl.common.util.bit.PropertiesConfigure;
 import com.zl.common.util.oss.OssUtil;
 import com.zl.common.util.token.TokenInfo;
@@ -90,16 +89,7 @@ public class FileController {
 			log.error("保存文件失败" , e);  
 			WebUtil.ajaxOutput(AjaxResult.newExceptionResult(e, "保存文件失败", -2), response);   
 			return ;
-		}finally{
-			try {
-				if(file.getInputStream() != null){
-					file.getInputStream().close();
-				}
-			} catch (IOException e) {
-				log.error("关闭文件流失败!",e); 
-			} 
 		}
-
 		//文件相对路径
 		String saveFilePath = saveDirPath + SEPARATOR + saveFileName ;  
 

@@ -6,7 +6,7 @@
         <center><h1>上传文件到本地</h1></center>  
         <form action="${ctx}/file/upload.htm"  method="post" enctype="multipart/form-data" >
 			<input type="hidden" name="fileType" value="1" />
-			<input type="hidden" name="bizType" value="2" /> 
+			<input type="hidden" name="bizType" value="4" /> 
 			<input type="hidden" name="token" value="hooEL7dGUqp5QTn9wvvjuNteZbIlQw2m" /> 
         	选择文件：<input type="file" name="file" /> 
         	<br/><br/>

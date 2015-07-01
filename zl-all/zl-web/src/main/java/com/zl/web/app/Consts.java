@@ -61,7 +61,12 @@ public interface Consts {
 			/**
 			 * 聊天文件
 			 */
-			BIZ_TYPE_CHAT((byte) 3, "chatfile");
+			BIZ_TYPE_CHAT((byte) 3, "chatfile"),
+			
+			/**
+			 * 背景图片
+			 */
+			BIZ_TYPE_BACKGROUND((byte)4, "background");
 			/**
 			 * 业务类型
 			 */
