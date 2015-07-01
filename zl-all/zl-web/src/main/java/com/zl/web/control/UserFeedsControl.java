@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +63,9 @@ public class UserFeedsControl {
 	 */
 	@RequestMapping("/postUserFeeds")
 	@Security
-	public void postUserFeeds(HttpServletRequest request, HttpServletResponse response) {
+	public void postUserFeeds(HttpServletRequest request, HttpServletResponse response
+			,@RequestParam(value="content" ,required = true)String content 
+			,@RequestParam(value="imgs" ,required = true)String imgs ) {
 		TUser currentUser = WebUtil.getCurrentUser(request);
 		Long userId = currentUser.getId();
 		TUserFeeds tUserFeeds = new TUserFeeds();
@@ -69,6 +73,15 @@ public class UserFeedsControl {
 		tUserFeeds.setUserId(userId);
 		tUserFeeds.setPraise(0);
 		tUserFeeds.setCommentCount(0);
+		if(imgs != null){
+			JSONObject attr = new JSONObject() ;
+			try {
+				attr.put("imgs", imgs) ;
+			} catch (JSONException e) {
+				log.error("解析图片失败" ,e);  
+			}
+			tUserFeeds.setAttributes(attr.toString());   
+		}
 		tUserFeeds.setPageCount(HttpParamUtil.integerParam(request, "pageCount"));
 		Long id = this.userFeedsService.insertTUserFeeds(tUserFeeds);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
