@@ -1,0 +1,218 @@
+
+var i = 0 ;
+window.setInterval(function() 
+{ 
+  if(++i < 10){
+     Ttxy.socket.getSocket().send('{"msg":{"content":"/微笑/撇嘴/色/发呆","level":0,"from_medals":{},"from_badges":{}}}');
+  }
+}, 5000); 
+
+
+
+window.setInterval(function() 
+{ 
+  var c_text = "";
+  for(var i = 0 ; i < 100000; i++){
+    c_text += "/微笑/撇嘴/色/发呆";
+  }
+  Ttxy.socket.send({msg:{ content:c_text ,"level":100,"from_medals":{},"from_badges":{
+        "star": {
+            "51000035_1": {
+                "_id": "51000035_1",
+                "user_id": 51000035,
+                "badge_id": 1,
+                "timestamp": 1428249666521,
+                "expire_at": 1428854400000,
+                "tip": "大红人",
+                "order": 1,
+                "status": true,
+                "memo": "/汗",
+                "type": 2
+            }
+        }
+  }}} );
+  console.log("OK");
+}, 1000)
+
+}
+  Ttxy.socket.send({msg:{ content:"哪里两个呀？","level":15,"from_medals":{},"from_badges":{
+	
+        "star": {
+            "51000035_1": {
+                "_id": "51000035_1",
+                "user_id": 51000035,
+                "badge_id": 1,
+                "timestamp": 1428249666521,
+                "expire_at": 1428854400000,
+                "tip": "总裁",
+                "vip": 1,
+                "power":3,
+                "order": 1,
+                "status": true,
+                "memo": "/汗",
+                "type": 2
+            }
+        },
+    
+  }}} ); 
+
+
+
+
+
+
+ Ttxy.socket.send({"action":"room.change","data_d":{"_id":55177837,"spend":32,"nick_name":"aaaaaaaaaaaaaaaaaaaaaa","priv":3,"s":""}});
+
+
+ Ttxy.socket.send({msg:{ content:c_text ,"level":100,"from_medals":{},"from_badges":{}}} );
+
+
+"from_medals":{"999":1578037111019},"from_badges":{}
+
+"from_medals": {
+        "999": 1572365338986
+    },
+ "from_badges": {
+        "supergift": {
+            "51000049_3_403": {
+                "_id": "51000049_3_403",
+                "user_id": 51000049,
+                "badge_id": 3,
+                "timestamp": 1428249667151,
+                "expire_at": 1428854400000,
+                "tip": "战斗机超星",
+                "order": 3,
+                "status": true,
+                "memo": "",
+                "type": 3,
+                "gift_id": 403
+            }
+        }
+}
+
+Ttxy.socket.send({msg:{ content:"不会呀，这个级不高呀","level":10,
+"from_medals": {
+        "999": 1572365338986
+    },
+"from_badges": {
+        "supergift": {
+            "51000049_3_403": {
+                "_id": "51000049_3_403",
+                "user_id": 56227648,
+                "badge_id": 3,
+                "timestamp": 1428249667151,
+                "expire_at": 1428854400000,
+                "tip": "战斗机超星",
+                "order": 3,
+                "status": true,
+                "memo": "",
+                "type": 3,
+                "gift_id": 403
+            }
+        }
+}
+}} );
+
+
+
+//公聊消息
+Ttxy.socket.send({msg:{ content:"不会呀，这个级不高呀","level":100,"from_medals":{},"from_badges":{}}} );
+
+Ttxy.socket.send({msg:{ content:"美女你好呀","level":15,"from_medals":{},"from_badges":{}}} );
+
+"{"content":"美女你好呀","level":15,"from_medals":{},"from_badges":{},"from":{"_id":56227648,"spend":0,"nick_name":"b111111bb","priv":3,"s":""},"room_id":55566498,"etime":1428597325592}"
+
+
+Ttxy.socket.send({
+    msg: {
+    "content": "什么呀？",
+    "level": 15,
+    "from_medals": {},
+    "from_badges": {
+        "from": {
+            "_id": 51000035,
+            "spend": 1224603,
+            "nick_name": "美佳",
+            "priv": 1,
+            "s": "",
+            "vip": 2,
+            "car": 150
+        },
+        "room_id": 51000035,
+        "etime": 1428598670449
+    }
+}
+});
+
+Ttxy.socket.send({
+    msg: {
+    content: "恭喜 微播男神322 升到 15 级",levelUp: !0,level: 15
+   } });
+
+
+升级消息
+Ttxy.socket.send({msg: {content: "恭喜 微播男神322 升到 15 级",levelUp: !0,level: 15}})
+
+//roomId
+Ttxy.live.liveControl.getRoomId()
+//主播id
+Ttxy.live.anchorController.getAnchorInfo().user._id
+
+//用户信息
+Ttxy.user.getUserInfo()
+
+//房间信息
+Ttxy.live.anchorController.getAnchorInfo()
+
+
+//送礼
+Ttxy.live.treasureController.send({xy_user_id: 51684209,gift_id: 382,count: 1,via:"web",room_id: 51684209 ,user_id:52506026,marquee: "no"})
+
+//官方公告
+Ttxy.live.messageAreaController.publicMsg({
+			text: '<span class="red-font">[官方公告]</span><span>非官方充值均为诈骗行为，请勿轻信！！</span>',
+			isSys: !0,
+			noTime: !0
+		})
+
+Ttxy.socket.send({msg: {content: "恭喜 微播男神322 升到 1 级",levelUp: !0,level: 1}})
+
+
+
+Ttxy.socket.send({
+action:{
+ action:"change",
+ module:"room"
+},
+data_d:{
+_id: 52502710
+car: 888
+nick_name: "阮儿专属八王爷"
+priv: 3
+s: ""
+spend: 5207
+}
+}
+)
+
+
+// 根据callback 来判断相应的模块 操作内容
+
+//管理模块
+//踢出房间
+Ttxy.live.messageAreaController.publicMsg({text: '<span class="black-font"> 微播男神322 </span> 已经被 <span class="black-font"> 微播男神322 </span> 踢出房间'});
+
+
+
+Ttxy.live.treasureController.send(r.data)
+
+
+$(".giftlist").push(51684209)
+
+"{"content":"你不这么任性可好？","to":{"nick_name":"巃族_〃香﹏飞","level":0,"_id":51000035,"private":false,"priv":2,"vip":1},"level":13,"from":{"_id":610118,"spend":642225,"nick_name":"堭鏃℡_鎀羅","priv":3,"s":"2","vip":1},"room_id":51000035,"etime":1428599718490}"
+"{"content":"你不这么任性可好？","to":{"nick_name":"巃族_〃香﹏飞","level":0,"_id":51000035,"private":false,"priv":2,"vip":1},"level":13,"from":{"_id":610118,"spend":642225,"nick_name":"堭鏃℡_鎀羅","priv":3,"s":"2","vip":1},"room_id":51000035,"etime":1428599718490}"
+
+
+"{"content":"/发呆/发呆、","level":15,"from_medals":{"999":1572013474707},"from_badges":{"star":{"51000035_1":{"_id":"51000035_1","user_id":51000035,"badge_id":1,"timestamp":1428249666521,"expire_at":1428854400000,"tip":"红人","order":1,"status":true,"memo":"","type":1}},"commongift":{"51000035_4_489":{"_id":"51000035_4_489","user_id":51000035,"badge_id":4,"timestamp":1428249667103,"expire_at":1428854400000,"tip":"樱花周星","order":4,"status":true,"memo":"","type":4,"gift_id":489}}},"to":{"private":false,"_id":610118,"nick_name":"堭鏃℡_鎀羅","power":2,"priv":3,"vip":1,"level":13,"active":0,"isOnlySvip":false,"isChat":true,"medals":{}},"from":{"_id":51000035,"spend":1224603,"nick_name":"巃族_〃香﹏飞","priv":2,"s":"","vip":1,"car":150},"room_id":51000035,"etime":1428599865631}"
+
+

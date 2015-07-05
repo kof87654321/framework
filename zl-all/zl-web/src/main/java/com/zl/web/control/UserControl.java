@@ -1,5 +1,6 @@
 package com.zl.web.control;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,6 +55,8 @@ public class UserControl {
 
 	@Autowired
 	private InviteCodeService inviteCodeService ;
+	
+	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YYYY");
 
 	/**
 	 * 􏰢􏰐􏰢􏰐个人中心页面调用http接口
@@ -125,19 +128,11 @@ public class UserControl {
 			@RequestParam(value = "userName", required = true, defaultValue = "") String userName,
 			@RequestParam(value = "passWord", required = true, defaultValue = "") String passWord,
 			@RequestParam(value = "valid", required = true, defaultValue = "") String valid,
-			@RequestParam(value="inviteCode" , required = true , defaultValue = "") String inviteCode,
 			@RequestParam(value = "mobile", required = true, defaultValue = "") String mobile) {
 
-		if (StringUtils.isBlank(userName) || StringUtils.isBlank(passWord) || StringUtils.isBlank(valid) ||  StringUtils.isBlank(inviteCode)
+		if (StringUtils.isBlank(userName) || StringUtils.isBlank(passWord) || StringUtils.isBlank(valid) 
 				|| StringUtils.isBlank(mobile)) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "PARAM_ERROR", Consts.ERRORCode.PARAM_ERROR), response);
-			return;
-		}
-
-		//校验邀请码
-		boolean inviteCodeCheck = inviteCodeService.checkInviteCode(inviteCode);
-		if(!inviteCodeCheck){
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "inviteCode error", Consts.ERRORCode.INVITE_CODE_ERROR), response);
 			return;
 		}
 
@@ -163,7 +158,6 @@ public class UserControl {
 		tUser.setPassword(passWord);
 		// tUser.setUserName(userName);
 		tUser.setUserName(mobile);
-		tUser.setInviteCode(inviteCode);
 
 		TUserInfo tUserInfo = new TUserInfo();
 
@@ -259,15 +253,18 @@ public class UserControl {
 	 */
 	@RequestMapping("/insertUserProfile")
 	@Security
-	public void insertUserProfile(HttpServletRequest request, HttpServletResponse response) {
+	public void insertUserProfile(
+			@RequestParam(value="jobStartTime" , required = true )Long jobStartTime ,
+			@RequestParam(value="jobEndTime" , required = true )Long jobEndTime ,
+			HttpServletRequest request, HttpServletResponse response) {
 		TUser currentUser = WebUtil.getCurrentUser(request);
 		Long userId = currentUser.getId();
 		List<TUserProfile> tUserProfileList = new ArrayList<TUserProfile>();
 		TUserProfile tUserProfile = new TUserProfile();
 		tUserProfile.setCompany(request.getParameter("company"));
 		tUserProfile.setIntroduce(request.getParameter("introduce"));
-		tUserProfile.setJobEndTime(HttpParamUtil.integerParam(request, request.getParameter("jobEndTime")));
-		tUserProfile.setJobStartTime(HttpParamUtil.integerParam(request, request.getParameter("jobStartTime")));
+		tUserProfile.setJobEndTime(jobEndTime); 
+		tUserProfile.setJobStartTime(jobStartTime);
 		tUserProfile.setModifyTime(new Date());
 		tUserProfile.setPosition(request.getParameter("position"));
 		tUserProfile.setUserId(userId);
@@ -291,7 +288,9 @@ public class UserControl {
 	@RequestMapping("/updateUserProfile")
 	@Security
 	public void updateUserProfile(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value = "id", required = true, defaultValue = "0") Long id) {
+			@RequestParam(value = "id", required = true, defaultValue = "0") Long id ,
+			@RequestParam(value="jobStartTime" , required = true )Long jobStartTime ,
+			@RequestParam(value="jobEndTime" , required = true )Long jobEndTime) {
 
 		TUser currentUser = WebUtil.getCurrentUser(request);
 		Long userId = currentUser.getId();
@@ -313,8 +312,8 @@ public class UserControl {
 		TUserProfile tUserProfile = tUserProfileList.get(0);
 		tUserProfile.setCompany(request.getParameter("company"));
 		tUserProfile.setIntroduce(request.getParameter("introduce"));
-		tUserProfile.setJobEndTime(HttpParamUtil.integerParam(request, request.getParameter("jobEndTime")));
-		tUserProfile.setJobStartTime(HttpParamUtil.integerParam(request, request.getParameter("jobStartTime")));
+		tUserProfile.setJobEndTime(jobEndTime);
+		tUserProfile.setJobStartTime(jobStartTime);
 		tUserProfile.setModifyTime(new Date());
 		tUserProfile.setPosition(request.getParameter("position"));
 		tUserProfile.setUserId(userId);

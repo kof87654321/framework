@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -47,16 +48,16 @@ public class TUserServiceTest extends BaseServiceTest {
 		tUserProfile1.setAttributes("tUserProfile");
 		tUserProfile1.setCompany("www.taobao.com");
 		tUserProfile1.setIntroduce("专注java开发8年");
-		tUserProfile1.setJobEndTime(2013);
-		tUserProfile1.setJobStartTime(2011);
+		tUserProfile1.setJobEndTime(new Date(2014, 2, 1).getTime());
+		tUserProfile1.setJobStartTime(new Date(2014, 5, 1).getTime());
 		tUserProfile1.setPosition("帅哥");
 
 		TUserProfile tUserProfile2 = new TUserProfile();
 		tUserProfile2.setAttributes("tUserProfile");
 		tUserProfile2.setCompany("www.alibaba.com");
 		tUserProfile2.setIntroduce("专注java开发8年");
-		tUserProfile2.setJobEndTime(0);
-		tUserProfile2.setJobStartTime(2014);
+		tUserProfile1.setJobEndTime(new Date(2014, 5, 1).getTime());
+		tUserProfile1.setJobStartTime(new Date(2014, 8, 1).getTime());
 		tUserProfile2.setPosition("美女");
 
 		List<TUserProfile> list = new ArrayList<TUserProfile>();

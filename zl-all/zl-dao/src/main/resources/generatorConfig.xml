@@ -51,10 +51,10 @@
 		</javaClientGenerator>
 		
 		<!-- 需要生成的表 -->
-		<table schema="T_User_Info" tableName="T_User_Info"> 
+		<table schema="T_User_Profile" tableName="T_User_Profile"> 
 			<property name="useActualColumnNames" value="true" />
-			<property name="generateExt" value="false" /> 
-<!-- 			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/> -->
+			<property name="generateExt" value="false" />  
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID() as id"  type="post" identity="true"/>
 		</table>
 		
 <!-- 		<table schema="audience_count" tableName="audience_count"> -->
