@@ -55,7 +55,7 @@ public class UserControl {
 
 	@Autowired
 	private InviteCodeService inviteCodeService ;
-	
+
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YYYY");
 
 	/**
@@ -211,19 +211,26 @@ public class UserControl {
 
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 
-		tUserInfo.setArea(HttpParamUtil.integerParam(request, "area"));
+		if(request.getParameter("area") != null){
+			tUserInfo.setArea(HttpParamUtil.integerParam(request, "area"));
+		}
 		if (StringUtils.isNotBlank(request.getParameter("background"))) {
 			tUserInfo.setBackground(request.getParameter("background"));
 		}
-		// tUserInfo.setBackground(request.getParameter("background"));
-		tUserInfo.setDescription(request.getParameter("description"));
-		tUserInfo.setEmail(request.getParameter("email"));
+		if(request.getParameter("description") != null){
+			tUserInfo.setDescription(request.getParameter("description"));
+		}
+		if(request.getParameter("email") != null){
+			tUserInfo.setEmail(request.getParameter("email"));
+		}
 		if (StringUtils.isNotBlank(request.getParameter("faceImg"))) {
 			tUserInfo.setFaceImg(request.getParameter("faceImg"));
 		}
 		// tUserInfo.setFaceImg(request.getParameter("faceImg"));
 		// tUserInfo.setFriends(0);
-		tUserInfo.setIndustry(HttpParamUtil.integerParam(request, "industry"));
+		if (StringUtils.isNotBlank(request.getParameter("industry"))) {
+			tUserInfo.setIndustry(HttpParamUtil.integerParam(request, "industry"));
+		}
 		// tUserInfo.setMobile(request.getParameter("mobile"));
 		if (StringUtils.isNotBlank(nickName)) {
 			tUserInfo.setNickName(nickName);
@@ -233,8 +240,15 @@ public class UserControl {
 			request.getParameter("qrCode");
 		}
 		// tUserInfo.setQrCode(request.getParameter("qrCode"));
-		tUserInfo.setSex(HttpParamUtil.byteParam(request, "sex"));
-		tUserInfo.setTitle(request.getParameter("title"));
+		if(request.getParameter("sex") != null){
+			tUserInfo.setSex(HttpParamUtil.byteParam(request, "sex"));
+		}
+		if(request.getParameter("title") != null){
+			tUserInfo.setTitle(request.getParameter("title"));
+		}
+		if(request.getParameter("introduce") != null){
+			tUserInfo.setIntroduce(request.getParameter("introduce"));
+		}
 
 		tUserVO.settUser(tUser);
 		tUserVO.settUserInfo(tUserInfo);
