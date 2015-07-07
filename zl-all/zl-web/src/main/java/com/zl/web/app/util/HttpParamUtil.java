@@ -11,7 +11,7 @@ public class HttpParamUtil {
 			return 0;
 		}
 		try {
-			return Integer.parseInt(request.getParameter("key"));
+			return Integer.parseInt(request.getParameter(key));
 		} catch (Exception e) {
 			return 0;
 		}
@@ -22,7 +22,7 @@ public class HttpParamUtil {
 			return 0l;
 		}
 		try {
-			return Long.parseLong(request.getParameter("key"));
+			return Long.parseLong(request.getParameter(key));
 		} catch (Exception e) {
 			return 0l;
 		}
