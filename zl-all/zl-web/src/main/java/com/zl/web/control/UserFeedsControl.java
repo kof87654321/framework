@@ -113,7 +113,7 @@ public class UserFeedsControl {
 		tComment.setCreateTime(new Date());
 		tComment.setModifyTime(new Date());
 		tComment.setParentId(userFeedsId);
-		tComment.setUserId(userId);
+		tComment.setUserId(user2Id);
 		tComment.setStatus(Constant.STATUS.NOMARL);
 		tComment.setType(type);
 
