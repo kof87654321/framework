@@ -63,6 +63,7 @@ public class UserFeedsControl {
 	@RequestMapping("/postUserFeeds")
 	@Security
 	public void postUserFeeds(HttpServletRequest request, HttpServletResponse response
+			,@RequestParam(value="title" ,required = true)String title 
 			,@RequestParam(value="content" ,required = true)String content 
 			,@RequestParam(value="imgs" ,required = true)String imgs ) {
 		TUser currentUser = WebUtil.getCurrentUser(request);
@@ -71,6 +72,7 @@ public class UserFeedsControl {
 		tUserFeeds.setContent(request.getParameter("content"));
 		tUserFeeds.setUserId(userId);
 		tUserFeeds.setPraise(0);
+		tUserFeeds.setTitle(title);
 		tUserFeeds.setCommentCount(0);
 		if(imgs != null){
 			JSONObject attr = new JSONObject() ;
