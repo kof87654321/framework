@@ -76,6 +76,7 @@ public class UserFeedsControl {
 		tUserFeeds.setCommentCount(0);
 		if(imgs != null){
 			JSONObject attr = new JSONObject() ;
+			attr.put("imgs", imgs);
 			tUserFeeds.setAttributes(attr.toString());   
 		}
 		tUserFeeds.setPageCount(HttpParamUtil.integerParam(request, "pageCount"));
