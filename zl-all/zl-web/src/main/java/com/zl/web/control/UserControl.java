@@ -58,6 +58,31 @@ public class UserControl {
 
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YYYY");
 
+
+
+	/**
+	 * 根据用户Id批量获取用户信息
+	 * 通过浏览器{host:port}/user/getMyPage.htm?userId=1&bigId=0&pageNo=1&
+	 * pageSize=10&token=888进行访问
+	 * 
+	 */
+	@RequestMapping("/getUsersBaseInfo")
+	public void getUsersBaseInfo(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "userNames", required = true, defaultValue = "0") String userNames){
+		String[] userNamesArray = userNames.split(",");
+		if(userNamesArray.length <= 0){
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "mobiles is null", -1), response);
+			return ;
+		}
+		List<String> userNamesLong = new ArrayList<String>() ;
+		for (String userNameString : userNamesArray) {
+			userNamesLong.add(userNameString) ; 
+		}
+		List<TUserVO> userVoList = tUserService.getUserBaseInfoByUserNames(userNamesLong) ;  
+		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(userVoList), response); 
+	}
+
+
 	/**
 	 * 􏰢􏰐􏰢􏰐个人中心页面调用http接口
 	 * 通过浏览器{host:port}/user/getMyPage.htm?userId=1&bigId=0&pageNo=1&

@@ -7,4 +7,30 @@
 和com.zl.dao.mapper.TUserMapper.Base_Column_List对其进行引用
 by is_zhoufeng@163.com 2015-06-05 23:56:33.
   -->
+  
+  
+  <select id="getUserBaseInfoByUserNames" resultType="com.zl.vo.TUserVO">
+     select 
+	     u.Id as 'tUser.id',
+	     u.UserName as 'tUser.userName',
+	     ui.NickName as 'tUserInfo.nickName',
+	     ui.Mobile as 'tUserInfo.mobile',
+	     ui.Email as 'tUserInfo.email',
+	     ui.FaceImg as 'tUserInfo.faceImg',
+	     ui.Title as 'tUserInfo.title',
+	     ui.Industry as 'tUserInfo.industry',
+	     ui.Area as 'tUserInfo.area',
+	     ui.Description as 'tUserInfo.description',
+	     ui.Praise as 'tUserInfo.praise'
+     from 
+     T_User u left join T_User_Info ui
+   	  on u.Id = ui.UserId 
+     where u.userName 
+     in 
+     <foreach collection="userNames" open="("  close=")" separator="," item="id"> 
+       #{id}
+     </foreach>
+  </select>
+  
+  
 </mapper>

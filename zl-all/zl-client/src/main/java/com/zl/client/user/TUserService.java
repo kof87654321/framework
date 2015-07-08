@@ -37,5 +37,7 @@ public interface TUserService {
 	public TUserInfo getUserInfoByMobile(String mobile); 
 	
 	public TUserVO getTUserByLogin(String userName,String passWord);
+	
+	public List<TUserVO> getUserBaseInfoByUserNames(List<String> ids);
 
 }

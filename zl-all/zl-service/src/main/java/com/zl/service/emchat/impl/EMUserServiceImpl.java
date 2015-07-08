@@ -46,7 +46,7 @@ public class EMUserServiceImpl implements EMUserService {
             return false;
         }
         ObjectNode datanode = JsonNodeFactory.instance.objectNode();
-        datanode.put("userName", user.getUsername());
+        datanode.put("username", user.getUsername());
         datanode.put("password", user.getPassword());
 
         ObjectNode objectNode = factory.objectNode();
@@ -60,7 +60,7 @@ public class EMUserServiceImpl implements EMUserService {
         try {
             objectNode = HTTPClientUtils.sendHTTPRequest(EndPoints.USERS_URL, credential, datanode,
                 HTTPMethod.METHOD_POST);
-            if (objectNode != null && HTTPSTATUS_200.equals(objectNode.get(STATUSCODE))) {
+            if (objectNode != null && HTTPSTATUS_200.equals(objectNode.get(STATUSCODE).asInt(500))) { 
                 return true;
             }
         } catch (Exception e) {

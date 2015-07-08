@@ -53,7 +53,7 @@ public class TUserServiceImpl implements TUserService {
 
 	@Autowired
 	/* 环信服务 */ private EMUserService emUserService ;
-	
+
 	/*
 	 * <p>Title: getUserVOById</p> <p>Description:获取用户的vo对象，用于前台展示使用 </p>
 	 * 
@@ -74,20 +74,20 @@ public class TUserServiceImpl implements TUserService {
 		if (tUser == null) {
 			return null;
 		}
-		
+
 		if (token) {  //如果token为true表示调用该方法是为了用户登录
-			
+
 			//修改用户最后登录时间
 			Date lastLoginTime = new Date();
 			updateLastLoginTime(userId, lastLoginTime); 
 			tUser.setLastLoginTime(lastLoginTime); 
-			
+
 			String strToken = TokenUtils.getToken(tUser.getId(), tUser.getPassword(), tUser.getLastLoginTime());
 			if (StringUtils.isNotBlank(strToken)) {
 				tUser.setToken(strToken);
 			}
 		}
-		
+
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
 		tUserInfoExample.createCriteria().andUserIdEqualTo(userId);
 		List<TUserInfo> tUserInfoList = this.userInfoMapperExt.selectByExample(tUserInfoExample);
@@ -159,7 +159,7 @@ public class TUserServiceImpl implements TUserService {
 			log.warn("插入用户信息失败");
 			return null;
 		}
-		
+
 		Long userId = tUser.getId();
 		TUserInfo tUserInfo = tUserVO.gettUserInfo();
 		if (tUserInfo != null) {
@@ -180,7 +180,7 @@ public class TUserServiceImpl implements TUserService {
 				this.userProfileMapperExt.insert(tUserProfile);
 			}
 		}
-		
+
 		//添加环信用户
 		IMUserVO imUser = new IMUserVO() ;
 		imUser.setUsername(tUser.getUserName());
@@ -189,7 +189,7 @@ public class TUserServiceImpl implements TUserService {
 		if(!imUserResult){
 			log.error("添加环信用户失败,username:{}" , tUser.getUserName()); 
 		}
-		
+
 		return this.getUserVOById(userId, false, true);
 	}
 
@@ -419,12 +419,12 @@ public class TUserServiceImpl implements TUserService {
 
 	/*
 	 * 
-	* <p>Title: getTUserByLogin</p> 
-	* <p>Description: 用户登录接口</p> 
-	* @param userName
-	* @param passWord
-	* @return 
-	* @see com.zl.client.user.TUserService#getTUserByLogin(java.lang.String, java.lang.String)
+	 * <p>Title: getTUserByLogin</p> 
+	 * <p>Description: 用户登录接口</p> 
+	 * @param userName
+	 * @param passWord
+	 * @return 
+	 * @see com.zl.client.user.TUserService#getTUserByLogin(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public TUserVO getTUserByLogin(String userName, String passWord) {
@@ -439,7 +439,7 @@ public class TUserServiceImpl implements TUserService {
 		TUser tUser = list.get(0);
 		return this.getUserVOById(tUser.getId(), false, true);
 	}
-	
+
 	/**
 	 * 修改用户最后登录时间 by:is_zhoufeng
 	 * @param userId
@@ -450,5 +450,13 @@ public class TUserServiceImpl implements TUserService {
 		updateUser.setId(userId);
 		updateUser.setLastLoginTime(lastLoginTime); 
 		userMapperExt.updateByPrimaryKeySelective(updateUser);
+	}
+
+	@Override
+	public List<TUserVO> getUserBaseInfoByUserNames(List<String> ids) {
+		if(ids == null || ids.size() <= 0){
+			return null ;
+		} 
+		return userMapperExt.getUserBaseInfoByUserNames(ids);
 	}
 }
