@@ -6,6 +6,7 @@ import com.zl.pojo.Page;
 import com.zl.pojo.TUser;
 import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserProfile;
+import com.zl.vo.TSearchUserVo;
 import com.zl.vo.TUserVO;
 
 /**
@@ -30,7 +31,7 @@ public interface TUserService {
 
 	public TUser getUserById(Long userId);
 
-	public List<TUserVO> getListByAreaAndIndustry(int area, int industry, String key, Page page);
+	public List<TSearchUserVo> getListByAreaAndIndustry(int area, int industry, String key, Page page);
 
 	public int deleteTUserProfileByIdAndUserId(Long userId, long id);
 	

@@ -1,0 +1,1 @@
+{"apiRemark":"根据用户名获取用户基本信息，多个用户名用逗号隔开","group":"用户","headerKeyValues":[],"method":"get","name":"根据用户名获取用户基本信息","params":{"userNames":"18367131552,18657134195,13555555555"},"paramsKeyValues":[{"key":"userNames","value":"18367131552,18657134195,13555555555"}],"url":"http://127.0.0.1:8080/user/getUsersBaseInfo.htm"}

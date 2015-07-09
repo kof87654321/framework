@@ -5,13 +5,16 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zl.client.emchat.EMUserService;
 import com.zl.client.user.TUserService;
+import com.zl.client.userFeeds.UserFeedsService;
 import com.zl.common.util.Constant;
 import com.zl.common.util.ListUtil;
 import com.zl.common.util.token.TokenUtils;
@@ -21,12 +24,14 @@ import com.zl.dao.mapper.TUserProfileMapperExt;
 import com.zl.pojo.Page;
 import com.zl.pojo.TUser;
 import com.zl.pojo.TUserExample;
+import com.zl.pojo.TUserFeeds;
 import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserInfoExample;
 import com.zl.pojo.TUserProfile;
 import com.zl.pojo.TUserProfileExample;
 import com.zl.pojo.TUserProfileExample.Criteria;
 import com.zl.vo.IMUserVO;
+import com.zl.vo.TSearchUserVo;
 import com.zl.vo.TUserVO;
 
 /**
@@ -54,6 +59,9 @@ public class TUserServiceImpl implements TUserService {
 	@Autowired
 	/* 环信服务 */ private EMUserService emUserService ;
 
+	@Autowired
+	private UserFeedsService userFeedsService ;
+	
 	/*
 	 * <p>Title: getUserVOById</p> <p>Description:获取用户的vo对象，用于前台展示使用 </p>
 	 * 
@@ -307,14 +315,15 @@ public class TUserServiceImpl implements TUserService {
 	 * java.lang.String, com.zl.pojo.Page)
 	 */
 	@Override
-	public List<TUserVO> getListByAreaAndIndustry(int area, int industry, String key, Page page) {
+	public List<TSearchUserVo> getListByAreaAndIndustry(int area, int industry, String key, Page page) {
 		TUserInfoExample tUserInfoExample = new TUserInfoExample();
-		com.zl.pojo.TUserInfoExample.Criteria criteria = tUserInfoExample.createCriteria();
-		if (area > 0) {
-			criteria.andAreaEqualTo(area);
-		}
-		if (industry > 0) {
-			criteria.andIndustryEqualTo(industry);
+		if(key == null){
+			createCriteria(tUserInfoExample , area , industry , null , false);
+		}else{
+			createCriteria(tUserInfoExample , area , industry , key , false);
+			if(NumberUtils.isNumber(key)){
+				tUserInfoExample.or(createCriteria(tUserInfoExample , area , industry , key , true));  
+			}
 		}
 		tUserInfoExample.setOrderByClause("CreateTime DESC");
 		tUserInfoExample.setPage(page);
@@ -322,10 +331,19 @@ public class TUserServiceImpl implements TUserService {
 		if (list == null || list.size() <= 0) {
 			return null;
 		}
-		List<TUserVO> returnlist = new ArrayList<TUserVO>();
+		List<TSearchUserVo> returnlist = new ArrayList<TSearchUserVo>();
 		for (TUserInfo tUserInfo : list) {
 			TUserVO tUserVO = this.getUserVOById(tUserInfo.getUserId(), false, false);
-			returnlist.add(tUserVO);
+			if(tUserVO == null){
+				continue ;
+			}
+			TSearchUserVo searchUserVo = new TSearchUserVo() ;
+			BeanUtils.copyProperties(tUserVO, searchUserVo);
+			List<TUserFeeds>  userFeeds = userFeedsService.getUserFeedsList4TUserFeedsExample(tUserVO.gettUser().getId(), 0, 0, new Page(0 , 1)) ; 
+			if(userFeeds != null && userFeeds.size() > 0){
+				searchUserVo.setUserFeed(userFeeds.get(0));  
+			}
+			returnlist.add(searchUserVo);
 		}
 		return returnlist;
 	}
@@ -458,5 +476,24 @@ public class TUserServiceImpl implements TUserService {
 			return null ;
 		} 
 		return userMapperExt.getUserBaseInfoByUserNames(ids);
+	}
+	
+	private com.zl.pojo.TUserInfoExample.Criteria createCriteria(TUserInfoExample tUserInfoExample ,
+			int area, int industry, String key , boolean keyIsMobile){
+		com.zl.pojo.TUserInfoExample.Criteria criteria = tUserInfoExample.createCriteria();
+		if (area > 0) {
+			criteria.andAreaEqualTo(area);
+		}
+		if (industry > 0) {
+			criteria.andIndustryEqualTo(industry);
+		} 
+		if(StringUtils.isNotBlank(key)){
+			if(keyIsMobile){
+				criteria.andMobileEqualTo(key);
+			}else{
+				criteria.andNickNameLike("%" + key + "%"); 
+			}
+		}
+		return criteria ;
 	}
 }

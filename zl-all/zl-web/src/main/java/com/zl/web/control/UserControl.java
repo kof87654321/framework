@@ -28,6 +28,7 @@ import com.zl.pojo.TUser;
 import com.zl.pojo.TUserFeeds;
 import com.zl.pojo.TUserInfo;
 import com.zl.pojo.TUserProfile;
+import com.zl.vo.TSearchUserVo;
 import com.zl.vo.TUserVO;
 import com.zl.web.annotation.Security;
 import com.zl.web.app.Consts;
@@ -131,7 +132,7 @@ public class UserControl {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
 		Page page = new Page();
-		List<TUserVO> listSearchTUserVO = this.tUserService.getListByAreaAndIndustry(area, industry, key,
+		List<TSearchUserVo> listSearchTUserVO = this.tUserService.getListByAreaAndIndustry(area, industry, key,
 				page.setPageByPageNoAndPageSize(pageNo, pageSize));
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("listSearchTUserVO", listSearchTUserVO);
