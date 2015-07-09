@@ -316,6 +316,9 @@ public class TUserServiceImpl implements TUserService {
 		if (industry > 0) {
 			criteria.andIndustryEqualTo(industry);
 		}
+		if (key!=null && !"".equals(key)) {
+			criteria.andNickNameLike(key);
+		}
 		tUserInfoExample.setOrderByClause("CreateTime DESC");
 		tUserInfoExample.setPage(page);
 		List<TUserInfo> list = this.userInfoMapperExt.selectByExample(tUserInfoExample);
