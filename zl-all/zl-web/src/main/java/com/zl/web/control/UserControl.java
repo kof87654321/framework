@@ -107,9 +107,7 @@ public class UserControl {
 		// 有图片的动态
 		List<TUserFeeds> listHasPicFeeds = null;
 		if (noReadFeedsCount > 0) {
-			Page page = new Page();
-			page.setBegin(pageNo);
-			page.setLength(pageSize);
+			Page page = new Page().setPageByPageNoAndPageSize(pageNo, pageSize);
 			listHasPicFeeds = userFeedsService.getUserFeedsList4TUserFeedsExample(userId, 1, modifyTime, page);
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
