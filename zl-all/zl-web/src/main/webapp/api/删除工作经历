@@ -1,0 +1,1 @@
+{"apiRemark":"","group":"用户","headerKeyValues":[],"method":"get","name":"删除工作经历","params":{"id":"12","token":"c6WGDxUnKAlkMB5+R8HG6P1ch6sJUNeI"},"paramsKeyValues":[{"key":"token","value":"c6WGDxUnKAlkMB5+R8HG6P1ch6sJUNeI"},{"key":"id","value":"12"}],"url":"http://127.0.0.1:8080/user/deleteUserProfileById.htm"}
