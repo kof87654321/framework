@@ -385,7 +385,7 @@ public class UserControl {
 		// this.tUserService.getTUserProfileList(userId, id, null);`
 
 		List<TUserProfile> tUserProfileList = this.tUserService.getTUserProfileList(userId, id, null);
-		if (tUserProfileList == null || tUserProfileList.size() <= id) {
+		if (tUserProfileList == null || tUserProfileList.size() <= 0) {
 			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "id is null", Consts.ERRORCode.BIZ_ID_ERROR), response);
 			return;
 		}
