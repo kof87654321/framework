@@ -106,8 +106,8 @@ public class TUserServiceImpl implements TUserService {
 		List<TUserProfile> tUserProfileList = null;
 		if (profile) {
 			TUserProfileExample tUserProfileExample = new TUserProfileExample();
-			tUserProfileExample.createCriteria().andUserIdEqualTo(userId);
-			tUserProfileList = this.userProfileMapperExt.selectByExample(tUserProfileExample);
+			tUserProfileExample.createCriteria().andUserIdEqualTo(userId).andStatusNotEqualTo(Constant.STATUS.DELETE);
+			tUserProfileList = this.userProfileMapperExt.selectByExample(tUserProfileExample); 
 		}
 
 		TUserVO tUserVO = new TUserVO();
