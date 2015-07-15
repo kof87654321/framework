@@ -1,0 +1,1 @@
+{"apiRemark":"保存模板前在这里可以输入接口说明..","group":"动态","headerKeyValues":[],"method":"post","name":"删除单条动态","params":{"feedId":"2","token":"NeXmvf6HrD9674GHceNCiyi1G6AyRDsM"},"paramsKeyValues":[{"key":"feedId","value":"2"},{"key":"token","value":"NeXmvf6HrD9674GHceNCiyi1G6AyRDsM"}],"url":"http://127.0.0.1:8080/userFeeds/deleteUserFeeds.htm"}

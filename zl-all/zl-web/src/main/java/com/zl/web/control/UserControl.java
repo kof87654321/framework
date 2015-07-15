@@ -386,7 +386,7 @@ public class UserControl {
 
 		List<TUserProfile> tUserProfileList = this.tUserService.getTUserProfileList(userId, id, null);
 		if (tUserProfileList == null || tUserProfileList.size() <= 0) {
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "id is null", Consts.ERRORCode.BIZ_ID_ERROR), response);
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "id is null", Constant.STATUS.DELETE), response);
 			return;
 		}
 
@@ -412,12 +412,26 @@ public class UserControl {
 
 		if (StringUtils.isBlank(mobile) || StringUtils.isBlank(passWord)) {
 			WebUtil.ajaxOutput(
-					AjaxResult.newFailResult(null, "userName passWord is null", Consts.ERRORCode.PARAM_ERROR), response);
+					AjaxResult.newFailResult(null, "用户名和密码不能为空", Consts.ERRORCode.PARAM_ERROR), response);
 			return;
 		}
-		TUserVO tUserVO = this.tUserService.getTUserByLogin(mobile, passWord);
+		
+		TUser user = tUserService.getUserByUserName(mobile) ;
+		if(user == null){
+			WebUtil.ajaxOutput(
+					AjaxResult.newFailResult(null, "手机号不存在", Consts.ERRORCode.PARAM_ERROR), response);
+			return;
+		}
+		
+		if(!user.getPassword().equals(passWord.trim())){
+			WebUtil.ajaxOutput(
+					AjaxResult.newFailResult(null, "密码错误", Consts.ERRORCode.PARAM_ERROR), response);
+			return;
+		}
+		
+		TUserVO tUserVO = tUserService.getUserVOById(user.getId(), false, true);
 		if(tUserVO == null){
-			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "login fail", -1), response); 
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "登录失败", -1), response); 
 		}else{  
 			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(tUserVO), response);
 		}

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zl.client.userFeeds.UserFeedsService;
+import com.zl.common.util.Constant;
 import com.zl.dao.mapper.TUserFeedsMapperExt;
 import com.zl.pojo.Page;
 import com.zl.pojo.TUserFeeds;
@@ -80,6 +81,7 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		if (modifyTime > 0) {
 			criteria.andModifyTimeGreaterThan(new Date(modifyTime));
 		}
+		criteria.andStatusNotEqualTo(Constant.STATUS.DELETE) ;
 		tUserFeedsExample.setOrderByClause("ModifyTime DESC");
 		return this.userFeedsMapperExt.countByExample(tUserFeedsExample);
 	}
@@ -116,6 +118,7 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 		if (modifyTime > 0) {
 			criteria.andModifyTimeGreaterThan(new Date(modifyTime));
 		}
+		criteria.andStatusNotEqualTo(Constant.STATUS.DELETE) ;
 		tUserFeedsExample.setOrderByClause("ModifyTime DESC");
 		tUserFeedsExample.setPage(page);
 		return this.userFeedsMapperExt.selectByExample(tUserFeedsExample);
@@ -182,8 +185,8 @@ public class UserFeedsServiceImpl implements UserFeedsService {
 	}
 
 	@Override
-	public void updateStatus4TUserFeedsId(int status, int oldstatus, long tUserFeedsId) {
-		this.userFeedsMapperExt.updateStatus4TUserFeedsId(tUserFeedsId, status, oldstatus);
+	public int updateStatus4TUserFeedsId(Long userId , long tUserFeedsId ,int status) {
+		return this.userFeedsMapperExt.updateStatus4TUserFeedsId(tUserFeedsId, userId , status); 
 	}
 
 

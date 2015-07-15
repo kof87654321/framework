@@ -83,6 +83,29 @@ public class UserFeedsControl {
 		Long id = this.userFeedsService.insertTUserFeeds(tUserFeeds);
 		WebUtil.ajaxOutput(AjaxResult.newSuccessResult(id), response);
 	}
+	
+	
+	/**
+	 * 删除动态
+	 * 
+	 * @param request
+	 * @param response
+	 * @param userId
+	 */
+	@RequestMapping("/deleteUserFeeds")
+	@Security
+	public void deleteUserFeeds(HttpServletRequest request, HttpServletResponse response
+			,@RequestParam(value="feedId" ,required = true)Long feedId ) {
+		TUser currentUser = WebUtil.getCurrentUser(request);
+		Long userId = currentUser.getId();
+		int updateCount = this.userFeedsService.updateStatus4TUserFeedsId(userId ,feedId ,Constant.STATUS.DELETE); 
+		if(updateCount <= 0){
+			WebUtil.ajaxOutput(AjaxResult.newFailResult(null, "Delete Fail", Consts.ERRORCode.PARAM_ERROR), response);
+		}else{
+			WebUtil.ajaxOutput(AjaxResult.newSuccessResult(updateCount), response); 
+		}
+	}
+	
 
 	/**
 	 * 插入某条动态的评论

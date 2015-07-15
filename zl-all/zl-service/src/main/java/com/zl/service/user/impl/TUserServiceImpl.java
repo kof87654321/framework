@@ -496,4 +496,16 @@ public class TUserServiceImpl implements TUserService {
 		}
 		return criteria ;
 	}
+
+	@Override
+	public TUser getUserByUserName(String userName) {
+		TUserExample tUserExample = new TUserExample();
+		com.zl.pojo.TUserExample.Criteria  criteria = tUserExample.createCriteria();
+		criteria.andUserNameEqualTo(userName);
+		List<TUser> result = userMapperExt.selectByExample(tUserExample) ;
+		if(result == null || result.size() <= 0){
+			return null ;
+		}
+		return result.get(0); 
+	}
 }

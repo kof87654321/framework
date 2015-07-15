@@ -27,6 +27,6 @@ public interface UserFeedsService {
 
 	public void updateStatus4TComments(int status, int oldstatus, Long... ids);
 
-	public void updateStatus4TUserFeedsId(int status, int oldstatus, long tUserFeedsId);
+	public int updateStatus4TUserFeedsId(Long userId ,  long tUserFeedsId ,int status);
 
 }

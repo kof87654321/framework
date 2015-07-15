@@ -21,11 +21,7 @@
 
 	<update id="updateStatus4TUserFeedsId">
 		update T_User_Feeds set Status = #{status} WHERE
-		id in
-		<foreach collection="array" index="index" item="ids" open="("
-			separator="," close=")">
-			#{item}
-		</foreach>
+		Id = #{tUserFeedsId} and UserId = #{userId}
 	</update>
 
 

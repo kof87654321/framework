@@ -17,7 +17,6 @@ public interface TUserFeedsMapperExt extends TUserFeedsMapper {
 
 	void updateStatus4TComments(@Param("ids") Long[] ids, @Param("status") int status, @Param("oldstatus") int oldstatus);
 
-	void updateStatus4TUserFeedsId(@Param("tUserFeedsId") long tUserFeedsId, @Param("status") int status,
-			@Param("oldstatus") int oldstatus);
+	int updateStatus4TUserFeedsId(@Param("tUserFeedsId") long tUserFeedsId,@Param("userId") long userId , @Param("status") int status );
 
 }
