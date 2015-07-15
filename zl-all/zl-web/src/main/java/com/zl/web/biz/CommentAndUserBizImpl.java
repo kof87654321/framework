@@ -64,10 +64,10 @@ public class CommentAndUserBizImpl implements CommentAndUserBiz {
 		for (TComment tComment : tCommentList) {
 			tCommentAndUserVO = new TCommentAndUserVO();
 			if (showTcommentUserVO) {
-				TUserVO tCommentPostUserVO = this.tUserService.getUserVOById(tComment.getUserId(), false, false);
+				TUserVO tCommentPostUserVO = this.tUserService.getUserVOById(tComment.getAuthorId(), false, false);
 				tCommentAndUserVO.settCommentPostUserVO(tCommentPostUserVO);
-				TUserVO tReviceUserVO = this.tUserService.getUserVOById(tComment.getAuthorId(), false, false);
-				tCommentAndUserVO.settReviceUserVO(tReviceUserVO);
+//				TUserVO tReviceUserVO = this.tUserService.getUserVOById(tComment.getUserId(), false, false);
+//				tCommentAndUserVO.settReviceUserVO(tReviceUserVO);
 			}
 			tCommentAndUserVO.settComment(tComment);
 			tCommentAndUserVO.settUserFeedsUserVO(tUserFeedsUserVO);
